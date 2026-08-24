@@ -8200,7 +8200,7 @@ async function loadState() {
       setSharePointStatus("SharePoint sync pending", error);
     }
   }
-  if (bridgeCleanupNeeded) await saveState("Bridge-only cleanup");
+  if (bridgeCleanupNeeded) await saveState("Bridge data normalization");
   else updateSaveStatus(chosen ? "Loaded from " + chosen.source : "Loaded");
   if (sharePointLoadError && !chosen) showToast("SharePoint is unavailable; WAKE Fleet is using offline storage.");
 }
@@ -8255,6 +8255,52 @@ function normalizeState(candidate) {
   return next;
 }
 
+function normalizeBridgeLogHours(log) {
+  if (!log || typeof log !== "object") return false;
+  const meta = log.meta && typeof log.meta === "object" ? log.meta : {};
+  const rawRowData = log.rawRowData && typeof log.rawRowData === "object" ? log.rawRowData : {};
+  const logType = String(log.logType || log.type || "");
+  const baseWatchLog = log.baseWatchLog === true || meta.baseWatchLog === true || /^watch(?:\s|$)/i.test(logType);
+  const usableHours = values => values
+    .map(Number)
+    .filter(value => Number.isFinite(value) && value >= 0);
+  const dayCandidates = usableHours([
+    log.dayTotalHours,
+    meta.dayTotalHours,
+    rawRowData["TOTAL HOURS"],
+    rawRowData["Total Hours"],
+    rawRowData.totalHours
+  ]);
+  const evidenceCandidates = usableHours([
+    log.evidenceHours,
+    log.hrs,
+    log.hours,
+    meta.hours,
+    ...dayCandidates
+  ]);
+  const evidenceHours = evidenceCandidates.length ? Math.max(...evidenceCandidates) : 0;
+  const dayTotalHours = dayCandidates.length ? Math.max(...dayCandidates) : evidenceHours;
+  const countedHours = baseWatchLog ? Math.max(evidenceHours, dayTotalHours) : 0;
+  let changed = false;
+  if (log.evidenceHours == null || asNumber(log.evidenceHours) !== evidenceHours) {
+    log.evidenceHours = evidenceHours;
+    changed = true;
+  }
+  if (log.dayTotalHours == null || asNumber(log.dayTotalHours) !== dayTotalHours) {
+    log.dayTotalHours = dayTotalHours;
+    changed = true;
+  }
+  if (asNumber(log.hours) !== countedHours) {
+    log.hours = countedHours;
+    changed = true;
+  }
+  if (log.baseWatchLog !== baseWatchLog) {
+    log.baseWatchLog = baseWatchLog;
+    changed = true;
+  }
+  return changed;
+}
+
 function enforceBridgeOnlyShip(ship) {
   let changed = false;
   const beforeLogs = (ship.logs || []).length;
@@ -8263,6 +8309,7 @@ function enforceBridgeOnlyShip(ship) {
   (ship.logs || []).forEach(log => {
     const bridgeWatchstation = getBridgeWatchstationFromLog(log);
     if (!bridgeWatchstation) return;
+    if (normalizeBridgeLogHours(log)) changed = true;
     if (log.watchstation !== bridgeWatchstation) {
       log.watchstation = bridgeWatchstation;
       changed = true;

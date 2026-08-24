@@ -28,6 +28,7 @@ globalThis.__fleetWakeResponsiveTest = {
   importedPhaseChanges,
   importWakeJson,
   importRows,
+  normalizeState,
   normalizeImportedPhase,
   normalizePhase,
   officerLevelLabel,
@@ -197,6 +198,74 @@ test("WAKE JSON upserts ships and counts submitted watch hours once per watch oc
   assert.equal(alpha.officers["ALPHA TWO"].cumulativeBridgeHours, 12);
   assert.equal(api.shipMetrics(alpha).totalHours, 12);
   assert.equal(JSON.stringify(alpha.logs.map(log => log.logId).sort()), JSON.stringify(["ALPHA-2-EVENT","ALPHA-2-WATCH"]));
+});
+
+test("legacy fleet snapshots restore monthly bridge hours from retained watch metadata", () => {
+  const api = loadAppApi();
+  const normalized = api.normalizeState({
+    version:2,
+    savedAt:"2026-08-24T12:00:00.000Z",
+    leadership:{ expectedShipCount:0, staleAfterDays:14 },
+    importReports:[],
+    historyEvents:[],
+    ships:{
+      "USS LEGACY DDG 90":{
+        name:"USS LEGACY DDG 90",
+        phase:"Basic Phase",
+        months:["AUG 2026"],
+        officers:{
+          "LEGACY ONE":{
+            name:"LEGACY ONE",
+            hoursByWS:{ "OOD UW":{ Q:4, UI:0 } },
+            cumulativeBridgeHours:4,
+            totalQHrs:4,
+            totalUIHrs:0,
+            level:"1",
+            currencyCategory:"Current",
+            rorTests:[],
+            logScores:{}
+          }
+        },
+        logs:[
+          {
+            logId:"LEGACY-WATCH",
+            ship:"USS LEGACY DDG 90",
+            officer:"LEGACY ONE",
+            watchstation:"OOD UW",
+            month:"AUG 2026",
+            logType:"Watch Q",
+            hours:0,
+            dayTotalHours:0,
+            meta:{ dayTotalHours:"4.0", baseWatchLog:true }
+          },
+          {
+            logId:"LEGACY-EVENT",
+            ship:"USS LEGACY DDG 90",
+            officer:"LEGACY ONE",
+            watchstation:"OOD UW",
+            month:"AUG 2026",
+            logType:"Event 1",
+            hours:0,
+            dayTotalHours:0,
+            meta:{ dayTotalHours:"4.0", baseWatchLog:false }
+          }
+        ],
+        logKeys:{},
+        snapshots:[],
+        sourceFiles:[],
+        msaRecords:[],
+        msaKeys:{}
+      }
+    }
+  });
+  const ship = normalized.ships["USS LEGACY DDG 90"];
+  const watch = ship.logs.find(log => log.logId === "LEGACY-WATCH");
+  const event = ship.logs.find(log => log.logId === "LEGACY-EVENT");
+  assert.equal(watch.hours, 4);
+  assert.equal(watch.evidenceHours, 4);
+  assert.equal(event.hours, 0);
+  assert.equal(event.evidenceHours, 4);
+  assert.deepEqual(api.monthlyBridgeHoursByMonth(ship.logs), { "AUG 2026":4 });
 });
 
 test("small and ultrawide layouts have explicit gated breakpoints", () => {

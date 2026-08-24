@@ -1,0 +1,51 @@
+{
+  "format": "WAKE_JSON_BACKUP",
+  "version": 1,
+  "exportedAt": "2026-07-24T12:00:00.000Z",
+  "ship": "USS ALPHA DDG 10",
+  "months": ["JUL 2026"],
+  "ofrpPhase": "Basic Phase",
+  "officers": {
+    "ALPHA, OFFICER": {
+      "name": "ALPHA, OFFICER",
+      "rank": "LT",
+      "autoShipQual": true,
+      "autoDaysSince": 2,
+      "hoursByWS": {
+        "OOD U/W": { "Q": 96, "UI": 8 }
+      },
+      "detectedLogs": [
+        {
+          "logId": "ALPHA-EVO-1",
+          "ws": "OOD U/W",
+          "type": "Q",
+          "val": "Sea and Anchor Detail",
+          "month": "JUL 2026",
+          "watchDate": "2026-07-08",
+          "meta": { "qual": "Q" }
+        },
+        {
+          "logId": "ALPHA-EVO-2",
+          "ws": "OOD U/W",
+          "type": "Event",
+          "val": "Flight Quarters",
+          "month": "JUL 2026",
+          "watchDate": "2026-07-15"
+        },
+        {
+          "logId": "ALPHA-EVO-3",
+          "ws": "OOD U/W",
+          "type": "Spec Cond",
+          "val": "Low Visibility",
+          "month": "JUL 2026",
+          "watchDate": "2026-07-22"
+        }
+      ],
+      "logScores": {
+        "ALPHA-EVO-1": 4,
+        "ALPHA-EVO-2": 3
+      },
+      "rorTests": []
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format": "WAKE_JSON_BACKUP",
+  "version": 1,
+  "exportedAt": "2026-07-27T20:00:00.000Z",
+  "ship": "USS TEST DDG 99",
+  "months": ["JUL 2026"],
+  "ofrpPhase": "Advanced Phase",
+  "officers": {
+    "TEST, ALEX": {
+      "name": "TEST, ALEX",
+      "nameOnly": "ALEX TEST",
+      "rank": "LT",
+      "autoShipQual": true,
+      "autoDaysSince": 12,
+      "hoursByWS": {
+        "OOD U/W": { "Q": 82, "UI": 6 }
+      },
+      "detectedLogs": [
+        {
+          "logId": "TEST-DDG99-OOD-ADVANCED-1",
+          "ws": "OOD U/W",
+          "type": "Q",
+          "val": "Underway bridge watch",
+          "month": "JUL 2026",
+          "dayStr": "26",
+          "watchDate": "2026-07-26",
+          "daysAgo": 1,
+          "meta": { "area": "Operating Area", "fleet": "Fleet", "traffic": "Moderate", "qual": "Q" }
+        }
+      ],
+      "logScores": {},
+      "manualOverrides": {},
+      "rorTests": [
+        { "date": "2026-07-25", "score": 96, "enteredAt": "2026-07-25T12:00:00.000Z" }
+      ]
+    }
+  }
+}

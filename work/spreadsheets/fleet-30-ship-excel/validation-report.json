@@ -1,0 +1,544 @@
+{
+  "validatedAt": "2026-07-27T02:20:01.810Z",
+  "outputDir": "C:\\Users\\conno\\OneDrive\\Documents\\FLEET WAKE\\outputs\\019f9f34-d7bf-7132-a57b-9c34a474b52e\\fleet_wake_30_ship_excel",
+  "workbookCount": 30,
+  "unexpectedSupportFiles": [],
+  "phaseCounts": {
+    "Advanced Phase": 6,
+    "Basic Phase": 6,
+    "Integrated Phase": 6,
+    "Maintenance Phase": 6,
+    "Sustainment Phase": 6
+  },
+  "experienceCounts": {
+    "Balanced": 5,
+    "Developing": 5,
+    "Experienced": 5,
+    "Level 2 Core": 5,
+    "Senior Heavy": 5,
+    "Very Junior": 5
+  },
+  "level3Present": 15,
+  "level3Absent": 15,
+  "noEvolutionShips": 5,
+  "allEvolutionShips": 7,
+  "distinctEvolutionCounts": 20,
+  "minimumEvolutionCount": 0,
+  "maximumEvolutionCount": 72,
+  "minimumOfficerCount": 10,
+  "maximumOfficerCount": 25,
+  "totalWatchLogs": 6317,
+  "allFormulaScansPassed": true,
+  "ships": [
+    {
+      "file": "FLEET_WAKE_01_USS_FREEDOM_LCS_1.xlsx",
+      "ship": "USS FREEDOM (LCS-1)",
+      "phase": "Maintenance Phase",
+      "profile": "Very Junior",
+      "officers": 10,
+      "level3": 0,
+      "evolutions": 0,
+      "logs": 82,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_02_USS_INDEPENDENCE_LCS_2.xlsx",
+      "ship": "USS INDEPENDENCE (LCS-2)",
+      "phase": "Maintenance Phase",
+      "profile": "Balanced",
+      "officers": 14,
+      "level3": 2,
+      "evolutions": 8,
+      "logs": 163,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_03_USS_FORT_WORTH_LCS_3.xlsx",
+      "ship": "USS FORT WORTH (LCS-3)",
+      "phase": "Maintenance Phase",
+      "profile": "Level 2 Core",
+      "officers": 18,
+      "level3": 0,
+      "evolutions": 24,
+      "logs": 211,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_04_USS_CORONADO_LCS_4.xlsx",
+      "ship": "USS CORONADO (LCS-4)",
+      "phase": "Maintenance Phase",
+      "profile": "Experienced",
+      "officers": 20,
+      "level3": 6,
+      "evolutions": 48,
+      "logs": 267,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_05_USS_MILWAUKEE_LCS_5.xlsx",
+      "ship": "USS MILWAUKEE (LCS-5)",
+      "phase": "Maintenance Phase",
+      "profile": "Developing",
+      "officers": 16,
+      "level3": 0,
+      "evolutions": 72,
+      "logs": 153,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_06_USS_JACKSON_LCS_6.xlsx",
+      "ship": "USS JACKSON (LCS-6)",
+      "phase": "Maintenance Phase",
+      "profile": "Senior Heavy",
+      "officers": 22,
+      "level3": 11,
+      "evolutions": 0,
+      "logs": 316,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_07_USS_DETROIT_LCS_7.xlsx",
+      "ship": "USS DETROIT (LCS-7)",
+      "phase": "Basic Phase",
+      "profile": "Level 2 Core",
+      "officers": 12,
+      "level3": 0,
+      "evolutions": 12,
+      "logs": 141,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_08_USS_MONTGOMERY_LCS_8.xlsx",
+      "ship": "USS MONTGOMERY (LCS-8)",
+      "phase": "Basic Phase",
+      "profile": "Very Junior",
+      "officers": 17,
+      "level3": 0,
+      "evolutions": 30,
+      "logs": 144,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_09_USS_LITTLE_ROCK_LCS_9.xlsx",
+      "ship": "USS LITTLE ROCK (LCS-9)",
+      "phase": "Basic Phase",
+      "profile": "Experienced",
+      "officers": 19,
+      "level3": 6,
+      "evolutions": 72,
+      "logs": 252,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_10_USS_GABRIELLE_GIFFORDS_LCS_10.xlsx",
+      "ship": "USS GABRIELLE GIFFORDS (LCS-10)",
+      "phase": "Basic Phase",
+      "profile": "Developing",
+      "officers": 15,
+      "level3": 0,
+      "evolutions": 60,
+      "logs": 144,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_11_USS_SIOUX_CITY_LCS_11.xlsx",
+      "ship": "USS SIOUX CITY (LCS-11)",
+      "phase": "Basic Phase",
+      "profile": "Senior Heavy",
+      "officers": 24,
+      "level3": 12,
+      "evolutions": 0,
+      "logs": 345,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_12_USS_OMAHA_LCS_12.xlsx",
+      "ship": "USS OMAHA (LCS-12)",
+      "phase": "Basic Phase",
+      "profile": "Balanced",
+      "officers": 21,
+      "level3": 3,
+      "evolutions": 20,
+      "logs": 249,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_13_USS_WICHITA_LCS_13.xlsx",
+      "ship": "USS WICHITA (LCS-13)",
+      "phase": "Advanced Phase",
+      "profile": "Developing",
+      "officers": 11,
+      "level3": 0,
+      "evolutions": 6,
+      "logs": 108,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_14_USS_MANCHESTER_LCS_14.xlsx",
+      "ship": "USS MANCHESTER (LCS-14)",
+      "phase": "Advanced Phase",
+      "profile": "Senior Heavy",
+      "officers": 16,
+      "level3": 8,
+      "evolutions": 72,
+      "logs": 228,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_15_USS_BILLINGS_LCS_15.xlsx",
+      "ship": "USS BILLINGS (LCS-15)",
+      "phase": "Advanced Phase",
+      "profile": "Experienced",
+      "officers": 23,
+      "level3": 7,
+      "evolutions": 55,
+      "logs": 306,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_16_USS_TULSA_LCS_16.xlsx",
+      "ship": "USS TULSA (LCS-16)",
+      "phase": "Advanced Phase",
+      "profile": "Level 2 Core",
+      "officers": 18,
+      "level3": 0,
+      "evolutions": 32,
+      "logs": 211,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_17_USS_INDIANAPOLIS_LCS_17.xlsx",
+      "ship": "USS INDIANAPOLIS (LCS-17)",
+      "phase": "Advanced Phase",
+      "profile": "Very Junior",
+      "officers": 20,
+      "level3": 0,
+      "evolutions": 0,
+      "logs": 171,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_18_USS_CHARLESTON_LCS_18.xlsx",
+      "ship": "USS CHARLESTON (LCS-18)",
+      "phase": "Advanced Phase",
+      "profile": "Balanced",
+      "officers": 14,
+      "level3": 2,
+      "evolutions": 72,
+      "logs": 163,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_19_USS_ST_LOUIS_LCS_19.xlsx",
+      "ship": "USS ST LOUIS (LCS-19)",
+      "phase": "Integrated Phase",
+      "profile": "Level 2 Core",
+      "officers": 13,
+      "level3": 0,
+      "evolutions": 10,
+      "logs": 153,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_20_USS_CINCINNATI_LCS_20.xlsx",
+      "ship": "USS CINCINNATI (LCS-20)",
+      "phase": "Integrated Phase",
+      "profile": "Experienced",
+      "officers": 22,
+      "level3": 6,
+      "evolutions": 45,
+      "logs": 289,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_21_USS_MINNEAPOLIS_SAINT_PAUL_LCS_21.xlsx",
+      "ship": "USS MINNEAPOLIS-SAINT PAUL (LCS-21)",
+      "phase": "Integrated Phase",
+      "profile": "Developing",
+      "officers": 17,
+      "level3": 0,
+      "evolutions": 28,
+      "logs": 162,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_22_USS_KANSAS_CITY_LCS_22.xlsx",
+      "ship": "USS KANSAS CITY (LCS-22)",
+      "phase": "Integrated Phase",
+      "profile": "Senior Heavy",
+      "officers": 25,
+      "level3": 12,
+      "evolutions": 72,
+      "logs": 357,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_23_USS_COOPERSTOWN_LCS_23.xlsx",
+      "ship": "USS COOPERSTOWN (LCS-23)",
+      "phase": "Integrated Phase",
+      "profile": "Very Junior",
+      "officers": 15,
+      "level3": 0,
+      "evolutions": 0,
+      "logs": 126,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_24_USS_OAKLAND_LCS_24.xlsx",
+      "ship": "USS OAKLAND (LCS-24)",
+      "phase": "Integrated Phase",
+      "profile": "Balanced",
+      "officers": 21,
+      "level3": 3,
+      "evolutions": 64,
+      "logs": 249,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_25_USS_MARINETTE_LCS_25.xlsx",
+      "ship": "USS MARINETTE (LCS-25)",
+      "phase": "Sustainment Phase",
+      "profile": "Developing",
+      "officers": 12,
+      "level3": 0,
+      "evolutions": 14,
+      "logs": 117,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_26_USS_MOBILE_LCS_26.xlsx",
+      "ship": "USS MOBILE (LCS-26)",
+      "phase": "Sustainment Phase",
+      "profile": "Balanced",
+      "officers": 18,
+      "level3": 3,
+      "evolutions": 36,
+      "logs": 211,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_27_USS_NANTUCKET_LCS_27.xlsx",
+      "ship": "USS NANTUCKET (LCS-27)",
+      "phase": "Sustainment Phase",
+      "profile": "Senior Heavy",
+      "officers": 24,
+      "level3": 12,
+      "evolutions": 72,
+      "logs": 345,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_28_USS_SAVANNAH_LCS_28.xlsx",
+      "ship": "USS SAVANNAH (LCS-28)",
+      "phase": "Sustainment Phase",
+      "profile": "Level 2 Core",
+      "officers": 16,
+      "level3": 0,
+      "evolutions": 52,
+      "logs": 192,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_29_USS_BELOIT_LCS_29.xlsx",
+      "ship": "USS BELOIT (LCS-29)",
+      "phase": "Sustainment Phase",
+      "profile": "Experienced",
+      "officers": 20,
+      "level3": 6,
+      "evolutions": 22,
+      "logs": 267,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    },
+    {
+      "file": "FLEET_WAKE_30_USS_CANBERRA_LCS_30.xlsx",
+      "ship": "USS CANBERRA (LCS-30)",
+      "phase": "Sustainment Phase",
+      "profile": "Very Junior",
+      "officers": 23,
+      "level3": 0,
+      "evolutions": 72,
+      "logs": 195,
+      "sheets": [
+        "Ship Profile",
+        "Officer Summary",
+        "WAKE Export",
+        "Evolution Coverage"
+      ],
+      "formulaErrors": 0
+    }
+  ]
+}

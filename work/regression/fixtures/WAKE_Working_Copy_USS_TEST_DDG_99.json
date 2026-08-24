@@ -1,0 +1,73 @@
+{
+  "format": "WAKE_JSON_BACKUP",
+  "version": 1,
+  "exportedAt": "2026-07-20T20:00:00.000Z",
+  "ship": "USS TEST DDG 99",
+  "months": ["JUL 2026"],
+  "ofrpPhase": "Basic Phase",
+  "officers": {
+    "TEST, ALEX": {
+      "name": "TEST, ALEX",
+      "nameOnly": "ALEX TEST",
+      "rank": "LT",
+      "autoShipQual": true,
+      "autoDaysSince": 12,
+      "hoursByWS": {
+        "OOD U/W": { "Q": 82, "UI": 6 }
+      },
+      "detectedLogs": [
+        {
+          "logId": "TEST-DDG99-OOD-1",
+          "ws": "OOD U/W",
+          "type": "Q",
+          "val": "Underway bridge watch",
+          "month": "JUL 2026",
+          "dayStr": "08",
+          "watchDate": "2026-07-08",
+          "daysAgo": 12,
+          "meta": { "area": "Operating Area", "fleet": "Fleet", "traffic": "Moderate", "qual": "Q" }
+        }
+      ],
+      "logScores": {},
+      "manualOverrides": {},
+      "rorTests": [
+        { "date": "2026-07-01", "score": 95, "enteredAt": "2026-07-01T12:00:00.000Z" }
+      ]
+    },
+    "TEST, MORGAN": {
+      "name": "TEST, MORGAN",
+      "nameOnly": "MORGAN TEST",
+      "rank": "ENS",
+      "autoDaysSince": 28,
+      "hoursByWS": {
+        "CONN": { "Q": 12, "UI": 18 }
+      },
+      "detectedLogs": [
+        {
+          "logId": "TEST-DDG99-CONN-1",
+          "ws": "CONN",
+          "type": "Q",
+          "val": "Sea and Anchor Detail",
+          "month": "JUL 2026",
+          "dayStr": "22",
+          "watchDate": "2026-06-22",
+          "daysAgo": 28,
+          "meta": { "area": "Harbor", "fleet": "Fleet", "traffic": "High", "qual": "Q" }
+        }
+      ],
+      "logScores": { "TEST-DDG99-CONN-1": 4 },
+      "manualOverrides": {},
+      "rorTests": []
+    },
+    "TEST, ENGINEER": {
+      "name": "TEST, ENGINEER",
+      "rank": "LT",
+      "hoursByWS": {
+        "EOOW": { "Q": 45, "UI": 3 }
+      },
+      "detectedLogs": [
+        { "logId": "TEST-DDG99-EOOW-1", "ws": "EOOW", "type": "Q", "val": "Engineering watch" }
+      ]
+    }
+  }
+}

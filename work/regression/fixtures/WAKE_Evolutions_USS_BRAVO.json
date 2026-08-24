@@ -1,0 +1,59 @@
+{
+  "format": "WAKE_JSON_BACKUP",
+  "version": 1,
+  "exportedAt": "2026-07-25T12:00:00.000Z",
+  "ship": "USS BRAVO DDG 20",
+  "months": ["JUL 2026"],
+  "ofrpPhase": "Advanced Phase",
+  "officers": {
+    "BRAVO, OFFICER": {
+      "name": "BRAVO, OFFICER",
+      "rank": "LTJG",
+      "autoShipQual": true,
+      "autoDaysSince": 1,
+      "hoursByWS": {
+        "CONN": { "Q": 42, "UI": 10 }
+      },
+      "detectedLogs": [
+        {
+          "logId": "BRAVO-EVO-1",
+          "ws": "CONN",
+          "type": "Q",
+          "val": "Sea and Anchor Detail",
+          "month": "JUL 2026",
+          "watchDate": "2026-07-11",
+          "meta": { "qual": "Q" }
+        },
+        {
+          "logId": "BRAVO-EVO-2",
+          "ws": "CONN",
+          "type": "Event",
+          "val": "Man Overboard Recovery",
+          "month": "JUL 2026",
+          "watchDate": "2026-07-19"
+        },
+        {
+          "logId": "BRAVO-EVO-3",
+          "ws": "CONN",
+          "type": "Spec Cond",
+          "val": "Restricted Waters",
+          "month": "JUL 2026",
+          "watchDate": "2026-07-23"
+        },
+        {
+          "logId": "BRAVO-EVO-4",
+          "ws": "CONN",
+          "type": "Spec Cond",
+          "val": "Low Visibility",
+          "month": "JUL 2026",
+          "watchDate": "2026-07-25"
+        }
+      ],
+      "logScores": {
+        "BRAVO-EVO-1": 4,
+        "BRAVO-EVO-2": 3
+      },
+      "rorTests": []
+    }
+  }
+}

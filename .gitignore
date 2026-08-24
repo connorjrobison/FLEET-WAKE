@@ -1,0 +1,30 @@
+# Local runtime and generated output
+tmp/
+outputs/
+node_modules/
+*.pid
+*.log
+
+# Operational or generated fleet data must not be published
+OOD_Tracker_Master_Export_*.csv
+synthetic_fleet_exports/
+Fleet WAKE Current Status.pdf
+WAKE/USS_*.xlsx
+WAKE/*.txt
+WAKE/*.pdf
+WAKE/*.pptx
+WAKE/work/
+
+# Generated visual inspection artifacts
+work/spreadsheets/**/generated-previews/
+work/spreadsheets/**/reference-previews/
+*.inspect.ndjson
+
+# Superseded scratch copy
+pppppp.txt
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

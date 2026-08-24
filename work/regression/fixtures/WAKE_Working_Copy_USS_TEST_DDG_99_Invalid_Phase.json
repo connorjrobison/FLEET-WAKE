@@ -1,0 +1,18 @@
+{
+  "format": "WAKE_JSON_BACKUP",
+  "version": 1,
+  "exportedAt": "2026-07-27T21:00:00.000Z",
+  "ship": "USS TEST DDG 99",
+  "months": ["JUL 2026"],
+  "ofrpPhase": "Deployment Phase",
+  "officers": {
+    "TEST, ALEX": {
+      "name": "TEST, ALEX",
+      "rank": "LT",
+      "hoursByWS": {
+        "OOD U/W": { "Q": 1, "UI": 0 }
+      },
+      "detectedLogs": []
+    }
+  }
+}

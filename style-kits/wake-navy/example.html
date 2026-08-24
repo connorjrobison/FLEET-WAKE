@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAKE Navy Style Kit Example</title>
+    <link rel="stylesheet" href="wake-navy-tokens.css">
+    <link rel="stylesheet" href="wake-navy-components.css">
+</head>
+<body class="navy-app">
+    <header class="navy-topbar">
+        <div class="navy-brand">
+            <div class="navy-brand__mark" aria-hidden="true">W</div>
+            <div class="navy-brand__copy">
+                <div class="navy-brand__title">Command Readiness</div>
+                <div class="navy-brand__meta">USS EXAMPLE (DDG-00) · JUL 2026</div>
+            </div>
+        </div>
+
+        <button class="navy-theme-toggle" id="theme-toggle" type="button"
+            aria-label="Switch to dark mode">☾</button>
+
+        <nav class="navy-nav" aria-label="Primary navigation">
+            <button class="navy-nav__button is-active" type="button"
+                aria-current="page">Overview</button>
+            <button class="navy-nav__button" type="button">Roster</button>
+            <button class="navy-nav__button" type="button">Reports</button>
+        </nav>
+    </header>
+
+    <main class="navy-shell navy-stack">
+        <section class="navy-metric-grid" aria-label="Command metrics">
+            <article class="navy-metric">
+                <span class="navy-metric__label">Command</span>
+                <div class="navy-metric__value">USS EXAMPLE</div>
+            </article>
+            <article class="navy-metric">
+                <span class="navy-metric__label">Total Hours</span>
+                <div class="navy-metric__value">645.0 hrs</div>
+            </article>
+            <article class="navy-metric">
+                <span class="navy-metric__label">Months</span>
+                <div class="navy-metric__value">APR–JUL 2026</div>
+            </article>
+            <article class="navy-metric">
+                <span class="navy-metric__label">Personnel</span>
+                <div class="navy-metric__value">23 tracked</div>
+            </article>
+        </section>
+
+        <section class="navy-card">
+            <h2 class="navy-card__header">
+                Start Here
+                <span class="navy-card__note">Common actions</span>
+            </h2>
+            <div class="navy-toolbar">
+                <button class="navy-button" type="button">Import Data</button>
+                <button class="navy-button navy-button--secondary"
+                    type="button">Open Roster</button>
+                <button class="navy-button navy-button--levelup"
+                    type="button">Approve</button>
+                <button class="navy-button navy-button--danger"
+                    type="button">Remove</button>
+            </div>
+        </section>
+
+        <section class="navy-card">
+            <h2 class="navy-card__header">Training Continuum Levels</h2>
+            <div class="navy-level-grid">
+                <article class="navy-level-card navy-level--0">
+                    <strong class="navy-level-card__value">8</strong>
+                    <span class="navy-level-card__label">Foundational</span>
+                </article>
+                <article class="navy-level-card navy-level--1">
+                    <strong class="navy-level-card__value">9</strong>
+                    <span class="navy-level-card__label">Level 1 · Basic</span>
+                </article>
+                <article class="navy-level-card navy-level--2">
+                    <strong class="navy-level-card__value">4</strong>
+                    <span class="navy-level-card__label">Level 2 · Proficient</span>
+                </article>
+                <article class="navy-level-card navy-level--3">
+                    <strong class="navy-level-card__value">2</strong>
+                    <span class="navy-level-card__label">Level 3 · Advanced</span>
+                </article>
+            </div>
+        </section>
+
+        <section class="navy-grid navy-grid--3" aria-label="Operational status">
+            <article class="navy-status navy-status--danger">
+                <strong class="navy-status__value">1</strong>
+                <span class="navy-status__label">Currency Lost</span>
+            </article>
+            <article class="navy-status navy-status--warning">
+                <strong class="navy-status__value">1</strong>
+                <span class="navy-status__label">Proficiency Loss</span>
+            </article>
+            <article class="navy-status navy-status--levelup">
+                <strong class="navy-status__value">2</strong>
+                <span class="navy-status__label">Approaching Level Up</span>
+            </article>
+        </section>
+
+        <section class="navy-grid navy-grid--2">
+            <article class="navy-card">
+                <h2 class="navy-card__header">Roster</h2>
+                <div class="navy-table-wrap">
+                    <table class="navy-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Officer</th>
+                                <th scope="col">Hours</th>
+                                <th scope="col">Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Alex Morgan</td>
+                                <td>95.0</td>
+                                <td>
+                                    <span class="navy-badge navy-level--0">
+                                        Foundational
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Jordan Lee</td>
+                                <td>312.0</td>
+                                <td>
+                                    <span class="navy-badge navy-level--2">
+                                        Level 2
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+            <article class="navy-card">
+                <h2 class="navy-card__header">Example Form</h2>
+                <div class="navy-stack">
+                    <label class="navy-field">
+                        <span class="navy-label">Report name</span>
+                        <input class="navy-input" type="text"
+                            placeholder="Monthly readiness review">
+                        <span class="navy-help-text">Use a short operational title.</span>
+                    </label>
+                    <label class="navy-field">
+                        <span class="navy-label">Reporting period</span>
+                        <select class="navy-input">
+                            <option>July 2026</option>
+                            <option>August 2026</option>
+                        </select>
+                    </label>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script>
+        (() => {
+            const root = document.documentElement;
+            const toggle = document.getElementById("theme-toggle");
+
+            toggle.addEventListener("click", () => {
+                const useDark = root.dataset.theme !== "dark";
+                root.dataset.theme = useDark ? "dark" : "light";
+                toggle.textContent = useDark ? "☀" : "☾";
+                toggle.setAttribute(
+                    "aria-label",
+                    useDark ? "Switch to light mode" : "Switch to dark mode"
+                );
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+/*
+ * WAKE Navy Design Tokens
+ * Load before wake-navy-components.css.
+ * Set data-theme="dark" on <html> or any containing element for dark mode.
+ */
+
+:root {
+    color-scheme: light;
+
+    /* Deep-ocean brand ramp */
+    --wn-navy-950: #102a3a;
+    --wn-navy-900: #163747;
+    --wn-navy-800: #1c485b;
+    --wn-navy-700: #285f73;
+    --wn-navy-600: #39758e;
+
+    /* Surfaces */
+    --wn-bg: #edf2f5;
+    --wn-surface: #f8fafb;
+    --wn-surface-2: #f1f5f7;
+    --wn-surface-3: #e6edf1;
+    --wn-input: #fbfcfc;
+    --wn-topbar-start: #f8fafb;
+    --wn-topbar-end: #f1f5f7;
+    --wn-border: #c8d4da;
+    --wn-border-strong: #79919d;
+    --wn-divider: #d8e2e6;
+
+    /* Text */
+    --wn-text: #23313a;
+    --wn-text-muted: #596a73;
+    --wn-heading: #102a3a;
+    --wn-text-on-strong: #f8fafb;
+
+    /* Strong Navy panels */
+    --wn-hero-start: #163747;
+    --wn-hero-end: #285f73;
+    --wn-hero-text: #f8fafb;
+    --wn-hero-muted: #c4d8e0;
+
+    /* Quiet satin gold: use as a detail, never as a status color */
+    --wn-gold: #c6a04a;
+    --wn-gold-line: rgba(198, 160, 74, 0.58);
+    --wn-gold-gradient: linear-gradient(
+        90deg,
+        #9a7428 0%,
+        #c7a44f 32%,
+        #ead79a 50%,
+        #c7a44f 68%,
+        #9a7428 100%
+    );
+
+    /* Actions and focus */
+    --wn-action: #1f566f;
+    --wn-action-hover: #17465a;
+    --wn-action-pressed: #102a3a;
+    --wn-action-soft: #dde9ed;
+    --wn-action-on: #f8fafb;
+    --wn-link: #285f73;
+    --wn-focus: #276d89;
+
+    /* Information */
+    --wn-info-text: #275d73;
+    --wn-info-fill: #e5f0f5;
+    --wn-info-border: #aacad7;
+
+    /* Currency loss: always bright red */
+    --wn-danger-text: #b91c1c;
+    --wn-danger-fill: #fee2e2;
+    --wn-danger-border: #f87171;
+    --wn-danger-solid: #ef4444;
+    --wn-danger-on: #ffffff;
+
+    /* Proficiency loss / Need Currency: always bright yellow */
+    --wn-warning-text: #854d0e;
+    --wn-warning-fill: #fef9c3;
+    --wn-warning-border: #fde047;
+    --wn-warning-solid: #eab308;
+    --wn-warning-on: #102a3a;
+
+    /* Approaching level-up: darker green */
+    --wn-levelup-text: #166534;
+    --wn-levelup-fill: #dcfce7;
+    --wn-levelup-border: #22c55e;
+    --wn-levelup-solid: #15803d;
+    --wn-levelup-on: #ffffff;
+
+    /* Generic complete / saved state */
+    --wn-state-text: #1f6263;
+    --wn-state-fill: #e2f0ef;
+    --wn-state-border: #a4c7c4;
+    --wn-state-solid: #2f7475;
+
+    /* Neutral / pending */
+    --wn-neutral-text: #596a73;
+    --wn-neutral-fill: #e8eef1;
+    --wn-neutral-border: #c3d0d6;
+    --wn-neutral-solid: #667985;
+
+    /* Exact shared level palette: Foundational through Level 3 */
+    --wn-level-0-accent: #93c5fd;
+    --wn-level-0-text: #0f2a5f;
+    --wn-level-0-gradient: linear-gradient(160deg, #eff6ff, #bfdbfe);
+    --wn-level-1-accent: #3b82f6;
+    --wn-level-1-text: #0f2a5f;
+    --wn-level-1-gradient: linear-gradient(160deg, #93c5fd, #60a5fa);
+    --wn-level-2-accent: #1e40af;
+    --wn-level-2-text: #ffffff;
+    --wn-level-2-gradient: linear-gradient(160deg, #3b82f6, #1d4ed8);
+    --wn-level-3-accent: #0f2a5f;
+    --wn-level-3-text: #ffffff;
+    --wn-level-3-gradient: linear-gradient(160deg, #1e3a8a, #0f2a5f);
+
+    /* Shape, type, and elevation */
+    --wn-radius: 12px;
+    --wn-radius-sm: 8px;
+    --wn-radius-pill: 999px;
+    --wn-shadow-card:
+        0 1px 2px rgba(16, 42, 58, 0.05),
+        0 7px 22px rgba(16, 42, 58, 0.08);
+    --wn-shadow-pop: 0 14px 42px rgba(16, 42, 58, 0.24);
+    --wn-font:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --wn-bg: #111920;
+    --wn-surface: #17242c;
+    --wn-surface-2: #1d2c35;
+    --wn-surface-3: #263944;
+    --wn-input: #142129;
+    --wn-topbar-start: #17242c;
+    --wn-topbar-end: #111920;
+    --wn-border: #354a55;
+    --wn-border-strong: #657f8b;
+    --wn-divider: #2b3f49;
+
+    --wn-text: #d9e4e8;
+    --wn-text-muted: #a7b7bf;
+    --wn-heading: #dce9ed;
+    --wn-text-on-strong: #f4f7f8;
+
+    --wn-hero-start: #102a3a;
+    --wn-hero-end: #1c485b;
+    --wn-hero-text: #f4f7f8;
+    --wn-hero-muted: #b9cfd8;
+
+    --wn-gold: #d4af55;
+    --wn-gold-line: rgba(212, 175, 85, 0.65);
+    --wn-gold-gradient: linear-gradient(
+        90deg,
+        #9a7428 0%,
+        #c6a552 32%,
+        #ead9a2 50%,
+        #c6a552 68%,
+        #9a7428 100%
+    );
+
+    --wn-action: #2f6f88;
+    --wn-action-hover: #39778d;
+    --wn-action-pressed: #245b70;
+    --wn-action-soft: #1a3541;
+    --wn-action-on: #f4f7f8;
+    --wn-link: #74b1c7;
+    --wn-focus: #7cc4de;
+
+    --wn-info-text: #9bc7d8;
+    --wn-info-fill: #1a313c;
+    --wn-info-border: #3d6372;
+
+    --wn-danger-text: #ff9b96;
+    --wn-danger-fill: #421f22;
+    --wn-danger-border: #ff6b63;
+    --wn-danger-solid: #ff453a;
+    --wn-danger-on: #ffffff;
+
+    --wn-warning-text: #ffe169;
+    --wn-warning-fill: #40370f;
+    --wn-warning-border: #ffe45c;
+    --wn-warning-solid: #ffd60a;
+    --wn-warning-on: #111827;
+
+    --wn-levelup-text: #86efac;
+    --wn-levelup-fill: #153b25;
+    --wn-levelup-border: #22c55e;
+    --wn-levelup-solid: #16a34a;
+    --wn-levelup-on: #ffffff;
+
+    --wn-state-text: #9dd5d2;
+    --wn-state-fill: #183638;
+    --wn-state-border: #3e7373;
+    --wn-state-solid: #377c7d;
+
+    --wn-neutral-text: #a7b7bf;
+    --wn-neutral-fill: #26343c;
+    --wn-neutral-border: #455c66;
+    --wn-neutral-solid: #5d717b;
+
+    /* Level gradients remain exact in both themes for visual parity */
+    --wn-level-0-accent: #93c5fd;
+    --wn-level-0-text: #0f2a5f;
+    --wn-level-0-gradient: linear-gradient(160deg, #eff6ff, #bfdbfe);
+    --wn-level-1-accent: #3b82f6;
+    --wn-level-1-text: #0f2a5f;
+    --wn-level-1-gradient: linear-gradient(160deg, #93c5fd, #60a5fa);
+    --wn-level-2-accent: #1e40af;
+    --wn-level-2-text: #ffffff;
+    --wn-level-2-gradient: linear-gradient(160deg, #3b82f6, #1d4ed8);
+    --wn-level-3-accent: #0f2a5f;
+    --wn-level-3-text: #ffffff;
+    --wn-level-3-gradient: linear-gradient(160deg, #1e3a8a, #0f2a5f);
+
+    --wn-shadow-card:
+        0 1px 2px rgba(0, 0, 0, 0.22),
+        0 8px 24px rgba(0, 0, 0, 0.26);
+    --wn-shadow-pop: 0 16px 46px rgba(0, 0, 0, 0.46);
+}

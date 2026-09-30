@@ -32,12 +32,58 @@ function commandReviewModel() {
   const monthly = entries.map(entry=>({ship:entry.ship, data:commandMonthly(entry.ship,from,to,now)}));
   return {now,to,from,entries,comparable,counts,monthly};
 }
+function commandLastThirtyModel(scopedShips) {
+  const now = new Date().toISOString();
+  const ships=Array.isArray(scopedShips)?scopedShips:commandScopedShips();
+  const entries = ships.map(ship => ({ ship, review:commandLast30Days(ship, now) }));
+  const confirmed = entries.filter(entry => entry.review.available);
+  const boundary = entries.filter(entry => entry.review.boundaryIntervals.length);
+  const noReport = entries.filter(entry => !entry.review.reports.length);
+  const counts = Object.fromEntries(Object.keys(COMMAND_CHANGE_LABELS).map(key => [key, confirmed.reduce((sum, entry) => sum + Number(entry.review.counts[key] || 0), 0)]));
+  return { now, entries, confirmed, boundary, noReport, counts };
+}
 function commandControls() {
   const options = allShips().map(ship=>'<option value="'+h(keyFor(ship.name))+'"'+(keyFor(ship.name)===commandFilters.ship?' selected':'')+'>'+h(ship.name)+'</option>').join("");
-  return '<section class="command-controls" aria-label="Comparison period (UTC dates)"><label for="command-ship">Command / ship<select id="command-ship" data-command-filter="ship"><option value="">All imported ships</option>'+options+'</select></label>'+
-    '<label for="command-mode">Compare with<select id="command-mode" data-command-filter="mode">'+[['previous','Previous report'],['3m','3 months ago'],['6m','6 months ago'],['12m','12 months ago'],['date','A chosen date']].map(([value,label])=>'<option value="'+value+'"'+(commandFilters.mode===value?' selected':'')+'>'+label+'</option>').join("")+'</select></label>'+
+  return '<section class="command-controls" aria-label="Other comparison period (UTC dates)"><label for="command-ship">Command / ship<select id="command-ship" data-command-filter="ship"><option value="">All imported ships</option>'+options+'</select></label>'+
+    '<label for="command-mode">Explore another period<select id="command-mode" data-command-filter="mode">'+[['previous','Previous report'],['3m','3 months ago'],['6m','6 months ago'],['12m','12 months ago'],['date','A chosen date']].map(([value,label])=>'<option value="'+value+'"'+(commandFilters.mode===value?' selected':'')+'>'+label+'</option>').join("")+'</select></label>'+
     (commandFilters.mode==='date'?'<label for="command-from">Baseline date<input id="command-from" type="date" data-command-filter="from" max="'+h(commandFilters.to||new Date().toISOString().slice(0,10))+'" value="'+h(commandFilters.from)+'"></label>':'')+
     '<label for="command-to">Through date (UTC)<input id="command-to" type="date" data-command-filter="to" max="'+new Date().toISOString().slice(0,10)+'" value="'+h(commandFilters.to||new Date().toISOString().slice(0,10))+'"></label><div class="command-export-actions"><button class="btn secondary" type="button" data-command-export="csv">Evidence CSV</button><button class="btn" type="button" data-command-export="brief">Print CO brief</button></div></section>';
+}
+function commandLastThirtyEvidence(model) {
+  const rows=[];
+  model.confirmed.forEach(({ship,review}) => Object.keys(COMMAND_CHANGE_LABELS).forEach(type => {
+    (review.rows[type] || []).forEach(row => rows.push({ship,type,row}));
+  }));
+  if (!rows.length) return emptyState(model.confirmed.length ? "No matched-person currency, proficiency-watch, level, or roster changes were observed between the reports inside this 30-day window." : "No ship has two dated reports wholly inside this 30-day window, so no change is claimed.");
+  rows.sort((a,b) => String(b.row.observedAt).localeCompare(String(a.row.observedAt)) || a.ship.name.localeCompare(b.ship.name) || a.row.name.localeCompare(b.row.name));
+  const visible=rows.slice(0,200);
+  return (visible.length < rows.length ? '<p class="command-note">Showing 200 of '+h(rows.length)+' observed transitions. Export Evidence CSV for the full selected comparison.</p>' : '') + commandTable(['Ship / watchstander','Observed change','Before → after','Source interval'],visible.map(({ship,type,row}) => {
+    const currency=['lost','restored','requiresWatch','unknownCurrency'].includes(type);
+    const from=currency ? currencyStatusLabel(row.from) : String(row.from ?? '—');
+    const to=currency ? currencyStatusLabel(row.to) : String(row.to ?? '—');
+    return ['<strong>'+h(row.name)+'</strong><small>'+h(ship.name)+'</small>',h(COMMAND_CHANGE_LABELS[type]),h(from+' → '+to),h(commandDateLabel(row.observedFrom)+' → '+commandDateLabel(row.observedAt))];
+  }));
+}
+function commandLastThirtyPanel(model) {
+  const c=model.counts;
+  const hasAnswer=!!model.confirmed.length;
+  const coverage=model.confirmed.length+' of '+model.entries.length+' ships have two dated reports entirely inside this window';
+  const cards='<div class="command-kpis command-kpis-last30">'+
+    commandPassiveStat('Lost currency',hasAnswer?c.lost:'—','Confirmed within the last 30 days','loss')+
+    commandPassiveStat('Restored to current',hasAnswer?c.restored:'—','Confirmed within the last 30 days','current')+
+    commandPassiveStat('New proficiency-watch need',hasAnswer?c.requiresWatch:'—','Confirmed within the last 30 days','need')+
+    commandPassiveStat('Level increased',hasAnswer?c.levelUp:'—','Confirmed within the last 30 days','progress')+'</div>';
+  const coverageRows=model.entries.map(({ship,review}) => {
+    const dates=review.reports.map(item => commandDateLabel(item.date)).join(', ');
+    const files=review.reports.map(item => item.snapshot.fileName || 'Unnamed source').join(', ');
+    const status=review.available ? 'Confirmed: '+review.intervals.length+' report pair'+(review.intervals.length===1?'':'s')+' inside the window.' : review.reason;
+    return ['<button class="ship-link" type="button" data-command-ship="'+h(keyFor(ship.name))+'">'+h(ship.name)+'</button>',h(dates || 'No dated source report'),'<small>'+h(files || 'No source file in the window')+'</small>',h(status)];
+  });
+  const boundaryNote=model.boundary.length ? '<p class="command-note">'+h(model.boundary.length)+' ship'+(model.boundary.length===1?' has':'s have')+' a report inside the window whose prior report is older. Those differences are deliberately excluded from the last-30-day counts.</p>' : '';
+  return '<section class="command-panel command-last30"><div class="command-section-heading"><div><span class="section-kicker">CO direct answer · '+h(commandDateLabel(new Date(Date.parse(model.now) - 30*86400000)))+' through '+h(commandDateLabel(model.now))+' UTC</span><h2>What changed in the last 30 days?</h2><p>'+h(hasAnswer ? 'These are the changes actually observed between dated reports both inside the last 30 days.' : 'The app cannot yet make a factual last-30-day change claim for this scope. The evidence gap is shown below.')+'</p></div><span class="command-coverage">'+h(coverage)+'</span></div>'+cards+commandLastThirtyEvidence(model)+'<details class="command-last30-coverage"><summary>Show source coverage for this answer</summary>'+commandTable(['Ship','Reports dated inside the last 30 days','Source files','Last-30-day conclusion'],coverageRows)+boundaryNote+'<p class="command-note">A report uploaded today is not enough by itself. Two dated reports within this window are required before a transition is counted here. The comparison does not guess an occurrence date or treat an older baseline as a confirmed change last month.</p></details></section>';
+}
+function commandPassiveStat(label,value,detail,tone) {
+  return '<article class="command-stat command-stat-passive '+h(tone||'')+'"><span>'+h(label)+'</span><strong>'+h(value)+'</strong><small>'+h(detail)+'</small></article>';
 }
 function commandStat(label,value,detail,tone,key) {
   return '<button type="button" class="command-stat '+h(tone||'')+'" data-command-evidence="'+h(key||'all')+'"><span>'+h(label)+'</span><strong>'+h(value)+'</strong><small>'+h(detail)+'</small><em>View named evidence &rarr;</em></button>';
@@ -123,10 +169,11 @@ function commandSourcesPanel(model) {
   return '<details class="command-panel command-sources"><summary>Source register &amp; comparison rules <span>'+rows.length+' records</span></summary><p>Baseline uses the latest available report on or before the requested date. End uses the latest on or before the through date. Actual source dates may be earlier than requested. Undated uploads are retained, but cannot establish a calendar trend.</p>'+commandTable(['Ship','File','Source date','Imported','Roster','Evidence status'],rows)+(warnings.length?'<ul>'+Array.from(new Set(warnings)).map(value=>'<li>'+h(value)+'</li>').join('')+'</ul>':'')+'<p class="command-note">Current: fewer than 45 days since qualifying watch. Requires proficiency watch: 45–90 days. Lost currency: more than 90 days. Unknown evidence is never counted as a confirmed loss or recovery. Roster additions and absences are not proof of arrival or transfer dates. Changes in cumulative hours can include corrections and are not automatically hours performed during the period.</p></details>';
 }
 function commandWorkspace() {
-  if(!allShips().length) return '<section class="command-empty command-panel"><span class="section-kicker">Command evidence</span><h1>What changed since last time?</h1><p>Build a dated record of ship proficiency, progression, and currency from the WAKE exports you already use.</p><div class="command-onboarding"><article><b>01</b><h2>Establish the baseline</h2><p>Upload a ship’s WAKE JSON or CSV. Its source date anchors the first observation.</p></article><article><b>02</b><h2>Add the next report</h2><p>Upload later exports. Earlier rosters and recorded status remain available.</p></article><article><b>03</b><h2>See the change</h2><p>Choose a date or period. Review losses, recoveries, level changes, and the people behind them.</p></article></div></section>';
+  if(!allShips().length) return '<section class="command-empty command-panel"><span class="section-kicker">Command evidence</span><h1>What changed in the last 30 days?</h1><p>Build a dated record of ship proficiency, progression, and currency from the WAKE exports you already use.</p><div class="command-onboarding"><article><b>01</b><h2>Establish the baseline</h2><p>Upload a ship’s WAKE JSON or CSV. Its source date anchors the first observation.</p></article><article><b>02</b><h2>Add the next report</h2><p>Upload another dated report within 30 days. Both dates are required before the app can confirm a last-30-day change.</p></article><article><b>03</b><h2>See the direct answer</h2><p>Review observed losses, recoveries, proficiency-watch needs, level changes, and the people behind them.</p></article></div></section>';
   if(commandFilters.ship&&!state.ships[commandFilters.ship]) commandFilters.ship='';
+  const lastThirty=commandLastThirtyModel();
   const model=commandReviewModel();
-  return '<div class="command-workspace"><section class="command-hero"><div><span class="section-kicker">CO command review</span><h1 class="view-title">What changed since last time?</h1><p>Progress over time. Currency today. Every change tied to imported evidence.</p></div><div class="command-hero-stamp"><strong>'+h(model.entries.length)+'</strong><span>ships in review</span></div></section>'+commandControls()+'<div class="command-period-note" role="status"><strong>'+h(model.comparable.length)+' of '+h(model.entries.length)+' ships have comparable reports.</strong> '+(commandFilters.mode==='previous'?'Comparing each ship’s two latest dated reports through '+h(commandDateLabel(model.to))+'.':'Requested baseline '+h(commandDateLabel(model.from))+' through '+h(commandDateLabel(model.to))+'.')+' Counts below are observed transitions; multiple changes for one person remain visible.</div>'+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+commandCurrentPanel(model)+commandEvidencePanel(model)+commandSourcesPanel(model)+'</div>';
+  return '<div class="command-workspace"><section class="command-hero"><div><span class="section-kicker">CO command review</span><h1 class="view-title">What changed in the last 30 days?</h1><p>Start with the direct period answer. Then explore another comparison or inspect currency today.</p></div><div class="command-hero-stamp"><strong>'+h(lastThirty.entries.length)+'</strong><span>ships in review</span></div></section>'+commandLastThirtyPanel(lastThirty)+commandControls()+'<div class="command-period-note" role="status"><strong>Other comparison:</strong> '+(commandFilters.mode==='previous'?'each ship’s two latest dated reports through '+h(commandDateLabel(model.to))+'.':'requested baseline '+h(commandDateLabel(model.from))+' through '+h(commandDateLabel(model.to))+'.')+' These figures may span more than 30 days; use them to explore a different question.</div>'+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+commandCurrentPanel(model)+commandEvidencePanel(model)+commandSourcesPanel(model)+'</div>';
 }
 function commandOpenShipReview(shipKey) { commandFilters.ship=shipKey; renderDashboard(); switchView('dashboard'); document.getElementById('view-dashboard')?.scrollIntoView({block:'start'}); }
 function commandShipCallout(ship) {
@@ -149,7 +196,11 @@ function commandOpenCurrent(shipKey) {
 }
 function commandExportCsv() {
   const model=commandReviewModel();
+  const lastThirty=commandLastThirtyModel();
   const rows=[['Record','Ship','Person / measure','Change type','Before','After','Baseline source date','End source date','Baseline file','End file','Note']];
+  rows.push(['LAST_30_REVIEW','','Window','direct answer',commandDateLabel(new Date(Date.parse(lastThirty.now)-30*86400000)),commandDateLabel(lastThirty.now),'','','','Only changes between two dated reports wholly inside this window are included.']);
+  lastThirty.confirmed.forEach(({ship,review})=>Object.entries(review.rows).forEach(([type,changes])=>changes.forEach(row=>rows.push(['LAST_30_TRANSITION',ship.name,row.name,COMMAND_CHANGE_LABELS[type],row.from,row.to,row.observedFrom,row.observedAt,'','', 'Observed inside the 30-day window; exact occurrence date is not established.']))));
+  lastThirty.entries.filter(entry=>!entry.review.available).forEach(({ship,review})=>rows.push(['LAST_30_COVERAGE',ship.name,'','','','','','','','',review.reason]));
   rows.push(['REVIEW','','Requested period',commandFilters.mode,model.from,model.to,'','','','','Observed intervals, not exact occurrence dates. Currency today assumes no later qualifying watch.']);
   model.entries.forEach(({ship,comparison:c,current})=>{
     Array.from(new Set([...c.caveats,...current.caveats])).forEach(note=>rows.push(['EVIDENCE_NOTE',ship.name,'','','','','','','','',note]));
@@ -168,8 +219,9 @@ function commandExportCsv() {
 }
 function commandBriefHtml() {
   const model=commandReviewModel();
+  const lastThirty=commandLastThirtyModel();
   const scope=commandFilters.ship?state.ships[commandFilters.ship].name:'All imported ships';
-  return '<!doctype html><html><head><meta charset="utf-8"><title>WAKE Fleet — CO Progress Brief</title><style>@page{size:landscape;margin:12mm}body{font:12px Arial,sans-serif;color:#142b42}h1{font-size:26px}h2{font-size:18px;margin-top:24px}p{line-height:1.5}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #bbb;padding:6px;text-align:left;vertical-align:top}th{background:#edf3f8}small{display:block}button{font:inherit;border:0;background:transparent;color:inherit;padding:0;text-align:left}.command-kpis{display:flex;gap:12px}.command-stat{flex:1;border:1px solid #bccbd8;padding:12px}.command-stat strong{display:block;font-size:28px}.command-stat em{display:none}.command-stat span,.command-stat small{display:block}.command-panel{margin:16px 0}.section-kicker{font-size:10px;text-transform:uppercase}.command-coverage{font-weight:bold}.command-trend,.command-legend{display:none}.command-note{font-size:10px}tr{break-inside:avoid}.command-pill{font-weight:bold}.command-sources summary{font-size:18px;font-weight:bold}a{color:inherit}</style></head><body><header><p>WAKE FLEET / COMMAND EVIDENCE</p><h1>What changed since last time?</h1><p>'+h(scope)+' · Generated '+h(new Date(model.now).toLocaleString())+'</p><p>'+h(commandFilters.mode==='previous'?'Previous report comparison through '+commandDateLabel(model.to):'Requested baseline '+commandDateLabel(model.from)+' through '+commandDateLabel(model.to))+' · '+model.comparable.length+' of '+model.entries.length+' ships comparable.</p></header>'+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+commandCurrentPanel(model)+'<section><h2>Named transition evidence</h2>'+commandEvidenceTable(model,'all')+'</section>'+commandSourcesPanel(model).replace('<details','<details open')+'<p>Observed transitions are not exact event dates. Retain a Fleet Backup with this brief to preserve the underlying snapshots.</p></body></html>';
+  return '<!doctype html><html><head><meta charset="utf-8"><title>WAKE Fleet — CO Progress Brief</title><style>@page{size:landscape;margin:12mm}body{font:12px Arial,sans-serif;color:#142b42}h1{font-size:26px}h2{font-size:18px;margin-top:24px}p{line-height:1.5}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #bbb;padding:6px;text-align:left;vertical-align:top}th{background:#edf3f8}small{display:block}button{font:inherit;border:0;background:transparent;color:inherit;padding:0;text-align:left}.command-kpis{display:flex;gap:12px}.command-stat{flex:1;border:1px solid #bccbd8;padding:12px}.command-stat strong{display:block;font-size:28px}.command-stat em{display:none}.command-stat span,.command-stat small{display:block}.command-panel{margin:16px 0}.section-kicker{font-size:10px;text-transform:uppercase}.command-coverage{font-weight:bold}.command-trend,.command-legend{display:none}.command-note{font-size:10px}tr{break-inside:avoid}.command-pill{font-weight:bold}.command-sources summary{font-size:18px;font-weight:bold}a{color:inherit}</style></head><body><header><p>WAKE FLEET / COMMAND EVIDENCE</p><h1>What changed in the last 30 days?</h1><p>'+h(scope)+' · Generated '+h(new Date(model.now).toLocaleString())+'</p><p>'+h(lastThirty.confirmed.length)+' of '+h(lastThirty.entries.length)+' ships have two dated reports entirely inside the last-30-day window.</p></header>'+commandLastThirtyPanel(lastThirty)+'<h2>Other comparison period</h2><p>'+h(commandFilters.mode==='previous'?'Previous report comparison through '+commandDateLabel(model.to):'Requested baseline '+commandDateLabel(model.from)+' through '+commandDateLabel(model.to))+' · '+model.comparable.length+' of '+model.entries.length+' ships comparable. This section may span more than 30 days.</p>'+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+commandCurrentPanel(model)+'<section><h2>Named transition evidence</h2>'+commandEvidenceTable(model,'all')+'</section>'+commandSourcesPanel(model).replace('<details','<details open')+'<p>Observed transitions are not exact event dates. Retain a Fleet Backup with this brief to preserve the underlying snapshots.</p></body></html>';
 }
 function commandPrintBrief() {
   const content=commandBriefHtml();

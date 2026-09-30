@@ -7,7 +7,7 @@ const vm = require("node:vm");
 const enginePath = path.resolve(__dirname, "../progression/command-progress-engine.js");
 const engineSource = fs.readFileSync(enginePath, "utf8");
 const context = vm.createContext({ Date, console });
-vm.runInContext(engineSource + "\nthis.api = { commandTimeline, commandCompare, commandMonthly, commandCurrent, commandMetrics, commandTimestamp };", context, { filename: enginePath });
+vm.runInContext(engineSource + "\nthis.api = { commandTimeline, commandCompare, commandLast30Days, commandMonthly, commandCurrent, commandMetrics, commandTimestamp };", context, { filename: enginePath });
 const api = context.api;
 const NOW = "2026-09-30T12:00:00.000Z";
 const plain = value => JSON.parse(JSON.stringify(value));
@@ -41,9 +41,46 @@ function loadUi(ships) {
     csvEscape: value => '"' + String(value == null ? "" : value).replace(/"/g, '""') + '"',
     downloadText: (name, text, mime) => captures.push({ name, text, mime })
   });
-  vm.runInContext(engineSource + "\n" + uiSource + "\nthis.ui = { commandReviewModel, commandMonthRows, commandWorkspace, commandBriefHtml, commandExportCsv, commandSourcesPanel, commandMonthlyPanel, setFilters: value => { commandFilters = Object.assign(commandFilters, value); } };", uiContext);
+  vm.runInContext(engineSource + "\n" + uiSource + "\nthis.ui = { commandReviewModel, commandLastThirtyModel, commandLastThirtyPanel, commandMonthRows, commandWorkspace, commandBriefHtml, commandExportCsv, commandSourcesPanel, commandMonthlyPanel, setFilters: value => { commandFilters = Object.assign(commandFilters, value); } };", uiContext);
   uiContext.ui.setFilters({ mode: "date", from: "2026-01-01", to: "2026-09-30" });
   return { ui: uiContext.ui, captures };
+}
+
+function loadFleetViews(ships) {
+  const uiSource = fs.readFileSync(path.resolve(__dirname, "../progression/command-progress-ui.js"), "utf8");
+  const fleetSource = fs.readFileSync(path.resolve(__dirname, "../progression/command-fleet-views.js"), "utf8");
+  class FixedDate extends Date {
+    constructor(...args) { super(...(args.length ? args : [NOW])); }
+    static now() { return Date.parse(NOW); }
+  }
+  const fleetContext = vm.createContext({
+    Date: FixedDate,
+    console,
+    allShips: () => ships,
+    keyFor: value => String(value || "").toUpperCase(),
+    state: { ships: Object.fromEntries(ships.map(item => [item.name.toUpperCase(), item])) },
+    h: value => String(value == null ? "" : value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char])),
+    fmt: (value, decimals) => Number(value).toFixed(decimals || 0),
+    emptyState: message => "<p>" + message + "</p>",
+    bridgeLogsForShip: item => item.logs || [],
+    historicalActivityLogsForShip: item => item.activityHistory || item.logs || [],
+    commandWatchDateInfo: log => {
+      const raw = String(log.watchDate || log.dateLogged || "").trim();
+      const direct = raw.match(/^(\d{4}-\d{2}-\d{2})/);
+      const dayOnly = raw.match(/^\d{1,2}$/);
+      const month = String(log.month || "").match(/\b((?:19|20)\d{2})\b/) && String(log.month || "").match(/\b([A-Z]{3})/i);
+      const monthNumber = month ? ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].indexOf(month[1].toUpperCase()) + 1 : 0;
+      return { day:direct ? direct[1] : dayOnly && monthNumber ? month[1] + "-" + String(monthNumber).padStart(2,"0") + "-" + dayOnly[0].padStart(2,"0") : "", raw };
+    },
+    evolutionSummary: logs => {
+      const labels=[];
+      logs.forEach(log => [log.events, log.specialConditions].forEach(value => String(value || "").split(/[;,|]/).map(item => item.trim()).filter(Boolean).forEach(label => labels.push(label))));
+      const counts=new Map(); labels.forEach(label => counts.set(label,(counts.get(label)||0)+1));
+      return { total:labels.length, rows:Array.from(counts,([label,count])=>({label,count})) };
+    }
+  });
+  vm.runInContext(engineSource + "\n" + uiSource + "\n" + fleetSource + "\nthis.fleet = { commandShipActivityModel, commandShipActivityPanel, setActivityMonth:(shipKey, month) => { commandShipActivitySelections[shipKey] = month; } };", fleetContext);
+  return fleetContext.fleet;
 }
 
 function loadCanonicalWithFrozenClock() {
@@ -51,7 +88,7 @@ function loadCanonicalWithFrozenClock() {
   const script = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].at(-1)[1];
   const marker = /\nboot\(\)\.catch\([\s\S]*?\n\}\)\(\);\s*$/;
   assert.match(script, marker);
-  const instrumented = script.replace(marker, "\nglobalThis.__sameMsTest = { importWakeJson, sourceFingerprint, commandTimeline, commandCurrent, getState: () => state, normalizeState };\n})();");
+  const instrumented = script.replace(marker, "\nglobalThis.__sameMsTest = { importWakeJson, sourceFingerprint, commandTimeline, commandCurrent, commandShipActivityModel, historicalActivityLogsForShip, getState: () => state, normalizeState };\n})();");
   class FrozenDate extends Date {
     constructor(...args) { super(...(args.length ? args : [NOW])); }
     static now() { return Date.parse(NOW); }
@@ -159,6 +196,23 @@ test("canonical same-millisecond imports persist correction order and current cu
   assert.equal(app.commandTimeline(restored, NOW).snapshots[0].snapshot.sourceFingerprint, source.sourceFingerprint, "backup normalization and snapshot order must not undo a recorded correction");
 });
 
+test("canonical imports retain a ship's month-by-month watch activity after a newer report replaces current logs", () => {
+  const app = loadCanonicalWithFrozenClock();
+  const payload = (month, days, hours) => ({ format:"WAKE_JSON_BACKUP", version:1, ship:"USS ACTIVITY HISTORY", exportedAt:"2026-"+String(month).padStart(2,"0")+"-20T12:00:00Z", ofrpPhase:"Basic Phase", months:[["MAR","APR","MAY","JUN","JUL","AUG","SEP"][month-3]+" 2026"],
+    officers:{ ALPHA:{ name:"ALPHA", rank:"LT", autoShipQual:true, autoDaysSince:days, hoursByWS:{ "OOD U/W":{ Q:hours, UI:0 } }, detectedLogs:[{ logId:"ACTIVITY-"+month, ws:"OOD U/W", type:"Watch Q", val:"Underway bridge watch", month:["MAR","APR","MAY","JUN","JUL","AUG","SEP"][month-3]+" 2026", watchDate:"2026-"+String(month).padStart(2,"0")+"-05T14:30:00Z", baseWatchLog:true, hrs:8, meta:{ baseWatchLog:true, watchOccurrenceKey:"ACTIVITY-"+month, watchDate:"2026-"+String(month).padStart(2,"0")+"-05T14:30:00Z" }, events:"Sea and Anchor Detail" }], logScores:{}, rorTests:[] } }
+  });
+  assert.equal(app.importWakeJson(JSON.stringify(payload(3,10,40)), "march.json").status, "Imported");
+  assert.equal(app.importWakeJson(JSON.stringify(payload(9,95,80)), "september.json").status, "Imported");
+  const source = app.getState().ships["USS ACTIVITY HISTORY"];
+  assert.equal(source.logs.length, 1, "current logs still follow the latest authoritative report");
+  assert.equal(source.activityHistory.length, 2, "the historical activity record remains available for the chart");
+  const model = plain(app.commandShipActivityModel(source));
+  assert.deepEqual(model.rows.map(row => row.key), ["2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09"]);
+  assert.equal(model.rows[0].hours, 8);
+  assert.equal(model.rows[6].hours, 8);
+  assert.match(model.lastWatch.label, /2026-09-05T14:30:00Z/);
+});
+
 test("future, nonauthoritative, malformed-roster, and invalid-date snapshots cannot establish chronology", () => {
   const future = snapshot("2026-10-01T00:00:00Z", { A: officer("Alpha") });
   const support = snapshot("2026-01-01T00:00:00Z", { A: officer("Alpha") }, { authoritativeBridge: false });
@@ -217,6 +271,72 @@ test("endpoint changes and gross observed transitions distinguish a loss followe
   assert.equal(result.observed.intervals.length, 2);
   assert.equal(result.observed.rows.lost[0].observedFrom, "2026-01-01T00:00:00.000Z");
   assert.equal(result.observed.rows.lost[0].observedAt, "2026-03-01T00:00:00.000Z");
+});
+
+test("last-30-day answer counts only transitions bounded by reports inside the window", () => {
+  const snapshots = [
+    snapshot("2026-08-01T12:00:00Z", { A: officer("Alpha", "Current", "1", 10) }),
+    snapshot("2026-09-05T12:00:00Z", { A: officer("Alpha", "Current", "1", 10) }),
+    snapshot("2026-09-20T12:00:00Z", { A: officer("Alpha", "Loss", "1", 100) }),
+    snapshot("2026-09-29T12:00:00Z", { A: officer("Alpha", "Current", "2", 5) })
+  ];
+  const result = api.commandLast30Days(ship(snapshots), NOW);
+  assert.equal(result.available, true);
+  assert.equal(result.startDate, "2026-08-31");
+  assert.equal(result.reports.length, 3);
+  assert.equal(result.boundaryIntervals.length, 1, "August to September report pair crosses the window and must not be counted");
+  assert.equal(result.counts.lost, 1);
+  assert.equal(result.counts.restored, 1);
+  assert.equal(result.counts.levelUp, 1);
+  assert.equal(result.rows.lost[0].observedFrom, "2026-09-05T12:00:00.000Z");
+  assert.equal(result.rows.lost[0].observedAt, "2026-09-20T12:00:00.000Z");
+});
+
+test("last-30-day answer says evidence is insufficient when the only pair crosses the boundary", () => {
+  const result = api.commandLast30Days(ship([
+    snapshot("2026-08-20T12:00:00Z", { A: officer("Alpha", "Current", "1", 10) }),
+    snapshot("2026-09-20T12:00:00Z", { A: officer("Alpha", "Loss", "1", 100) })
+  ]), NOW);
+  assert.equal(result.available, false);
+  assert.equal(result.counts.lost, 0, "a boundary-crossing difference is not a confirmed last-30-day loss");
+  assert.equal(result.boundaryIntervals.length, 1);
+  assert.match(result.reason, /crosses the boundary/);
+});
+
+test("command review leads with a direct, factual last-30-day answer", () => {
+  const source = ship([
+    snapshot("2026-09-05T12:00:00Z", { A: officer("Alpha") }, { fileName:"Sep-05.json" }),
+    snapshot("2026-09-20T12:00:00Z", { A: officer("Alpha", "Loss", "1", 100) }, { fileName:"Sep-20.json" })
+  ]);
+  const { ui } = loadUi([source]);
+  const workspace = ui.commandWorkspace();
+  assert.match(workspace, /What changed in the last 30 days\?/);
+  assert.match(workspace, /two dated reports entirely inside this window/);
+  assert.ok(workspace.indexOf("What changed in the last 30 days?") < workspace.indexOf("Explore another period"));
+  assert.match(ui.commandBriefHtml(), /What changed in the last 30 days\?/);
+});
+
+test("ship activity history keeps months chronological, exposes a selected past month, and shows the last recorded watch", () => {
+  const source = ship([], { logs:[
+    { month:"JUL 2026", watchDate:"2026-07-21T08:30:00Z", officer:"Alpha", watchstation:"OOD U/W", hours:4, events:"Man Overboard" },
+    { month:"SEP 2026", watchDate:"2026-09-12T10:15:00Z", officer:"Bravo", watchstation:"OOD U/W", hours:6, specialConditions:"Heavy Weather" },
+    { month:"SEP 2026", watchDate:"2026-09-29T14:45:00Z", officer:"Charlie", watchstation:"TAO", hours:2, events:"Man Overboard" }
+  ] });
+  const fleet = loadFleetViews([source]);
+  let model = plain(fleet.commandShipActivityModel(source));
+  assert.deepEqual(model.rows.map(row => row.key), ["2026-07", "2026-08", "2026-09"]);
+  assert.equal(model.rows[0].hours, 4);
+  assert.equal(model.rows[1].hours, 0, "a gap remains selectable instead of being silently omitted");
+  assert.equal(model.rows[2].hours, 8);
+  assert.equal(model.rows[2].evolutions, 2);
+  assert.match(model.lastWatch.label, /2026-09-29T14:45:00Z/);
+  fleet.setActivityMonth("USS EVIDENCE", "2026-07");
+  model = plain(fleet.commandShipActivityModel(source));
+  assert.equal(model.selected.key, "2026-07");
+  const html = fleet.commandShipActivityPanel(source);
+  assert.match(html, /Hours logged and evolutions conducted/);
+  assert.match(html, /Last watch conducted/);
+  assert.match(html, /Man Overboard/);
 });
 
 test("requested dates select real source observations at or before each boundary", () => {

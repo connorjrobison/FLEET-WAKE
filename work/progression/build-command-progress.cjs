@@ -5,10 +5,10 @@ const target = path.join(root, 'WAKE FLEET - Only Secure in FS Sharepoint-curren
 let html = fs.readFileSync(target, 'utf8');
 const nl = html.includes('\r\n') ? '\r\n' : '\n';
 function source(name) { return fs.readFileSync(path.join(__dirname,name),'utf8').replace(/\r?\n/g,nl); }
-function replaceFunction(name, body) {
-  const expression = new RegExp('^function '+name+'\\(\\) \\{[\\s\\S]*?^\\}', 'm');
+function replaceFunction(name, body, args) {
+  const expression = new RegExp('^function '+name+'\\([^)]*\\) \\{[\\s\\S]*?^\\}', 'm');
   if(!expression.test(html)) throw new Error('Missing renderer '+name);
-  html = html.replace(expression, 'function '+name+'() {'+nl+body+nl+'}');
+  html = html.replace(expression, 'function '+name+'('+String(args || '')+') {'+nl+body+nl+'}');
 }
 const files=['command-progress-engine.js','command-progress-ui.js','command-fleet-views.js','command-action-views.js','command-evidence-views.js'];
 const available=files.filter(file=>fs.existsSync(path.join(__dirname,file)));
@@ -27,6 +27,19 @@ replaceFunction('renderDashboard',`  const host = document.getElementById("view-
 replaceFunction('renderHeatMaps','  commandRenderShipList();');
 replaceFunction('renderShips','  commandRenderShipDetail();');
 replaceFunction('renderOfrp','  commandRenderOfrp();');
+replaceFunction('shipProfileSummary',`  const total = Math.max(0, asNumber(m.officerCount));
+  const level2Plus = asNumber(m.levels && m.levels['2']) + asNumber(m.levels && m.levels['3']);
+  return '<section class="card ship-profile-summary"><div class="ship-profile-summary-head"><div><h3>Overall Ship Data</h3><p>Current ship status and observed proficiency progression. Monthly hours and evolution evidence appear in the activity history.</p></div></div><div class="ship-profile-data-grid">' +
+    shipProfileStat('Watchstanders', total, m.bridgeWatchstanders + ' bridge watchstanders', 'blue') +
+    shipProfileStat('Current', total ? pct(m.current / total) : 'N/A', m.current + ' of ' + total, 'blue') +
+    shipProfileStat('Unknown Currency', m.unknown, m.unknown ? 'Missing or invalid currency evidence' : 'All currency records assessed', m.unknown ? 'warn' : 'blue') +
+    shipProfileStat('Level 2+', total ? pct(level2Plus / total) : 'N/A', level2Plus + ' at Level 2 or 3', 'blue') +
+    shipProfileStat('ROR Coverage', total ? pct(m.rorRate) : 'N/A', m.rorCurrent + ' with current ROR', 'blue') +
+    shipProfileStat('Average Hours', fmt(m.avgHours,1), 'Cumulative bridge hours per watchstander', 'blue') +
+    shipProfileStat('All-Time Level Ups', m.allTimeLevelUps, 'Recorded across snapshots', 'good') +
+    shipProfileStat('All-Time Lost Currency', m.allTimeLost, 'Unique watchstanders seen with lost currency', m.allTimeLost ? 'bad' : 'good') +
+    shipProfileStat('Currency Restored', m.restoredProficiency, 'Recorded recoveries', 'good') +
+    '</div></section>';`,'m');
 if(available.includes('command-action-views.js')) {
   replaceFunction('renderPerformance','  commandRenderRecovery();');
   replaceFunction('renderEvolutions','  commandRenderTraining();');
@@ -57,7 +70,7 @@ html=html.replace('>Export Current Status PDF<span>Leader-ready WAKE status brie
 html=html.replace('<title>WAKE Fleet Staff App</title>','<title>WAKE Fleet — Command Evidence</title>');
 const coach=[
   {id:'import',title:'Establish the source record',category:'WAKE Inputs',selector:'[data-command-import]',action:'import',launchLabel:'Import WAKE Data',why:'The source export date anchors the ship observation.',do:'Upload WAKE ship JSON or CSV files using the existing import workflow.',look:'Upload History distinguishes new observations, backfills, corrections, repeats, and rejected files.',tip:'An upload date cannot replace a missing source date.'},
-  {id:'dashboard',title:'What changed since last time?',category:'Command Review',selector:'[data-view="dashboard"]',action:'dashboard',launchLabel:'Open Command Review',why:'Gross losses and recoveries can cancel out in endpoint totals.',do:'Select a ship and compare previous reports, a period of months, or a chosen baseline date.',look:'Read actual source dates and open named evidence behind each count.',tip:'Missing months and first observations do not establish zero change.'},
+  {id:'dashboard',title:'What changed in the last 30 days?',category:'Command Review',selector:'[data-view="dashboard"]',action:'dashboard',launchLabel:'Open Command Review',why:'A prior report outside the period cannot be called a last-month change.',do:'Review the direct 30-day answer first, then select another period only when you need a different question answered.',look:'Read actual source dates and open named evidence behind each count.',tip:'Missing months and first observations do not establish zero change.'},
   {id:'heatmaps',title:'Which ships progressed?',category:'Ship Progress',selector:'[data-view="heatmaps"]',action:'heatmaps',launchLabel:'Open Ship Progress',why:'Ship-level source dates and roster sizes make changes interpretable.',do:'Compare observed movement and select a ship for its complete progression review.',look:'Roster additions and absences are separate from currency and level changes.',tip:'Matching uses normalized ship and person names.'},
   {id:'performance',title:'Who needs attention now?',category:'Currency and Recovery',selector:'[data-view="performance"]',action:'performance',launchLabel:'Open Currency and Recovery',why:'Currency can age after the latest export.',do:'Review the named attention queue, unknown evidence, and next-30-day thresholds.',look:'Source age and the no-new-watch assumption are visible beside the figures.',tip:'Upload a new report to confirm actual status.'},
   {id:'evolutions',title:'Is training rebuilding proficiency?',category:'Training Evidence',selector:'[data-view="evolutions"]',action:'evolutions',launchLabel:'Open Training Evidence',why:'Recorded activity supports a review but does not by itself prove proficiency.',do:'Select a ship and month; inspect activity, observed progression, and separately dated assessment outcomes.',look:'Use scoped evolution controls to open the rows behind counts.',tip:'Watch hours count once; event evidence does not multiply hours.'},

@@ -1,6 +1,6 @@
 # FLEET WAKE
 
-FLEET WAKE is a standalone, single-file command evidence application. It uses ship-level WAKE exports to answer: **What changed since the previous report, or since a selected date?**
+FLEET WAKE is a standalone, single-file command evidence application. It leads with the CO question: **What changed in the last 30 days?** It also retains other dated comparisons when a different period is needed.
 
 ## Current program
 
@@ -8,8 +8,9 @@ Open `WAKE FLEET - Only Secure in FS Sharepoint-current.html` in the approved Sh
 
 ## Command review
 
-- **Command Review:** compare the previous report, 3/6/12 months, or a chosen baseline and through date. Inspect gross losses, recoveries, new proficiency-watch requirements, level movement, endpoint totals, and named evidence.
+- **Command Review:** answer the last 30 days first. A change is counted only when two dated source reports fall wholly inside that window. Compare the previous report, 3/6/12 months, or a chosen baseline only as a separate historical question.
 - **Ship Progress:** compare ships with their actual source intervals and roster sizes, then open one ship's complete progression review.
+- **Ship Evidence Review:** select any retained past month in a chronological chart of recorded bridge hours and distinct evolution occurrences. The same view shows the latest watch with an exact recorded day or time when the source provided one.
 - **Currency & Recovery:** review a named attention queue and conditional 30-day threshold exposure, with source age and unknown evidence visible.
 - **Training Evidence:** filter activity and distinct evolution occurrences by ship/month, alongside separately observed progression and dated MSA outcomes.
 - **OFRP Review:** compare the same ships grouped by baseline phase, with phase changes and missing comparisons visible.
@@ -21,7 +22,7 @@ Use **Evidence CSV** or **Print CO brief** in Command Review to export the selec
 
 ## How to read the history
 
-The source export timestamp anchors an observation. Comparison dates and months use UTC; displayed upload timestamps use the browser's local time. Upload time does not substitute for a missing source date. A selected baseline uses the latest dated observation on or before that date; the screen shows the actual dates used. Months with no observation remain unknown. The first dated report establishes a baseline and does not prove zero changes.
+The source export timestamp anchors an observation. Comparison dates and months use UTC; displayed upload timestamps use the browser's local time. Upload time does not substitute for a missing source date. The last-30-day answer counts only a pair of reports both dated inside that window; a pair that crosses its start date is disclosed as a coverage gap instead of being attributed to the month. A selected baseline uses the latest dated observation on or before that date; the screen shows the actual dates used. Months with no observation remain unknown. The first dated report establishes a baseline and does not prove zero changes.
 
 Changes are observed between reports; their exact occurrence dates are usually unknown. A watchstander can lose and regain currency in one period, so gross movements remain separate from net endpoint changes. Matching uses normalized ship and person names. Added or absent names indicate export membership, not proven arrival or transfer dates. Unknown currency never counts as a confirmed loss or recovery.
 
@@ -35,6 +36,7 @@ Historical status remains frozen. Currency today ages from the latest dated nume
 - Other ships remain unchanged.
 - Prior same-ship snapshots, source-file history, and assessment outcomes remain available for audit/history.
 - Historical roster membership survives departures from newer exports. Historical metrics do not follow changes to today's roster or logs.
+- Retained bridge-watch rows accumulate in a separate activity history for the ship chart. A newer current export can replace today’s current log set without erasing earlier month activity; repeated or corrected log identities keep the later source version.
 - Same-source-time corrections are flagged and retained; repeated sources do not manufacture progress.
 - Importing a Fleet Backup is the separate whole-fleet replacement workflow.
 - Submitted watch hours are counted once from each base watch row. Related event and special-condition rows remain evidence without inflating watchstander or fleet-hour totals.

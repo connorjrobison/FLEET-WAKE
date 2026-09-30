@@ -291,6 +291,69 @@ function commandCompare(ship, options) {
   return result;
 }
 
+// This is deliberately narrower than a generic before/after comparison. It
+// answers whether a change was observed wholly inside the most recent 30-day
+// window. A pair that crosses the window boundary is retained as a coverage
+// warning, rather than being attributed to the last 30 days.
+function commandLast30Days(ship, nowISO) {
+  const now = commandNow(nowISO);
+  const endAt = now;
+  const startAt = now - (30 * 86400000);
+  const timeline = commandTimeline(ship, now);
+  const empty = commandEmptyChanges();
+  const result = {
+    available: false,
+    reason: "",
+    timeline,
+    startAt: new Date(startAt).toISOString(),
+    endAt: new Date(endAt).toISOString(),
+    startDate: new Date(startAt).toISOString().slice(0, 10),
+    endDate: new Date(endAt).toISOString().slice(0, 10),
+    reports: [],
+    intervals: [],
+    boundaryIntervals: [],
+    counts: empty.counts,
+    rows: empty.rows,
+    caveats: timeline.warnings.slice()
+  };
+  const snapshots = timeline.snapshots.filter(wrapper => {
+    const time = Date.parse(wrapper.at);
+    return time >= startAt && time <= endAt;
+  });
+  result.reports = snapshots;
+  for (let index = 1; index < timeline.snapshots.length; index++) {
+    const previous = timeline.snapshots[index - 1];
+    const current = timeline.snapshots[index];
+    const currentTime = Date.parse(current.at);
+    if (currentTime < startAt || currentTime > endAt) continue;
+    const interval = commandPair(previous, current);
+    const entry = {
+      baseline: previous,
+      end: current,
+      days: (currentTime - Date.parse(previous.at)) / 86400000,
+      counts: interval.counts,
+      rows: interval.rows
+    };
+    if (Date.parse(previous.at) < startAt) result.boundaryIntervals.push(entry);
+    else {
+      result.intervals.push(entry);
+      commandAccumulate(result, interval);
+    }
+  }
+  if (result.intervals.length) {
+    result.available = true;
+    result.reason = "Changes below were observed between dated source reports both inside the last 30 days.";
+  } else if (!snapshots.length) {
+    result.reason = "No dated source report falls inside the last 30 days.";
+  } else if (result.boundaryIntervals.length) {
+    result.reason = "A current-period report exists, but its prior comparison begins before the last 30 days. The change interval crosses the boundary, so no change is attributed to this period.";
+  } else {
+    result.reason = "Only one dated source report falls inside the last 30 days. A second report is needed to observe change during this period.";
+  }
+  result.caveats.push("Only changes between two dated reports inside this 30-day window are counted. A report pair that crosses the window boundary is shown as a coverage gap, not as a confirmed last-30-day change.");
+  return result;
+}
+
 function commandMonthly(ship, from, to, nowISO) {
   const now = commandNow(nowISO);
   const timeline = commandTimeline(ship, now);

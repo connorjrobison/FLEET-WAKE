@@ -6538,14 +6538,18 @@ button.ultrawide-mini-chart-fill:focus-visible {
 .command-table{border:1px solid var(--wn-border,#d3dce4);border-radius:7px}.command-table table{width:100%;font-size:12px;border-collapse:collapse;min-width:700px}.command-table th{background:var(--wn-surface-soft,#eef3f7);color:var(--wn-text,#183a52);font-size:10px;letter-spacing:.025em;white-space:normal;line-height:1.5;padding:11px}.command-table td{padding:12px 11px;vertical-align:top;border-bottom:1px solid var(--wn-border,#d3dce4);line-height:1.5}.command-table td small{display:block;font-size:10px;line-height:1.6;color:var(--wn-text-muted,#536a7e);max-width:320px;overflow-wrap:anywhere;margin-top:4px}.command-table tr:last-child td{border-bottom:0}.command-table .ship-link{font-weight:800;text-align:left}.command-table .mini-btn{white-space:nowrap}.command-note{font-size:11px!important;line-height:1.65!important;margin:14px 0 0!important;color:var(--wn-text-muted,#536a7e)!important}.command-muted{color:var(--wn-text-muted,#536a7e)}
 .command-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:10px;margin:0 0 15px}.command-legend span:before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}.command-stack .current,.command-legend .current:before{background:#28846f}.command-stack .need,.command-legend .need:before{background:#dfb549}.command-stack .loss,.command-legend .loss:before{background:#c65661}.command-stack .unknown,.command-legend .unknown:before{background:#899cac}.command-trend{display:grid;gap:9px;margin-bottom:20px}.command-trend-row{display:grid;grid-template-columns:85px minmax(80px,1fr) 150px;align-items:center;gap:12px;font-size:11px}.command-trend-row>span{font-size:10px;text-align:right;color:var(--wn-text-muted,#536a7e)}.command-stack{display:flex;height:23px;overflow:hidden;border-radius:3px;background:var(--wn-surface-soft,#f0f4f7)}.command-stack .no-report{width:100%;font-size:10px;line-height:23px;color:var(--wn-text-muted,#536a7e);padding-left:10px;background:repeating-linear-gradient(135deg,transparent,transparent 7px,#8195a51c 7px,#8195a51c 9px)}
 .command-pill{display:inline-block;font-size:10px;font-weight:800;border-radius:4px;padding:4px 6px;white-space:nowrap}.command-pill.current{background:#e1f2ec;color:#155f4a}.command-pill.need{background:#fcf0cd;color:#725109}.command-pill.loss{background:#fae4e6;color:#91333c}.command-pill.unknown{background:#e8edf2;color:#40566c}
+.command-last30{border-top:4px solid var(--wn-gold,#d2ad5a)}.command-last30 .command-kpis{margin:18px 0}.command-last30-coverage{margin-top:16px;border-top:1px solid var(--wn-border,#cfdae4);padding-top:14px}.command-last30-coverage summary{font-size:12px;font-weight:800;cursor:pointer}.command-last30-coverage[open] summary{margin-bottom:14px}
+.command-stat-passive{cursor:default}.command-stat-passive:hover{box-shadow:0 2px 5px #0d2d4910;transform:none}
+.command-activity-selector{display:flex;flex-direction:column;gap:6px;min-width:210px;font-size:11px;font-weight:800}.command-activity-selector select{min-height:40px;padding:8px 10px;border:1px solid var(--wn-border,#bacbd9);border-radius:6px;background:var(--wn-surface,#fff);color:var(--wn-text,#172d42);font:inherit;font-size:13px}.command-last-watch{display:grid;gap:3px;max-width:430px;margin:0 0 18px;padding:13px 15px;border:1px solid #aebfd0;border-left:4px solid #28799c;border-radius:7px;background:var(--wn-surface-soft,#f2f6fa)}.command-last-watch span{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--wn-text-muted,#536a7e)}.command-last-watch strong{font-size:16px;color:var(--wn-text,#172d42)}.command-last-watch small{font-size:11px;color:var(--wn-text-muted,#536a7e)}
+.command-activity-chart{display:flex;align-items:end;gap:8px;min-height:250px;overflow-x:auto;padding:12px 4px 6px;margin:0 -2px 20px;border-bottom:1px solid var(--wn-border,#cfdae4)}.command-activity-bar{display:grid;grid-template-rows:minmax(145px,1fr) auto auto;gap:6px;align-items:end;flex:0 0 74px;min-height:235px;padding:0 2px 8px;border:0;border-bottom:3px solid transparent;background:transparent;color:var(--wn-text,#172d42);font:inherit;text-align:center;cursor:pointer}.command-activity-hours{display:flex;align-items:flex-start;justify-content:center;min-height:3px;border-radius:5px 5px 1px 1px;background:linear-gradient(180deg,#2e89b7,#155d84);transition:filter .16s ease,transform .16s ease}.command-activity-hours strong{font-size:10px;padding:6px 2px;color:#fff;text-shadow:0 1px 1px #103650}.command-activity-evolutions{min-height:17px;font-size:11px;font-weight:800;color:#775a12}.command-activity-label{font-size:10px;line-height:1.3;color:var(--wn-text-muted,#536a7e)}.command-activity-bar:hover .command-activity-hours,.command-activity-bar.selected .command-activity-hours{filter:brightness(1.12);transform:translateY(-2px)}.command-activity-bar.selected{border-bottom-color:#d2ad5a}.command-activity-bar.selected .command-activity-label{color:var(--wn-text,#172d42);font-weight:800}.command-activity-detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.9fr);gap:26px;padding:18px;border:1px solid var(--wn-border,#cfdae4);border-radius:8px;background:var(--wn-surface-soft,#f2f6fa)}.command-activity-detail h3{font-size:17px;margin:5px 0 7px;color:var(--wn-text,#172d42)}.command-activity-detail p{font-size:12px;line-height:1.55;margin:0;color:var(--wn-text-muted,#536a7e)}.command-evolution-list{list-style:none;margin:0;padding:0;display:grid;gap:7px}.command-evolution-list li{display:flex;justify-content:space-between;gap:12px;padding:7px 9px;border:1px solid var(--wn-border,#cfdae4);border-radius:5px;background:var(--wn-surface,#fff);font-size:11px}.command-evolution-list strong{color:#775a12}
 .command-sources summary{font-size:13px;font-weight:800;cursor:pointer;line-height:1.6}.command-sources summary span{float:right;font-size:11px;font-weight:500;color:var(--wn-text-muted,#536a7e)}.command-sources[open] summary{margin-bottom:15px}.command-sources .command-table{margin-top:15px}.command-sources li{font-size:11px;line-height:1.6;color:var(--wn-text-muted,#536a7e)}.command-supporting{margin:20px 0}.command-supporting>summary{font-size:14px;font-weight:800;padding:16px;background:var(--wn-surface,#fff);border:1px solid var(--wn-border,#cfdae4);border-radius:8px;cursor:pointer}.command-supporting[open]>summary{margin-bottom:14px}.command-ship-callout{display:flex;align-items:center;justify-content:space-between;gap:20px;border:1px solid var(--wn-border,#cfdae4);border-left:4px solid #28799c;background:var(--wn-surface,#fff);border-radius:8px;padding:20px;margin-bottom:18px}
 .command-empty{padding:34px}.command-empty h1{font-size:clamp(26px,3vw,40px);margin:12px 0}.command-empty>p{font-size:15px;max-width:700px}.command-onboarding{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:30px}.command-onboarding article{border-top:1px solid var(--wn-border,#cfdae4);padding-top:18px}.command-onboarding b{font-size:24px;color:#66889f}.command-onboarding h2{font-size:16px}.command-onboarding p{font-size:13px;color:var(--wn-text-muted,#536a7e);line-height:1.6}
 [data-theme="dark"] .command-pill.current{background:#193f36;color:#ade1ca}[data-theme="dark"] .command-pill.need{background:#493e20;color:#f0d592}[data-theme="dark"] .command-pill.loss{background:#482c35;color:#f2b4bc}[data-theme="dark"] .command-pill.unknown{background:#2d3b4a;color:#cad6e2}
-[data-theme="dark"] .command-table th,[data-theme="dark"] .command-coverage{background:#223b4b;color:#e1edf5}[data-theme="dark"] .command-stack{background:#223542}[data-theme="dark"] .command-stack .no-report{color:#bccedb}[data-theme="dark"] .command-panel p,[data-theme="dark"] .command-table td small,[data-theme="dark"] .command-stat small,[data-theme="dark"] .command-stat em,[data-theme="dark"] .command-note,[data-theme="dark"] .command-period-note,[data-theme="dark"] .command-trend-row>span{color:#b8ccda!important}
+[data-theme="dark"] .command-table th,[data-theme="dark"] .command-coverage,[data-theme="dark"] .command-last-watch,[data-theme="dark"] .command-activity-detail{background:#223b4b;color:#e1edf5}[data-theme="dark"] .command-stack{background:#223542}[data-theme="dark"] .command-stack .no-report{color:#bccedb}[data-theme="dark"] .command-panel p,[data-theme="dark"] .command-table td small,[data-theme="dark"] .command-stat small,[data-theme="dark"] .command-stat em,[data-theme="dark"] .command-note,[data-theme="dark"] .command-period-note,[data-theme="dark"] .command-trend-row>span{color:#b8ccda!important}
 .command-page-heading{display:flex;justify-content:space-between;align-items:start;gap:24px;margin:12px 0 20px}.command-page-heading h1{font-size:clamp(24px,2.2vw,34px);line-height:1.2;margin:9px 0;color:var(--wn-text,#172d42)}.command-page-heading p{font-size:13px;line-height:1.6;max-width:850px;color:var(--wn-text-muted,#536a7e);margin:0}.command-inline-label{display:grid;gap:6px;font-size:11px;font-weight:800;min-width:200px}.command-inline-label select{padding:9px;border:1px solid var(--wn-border,#cfdae4);border-radius:6px;background:var(--wn-surface,#fff);color:var(--wn-text,#172d42)}.command-link-grid{display:flex;gap:10px;flex-wrap:wrap}.wake-topbar .wake-top-controls{min-width:0}.wake-main-nav{flex-wrap:wrap!important;justify-content:flex-end}.wake-main-nav .wake-nav-btn{font-size:11px;padding:8px 10px}.wake-topbar{grid-template-columns:auto minmax(120px,1fr) auto!important}.ultrawide-enabled-view,#view-dashboard{display:block!important}.view.hidden{display:none!important}
 @media(min-width:1760px){.command-kpis{gap:18px}.command-stat>span{min-height:auto}.app-shell{max-width:2200px}.command-panel{padding:26px}.command-table table{font-size:13px}}
 @media(max-width:1100px){.wake-topbar{grid-template-columns:auto minmax(100px,1fr)!important}.wake-top-controls{grid-column:1/-1}.wake-main-nav{justify-content:flex-start}.command-page-heading{flex-wrap:wrap}}
-@media(max-width:900px){.command-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.command-section-heading{flex-wrap:wrap}.command-hero{padding:23px}.command-panel{padding:16px}.command-onboarding{gap:16px}.command-export-actions{width:100%}}
+@media(max-width:900px){.command-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.command-section-heading{flex-wrap:wrap}.command-hero{padding:23px}.command-panel{padding:16px}.command-onboarding{gap:16px}.command-export-actions{width:100%}.command-activity-detail{grid-template-columns:1fr}.command-activity-selector{width:100%;max-width:none}}
 @media(max-width:560px){.command-hero{padding:20px 16px}.command-hero-stamp{display:none}.command-hero p{font-size:12px}.command-controls{padding:14px;gap:12px}.command-controls label{min-width:130px}.command-controls label:first-child{flex-basis:100%}.command-kpis{gap:9px}.command-stat{padding:13px}.command-stat>span{font-size:11px;min-height:32px}.command-stat strong{font-size:32px}.command-stat em{font-size:9px}.command-panel{padding:14px}.command-section-heading h2{font-size:18px}.command-section-heading{gap:12px}.command-trend-row{grid-template-columns:64px minmax(70px,1fr);gap:8px}.command-trend-row>span{grid-column:2;text-align:left;margin-top:-4px}.command-legend{gap:10px}.command-sources summary span{float:none;display:block}.command-empty{padding:22px}.command-onboarding{grid-template-columns:1fr;gap:16px}.command-ship-callout{flex-direction:column;align-items:start}}
 
 /* END CO PROGRESSION STYLES */
@@ -7856,13 +7860,13 @@ const COACH_STEPS = [
   },
   {
     "id": "dashboard",
-    "title": "What changed since last time?",
+    "title": "What changed in the last 30 days?",
     "category": "Command Review",
     "selector": "[data-view=\"dashboard\"]",
     "action": "dashboard",
     "launchLabel": "Open Command Review",
-    "why": "Gross losses and recoveries can cancel out in endpoint totals.",
-    "do": "Select a ship and compare previous reports, a period of months, or a chosen baseline date.",
+    "why": "A prior report outside the period cannot be called a last-month change.",
+    "do": "Review the direct 30-day answer first, then select another period only when you need a different question answered.",
     "look": "Read actual source dates and open named evidence behind each count.",
     "tip": "Missing months and first observations do not establish zero change."
   },
@@ -8121,6 +8125,80 @@ function bridgeLogsForShip(ship) {
   return ((ship && ship.logs) || []).filter(log => getBridgeWatchstationFromLog(log));
 }
 
+function historicalActivityLogsForShip(ship) {
+  const retained = Array.isArray(ship && ship.activityHistory) && ship.activityHistory.length ? ship.activityHistory : (ship && ship.logs) || [];
+  return retained.filter(log => getBridgeWatchstationFromLog(log));
+}
+
+function activityHistoryKey(ship, log) {
+  return String(log && log.key || keyFor(ship && ship.name) + "|" + keyFor(log && log.officer) + "|" + keyFor(log && log.logId));
+}
+
+function addActivityHistoryLog(ship, log, sourceGeneratedAt, importedAt, sourceFingerprintValue) {
+  if (!ship || !log) return false;
+  ship.activityHistory = Array.isArray(ship.activityHistory) ? ship.activityHistory : [];
+  ship.activityLogKeys = ship.activityLogKeys && typeof ship.activityLogKeys === "object" ? ship.activityLogKeys : {};
+  const key = activityHistoryKey(ship, log);
+  const candidate = Object.assign({}, log, {
+    activityKey:key,
+    activitySourceGeneratedAt:sourceGeneratedAt || ship.sourceGeneratedAt || "",
+    activityImportedAt:importedAt || ship.updatedAt || "",
+    activitySourceFingerprint:sourceFingerprintValue || ship.sourceFingerprint || ""
+  });
+  const index = Number(ship.activityLogKeys[key]);
+  if (!Number.isInteger(index) || !ship.activityHistory[index]) {
+    ship.activityLogKeys[key] = ship.activityHistory.length;
+    ship.activityHistory.push(candidate);
+    return true;
+  }
+  const current = ship.activityHistory[index];
+  const currentSource = parseFleetTimestamp(current && current.activitySourceGeneratedAt) ?? -Infinity;
+  const candidateSource = parseFleetTimestamp(candidate.activitySourceGeneratedAt) ?? -Infinity;
+  const currentImport = parseFleetTimestamp(current && current.activityImportedAt) ?? -Infinity;
+  const candidateImport = parseFleetTimestamp(candidate.activityImportedAt) ?? -Infinity;
+  if (candidateSource > currentSource || (candidateSource === currentSource && candidateImport >= currentImport)) {
+    ship.activityHistory[index] = candidate;
+    return true;
+  }
+  return false;
+}
+
+function normalizeActivityHistory(ship) {
+  const existing = Array.isArray(ship && ship.activityHistory) ? ship.activityHistory : [];
+  const source = existing.length ? existing : (ship && ship.logs) || [];
+  const normalized = [];
+  const keys = {};
+  source.forEach(log => {
+    if (!log || !getBridgeWatchstationFromLog(log)) return;
+    const copy = Object.assign({}, log);
+    normalizeBridgeLogHours(copy);
+    copy.ship = copy.ship || ship.name;
+    copy.watchstation = getBridgeWatchstationFromLog(copy);
+    copy.phase = normalizePhase(copy.phase || ship.phase);
+    const key = activityHistoryKey(ship, copy);
+    copy.activityKey = key;
+    copy.activitySourceGeneratedAt = copy.activitySourceGeneratedAt || ship.sourceGeneratedAt || "";
+    copy.activityImportedAt = copy.activityImportedAt || ship.updatedAt || "";
+    copy.activitySourceFingerprint = copy.activitySourceFingerprint || ship.sourceFingerprint || "";
+    const priorIndex = Number(keys[key]);
+    if (!Number.isInteger(priorIndex)) {
+      keys[key] = normalized.length;
+      normalized.push(copy);
+      return;
+    }
+    const prior = normalized[priorIndex];
+    const priorSource = parseFleetTimestamp(prior.activitySourceGeneratedAt) ?? -Infinity;
+    const sourceTime = parseFleetTimestamp(copy.activitySourceGeneratedAt) ?? -Infinity;
+    const priorImport = parseFleetTimestamp(prior.activityImportedAt) ?? -Infinity;
+    const importTime = parseFleetTimestamp(copy.activityImportedAt) ?? -Infinity;
+    if (sourceTime > priorSource || (sourceTime === priorSource && importTime >= priorImport)) normalized[priorIndex] = copy;
+  });
+  const changed = !Array.isArray(ship.activityHistory) || JSON.stringify(ship.activityHistory) !== JSON.stringify(normalized);
+  ship.activityHistory = normalized;
+  ship.activityLogKeys = keys;
+  return changed;
+}
+
 function filterBridgeHoursByWatchstation(hoursByWs) {
   const out = {};
   Object.keys(hoursByWs || {}).forEach(ws => {
@@ -8347,6 +8425,7 @@ function normalizeState(candidate) {
     ship.sourceGeneratedAtRaw = ship.sourceGeneratedAtRaw || String(ship.sourceGeneratedAt || "");
     ship.sourceGeneratedAt = normalizeSourceTimestamp(ship.sourceGeneratedAt);
     if (enforceBridgeOnlyShip(ship)) bridgeCleanupNeeded = true;
+    if (normalizeActivityHistory(ship)) bridgeCleanupNeeded = true;
     if (!ship.snapshots.length && Object.keys(ship.officers).length) {
       ship.snapshots.push(createSnapshot(ship, {
         snapshotId: "baseline-" + keyFor(ship.name).replace(/[^A-Z0-9]+/g, "-"),
@@ -8663,6 +8742,8 @@ function blankShip(shipName, phase) {
     officers: {},
     logs: [],
     logKeys: {},
+    activityHistory: [],
+    activityLogKeys: {},
     msaRecords: [],
     msaKeys: {},
     msaUnderwayHours: 0,
@@ -9477,6 +9558,8 @@ function preserveShipAuditState(target, previous) {
   if (!previous) return target;
   target.snapshots = Array.isArray(previous.snapshots) ? JSON.parse(JSON.stringify(previous.snapshots)) : [];
   target.sourceFiles = Array.isArray(previous.sourceFiles) ? previous.sourceFiles.slice() : [];
+  target.activityHistory = Array.isArray(previous.activityHistory) ? JSON.parse(JSON.stringify(previous.activityHistory)) : Array.isArray(previous.logs) ? JSON.parse(JSON.stringify(previous.logs)) : [];
+  target.activityLogKeys = previous.activityLogKeys && typeof previous.activityLogKeys === "object" ? Object.assign({}, previous.activityLogKeys) : {};
   target.msaRecords = Array.isArray(previous.msaRecords) ? JSON.parse(JSON.stringify(previous.msaRecords)) : [];
   target.msaKeys = Object.assign({}, previous.msaKeys || {});
   target.msaUnderwayHours = asNumber(previous.msaUnderwayHours);
@@ -9495,6 +9578,8 @@ function retainNewestCurrentShip(ship, previous, report) {
   if (!isOlderSourceImport(ship, previous) && !historicalReplay) return ship;
   previous.snapshots = ship.snapshots;
   previous.sourceFiles = ship.sourceFiles;
+  previous.activityHistory = ship.activityHistory;
+  previous.activityLogKeys = ship.activityLogKeys;
   const currentOutcomes = new Map((previous.msaRecords || []).map(record => [record.key,record]));
   const ignoredCorrections = (ship.msaRecords || []).filter(record => currentOutcomes.has(record.key) && !sameMsaRecord(currentOutcomes.get(record.key),record)).length;
   previous.msaRecords = (previous.msaRecords || []).concat((ship.msaRecords || []).filter(record => !currentOutcomes.has(record.key)));
@@ -9601,6 +9686,7 @@ function importWakeJson(text, fileName) {
       delete log.sourceDaysAgo;
       if (ship.logKeys[log.key]) report.duplicateLogs += 1;
       else { ship.logKeys[log.key] = true; ship.logs.push(log); report.logsAdded += 1; }
+      addActivityHistoryLog(ship, log, ship.sourceGeneratedAt, importedAt, fingerprint);
     });
     (sourceOfficer.msaRecords || []).forEach(record => {
       const normalized = normalizeMsaRecord(Object.assign({}, record, { officer:officerName, rank:current.rank, sourceFile:fileName, importedAt }), shipName);
@@ -9826,6 +9912,7 @@ function importRows(rows, fileName) {
       rawRowData: rawJson
     };
     ship.logs.push(log);
+    addActivityHistoryLog(ship, log, authoritativeBridgeSnapshot ? ship.sourceGeneratedAt : "", importedAt, authoritativeBridgeSnapshot ? fingerprint : "");
     report.logsAdded += 1;
   });
 
@@ -13552,26 +13639,18 @@ function shipProfileHero(m) {
 
 function shipProfileSummary(m) {
   const total = Math.max(0, asNumber(m.officerCount));
-  const level2Plus = asNumber(m.levels && m.levels["2"]) + asNumber(m.levels && m.levels["3"]);
-  return "<section class=\"card ship-profile-summary\"><div class=\"ship-profile-summary-head\"><div><h3>Overall Ship Data</h3><p>Direct figures from the current ship import and saved snapshots.</p></div></div><div class=\"ship-profile-data-grid\">" +
-    shipProfileStat("Watchstanders", total, m.bridgeWatchstanders + " bridge watchstanders", "blue") +
-    shipProfileStat("Current", total ? pct(m.current / total) : "N/A", m.current + " of " + total, "blue") +
-    shipProfileStat("Unknown Currency", m.unknown, m.unknown ? "Missing or invalid currency evidence" : "All currency records assessed", m.unknown ? "warn" : "blue") +
-    shipProfileStat("Level 2+", total ? pct(level2Plus / total) : "N/A", level2Plus + " at Level 2 or 3", "blue") +
-    shipProfileStat("Ship Qualified", total ? pct(m.shipQual / total) : "N/A", m.shipQual + " of " + total, "blue") +
-    shipProfileStat("Requires Proficiency Watch", m.need, total ? pct(m.need / total) + " of watchstanders" : "No watchstanders", m.need ? "warn" : "good") +
-    shipProfileStat("Lost Currency", m.loss, total ? pct(m.loss / total) + " of watchstanders" : "No watchstanders", m.loss ? "bad" : "good") +
-    shipProfileStat("Approaching Next Level", m.readyToLevelUp, total ? pct(m.readyToLevelUp / total) + " of watchstanders" : "N/A", "blue") +
-    shipProfileStat("ROR Coverage", total ? pct(m.rorRate) : "N/A", m.rorCurrent + " with current ROR", "blue") +
-    shipProfileStat("Bridge Logs", asNumber(m.logCount).toLocaleString(), "Imported watch activity", "purple") +
-    shipProfileStat("Average Hours", fmt(m.avgHours,1), "Cumulative bridge hours per watchstander", "blue") +
-    shipProfileStat("Total Q Hours", fmt(m.totalQ,1), "Exported officer totals", "blue") +
-    shipProfileStat("Total UI Hours", fmt(m.totalUI,1), "Exported officer totals", "blue") +
-    shipProfileStat("Snapshots", m.snapshotCount, "Saved ship imports", "purple") +
-    shipProfileStat("All-Time Level Ups", m.allTimeLevelUps, "Recorded across snapshots", "good") +
-    shipProfileStat("All-Time Lost Currency", m.allTimeLost, "Unique watchstanders seen with lost currency", m.allTimeLost ? "bad" : "good") +
-    shipProfileStat("Currency Restored", m.restoredProficiency, "Recorded recoveries", "good") +
-    "</div></section>";
+  const level2Plus = asNumber(m.levels && m.levels['2']) + asNumber(m.levels && m.levels['3']);
+  return '<section class="card ship-profile-summary"><div class="ship-profile-summary-head"><div><h3>Overall Ship Data</h3><p>Current ship status and observed proficiency progression. Monthly hours and evolution evidence appear in the activity history.</p></div></div><div class="ship-profile-data-grid">' +
+    shipProfileStat('Watchstanders', total, m.bridgeWatchstanders + ' bridge watchstanders', 'blue') +
+    shipProfileStat('Current', total ? pct(m.current / total) : 'N/A', m.current + ' of ' + total, 'blue') +
+    shipProfileStat('Unknown Currency', m.unknown, m.unknown ? 'Missing or invalid currency evidence' : 'All currency records assessed', m.unknown ? 'warn' : 'blue') +
+    shipProfileStat('Level 2+', total ? pct(level2Plus / total) : 'N/A', level2Plus + ' at Level 2 or 3', 'blue') +
+    shipProfileStat('ROR Coverage', total ? pct(m.rorRate) : 'N/A', m.rorCurrent + ' with current ROR', 'blue') +
+    shipProfileStat('Average Hours', fmt(m.avgHours,1), 'Cumulative bridge hours per watchstander', 'blue') +
+    shipProfileStat('All-Time Level Ups', m.allTimeLevelUps, 'Recorded across snapshots', 'good') +
+    shipProfileStat('All-Time Lost Currency', m.allTimeLost, 'Unique watchstanders seen with lost currency', m.allTimeLost ? 'bad' : 'good') +
+    shipProfileStat('Currency Restored', m.restoredProficiency, 'Recorded recoveries', 'good') +
+    '</div></section>';
 }
 
 function shipProfileStat(label, value, detail, tone) {
@@ -14763,6 +14842,10 @@ function validateFleetBackupPayload(parsed) {
     ship.logs.forEach((log, index) => {
       if (log && log.phase && !normalizeImportedPhase(log.phase)) throw new Error("WAKE Fleet backup ship " + shipKey + " has an unsupported OFRP phase in log " + (index + 1) + ".");
     });
+    if (ship.activityHistory !== undefined && !Array.isArray(ship.activityHistory)) throw new Error("WAKE Fleet backup ship " + shipKey + " has an invalid activityHistory collection.");
+    (ship.activityHistory || []).forEach((log, index) => {
+      if (log && log.phase && !normalizeImportedPhase(log.phase)) throw new Error("WAKE Fleet backup ship " + shipKey + " has an unsupported OFRP phase in activity record " + (index + 1) + ".");
+    });
     ship.snapshots.forEach((snapshot, index) => {
       if (snapshot && snapshot.phase && !normalizeImportedPhase(snapshot.phase)) throw new Error("WAKE Fleet backup ship " + shipKey + " has an unsupported OFRP phase in snapshot " + (index + 1) + ".");
     });
@@ -15852,6 +15935,69 @@ function commandCompare(ship, options) {
   return result;
 }
 
+// This is deliberately narrower than a generic before/after comparison. It
+// answers whether a change was observed wholly inside the most recent 30-day
+// window. A pair that crosses the window boundary is retained as a coverage
+// warning, rather than being attributed to the last 30 days.
+function commandLast30Days(ship, nowISO) {
+  const now = commandNow(nowISO);
+  const endAt = now;
+  const startAt = now - (30 * 86400000);
+  const timeline = commandTimeline(ship, now);
+  const empty = commandEmptyChanges();
+  const result = {
+    available: false,
+    reason: "",
+    timeline,
+    startAt: new Date(startAt).toISOString(),
+    endAt: new Date(endAt).toISOString(),
+    startDate: new Date(startAt).toISOString().slice(0, 10),
+    endDate: new Date(endAt).toISOString().slice(0, 10),
+    reports: [],
+    intervals: [],
+    boundaryIntervals: [],
+    counts: empty.counts,
+    rows: empty.rows,
+    caveats: timeline.warnings.slice()
+  };
+  const snapshots = timeline.snapshots.filter(wrapper => {
+    const time = Date.parse(wrapper.at);
+    return time >= startAt && time <= endAt;
+  });
+  result.reports = snapshots;
+  for (let index = 1; index < timeline.snapshots.length; index++) {
+    const previous = timeline.snapshots[index - 1];
+    const current = timeline.snapshots[index];
+    const currentTime = Date.parse(current.at);
+    if (currentTime < startAt || currentTime > endAt) continue;
+    const interval = commandPair(previous, current);
+    const entry = {
+      baseline: previous,
+      end: current,
+      days: (currentTime - Date.parse(previous.at)) / 86400000,
+      counts: interval.counts,
+      rows: interval.rows
+    };
+    if (Date.parse(previous.at) < startAt) result.boundaryIntervals.push(entry);
+    else {
+      result.intervals.push(entry);
+      commandAccumulate(result, interval);
+    }
+  }
+  if (result.intervals.length) {
+    result.available = true;
+    result.reason = "Changes below were observed between dated source reports both inside the last 30 days.";
+  } else if (!snapshots.length) {
+    result.reason = "No dated source report falls inside the last 30 days.";
+  } else if (result.boundaryIntervals.length) {
+    result.reason = "A current-period report exists, but its prior comparison begins before the last 30 days. The change interval crosses the boundary, so no change is attributed to this period.";
+  } else {
+    result.reason = "Only one dated source report falls inside the last 30 days. A second report is needed to observe change during this period.";
+  }
+  result.caveats.push("Only changes between two dated reports inside this 30-day window are counted. A report pair that crosses the window boundary is shown as a coverage gap, not as a confirmed last-30-day change.");
+  return result;
+}
+
 function commandMonthly(ship, from, to, nowISO) {
   const now = commandNow(nowISO);
   const timeline = commandTimeline(ship, now);
@@ -15979,12 +16125,58 @@ function commandReviewModel() {
   const monthly = entries.map(entry=>({ship:entry.ship, data:commandMonthly(entry.ship,from,to,now)}));
   return {now,to,from,entries,comparable,counts,monthly};
 }
+function commandLastThirtyModel(scopedShips) {
+  const now = new Date().toISOString();
+  const ships=Array.isArray(scopedShips)?scopedShips:commandScopedShips();
+  const entries = ships.map(ship => ({ ship, review:commandLast30Days(ship, now) }));
+  const confirmed = entries.filter(entry => entry.review.available);
+  const boundary = entries.filter(entry => entry.review.boundaryIntervals.length);
+  const noReport = entries.filter(entry => !entry.review.reports.length);
+  const counts = Object.fromEntries(Object.keys(COMMAND_CHANGE_LABELS).map(key => [key, confirmed.reduce((sum, entry) => sum + Number(entry.review.counts[key] || 0), 0)]));
+  return { now, entries, confirmed, boundary, noReport, counts };
+}
 function commandControls() {
   const options = allShips().map(ship=>'<option value="'+h(keyFor(ship.name))+'"'+(keyFor(ship.name)===commandFilters.ship?' selected':'')+'>'+h(ship.name)+'</option>').join("");
-  return '<section class="command-controls" aria-label="Comparison period (UTC dates)"><label for="command-ship">Command / ship<select id="command-ship" data-command-filter="ship"><option value="">All imported ships</option>'+options+'</select></label>'+
-    '<label for="command-mode">Compare with<select id="command-mode" data-command-filter="mode">'+[['previous','Previous report'],['3m','3 months ago'],['6m','6 months ago'],['12m','12 months ago'],['date','A chosen date']].map(([value,label])=>'<option value="'+value+'"'+(commandFilters.mode===value?' selected':'')+'>'+label+'</option>').join("")+'</select></label>'+
+  return '<section class="command-controls" aria-label="Other comparison period (UTC dates)"><label for="command-ship">Command / ship<select id="command-ship" data-command-filter="ship"><option value="">All imported ships</option>'+options+'</select></label>'+
+    '<label for="command-mode">Explore another period<select id="command-mode" data-command-filter="mode">'+[['previous','Previous report'],['3m','3 months ago'],['6m','6 months ago'],['12m','12 months ago'],['date','A chosen date']].map(([value,label])=>'<option value="'+value+'"'+(commandFilters.mode===value?' selected':'')+'>'+label+'</option>').join("")+'</select></label>'+
     (commandFilters.mode==='date'?'<label for="command-from">Baseline date<input id="command-from" type="date" data-command-filter="from" max="'+h(commandFilters.to||new Date().toISOString().slice(0,10))+'" value="'+h(commandFilters.from)+'"></label>':'')+
     '<label for="command-to">Through date (UTC)<input id="command-to" type="date" data-command-filter="to" max="'+new Date().toISOString().slice(0,10)+'" value="'+h(commandFilters.to||new Date().toISOString().slice(0,10))+'"></label><div class="command-export-actions"><button class="btn secondary" type="button" data-command-export="csv">Evidence CSV</button><button class="btn" type="button" data-command-export="brief">Print CO brief</button></div></section>';
+}
+function commandLastThirtyEvidence(model) {
+  const rows=[];
+  model.confirmed.forEach(({ship,review}) => Object.keys(COMMAND_CHANGE_LABELS).forEach(type => {
+    (review.rows[type] || []).forEach(row => rows.push({ship,type,row}));
+  }));
+  if (!rows.length) return emptyState(model.confirmed.length ? "No matched-person currency, proficiency-watch, level, or roster changes were observed between the reports inside this 30-day window." : "No ship has two dated reports wholly inside this 30-day window, so no change is claimed.");
+  rows.sort((a,b) => String(b.row.observedAt).localeCompare(String(a.row.observedAt)) || a.ship.name.localeCompare(b.ship.name) || a.row.name.localeCompare(b.row.name));
+  const visible=rows.slice(0,200);
+  return (visible.length < rows.length ? '<p class="command-note">Showing 200 of '+h(rows.length)+' observed transitions. Export Evidence CSV for the full selected comparison.</p>' : '') + commandTable(['Ship / watchstander','Observed change','Before → after','Source interval'],visible.map(({ship,type,row}) => {
+    const currency=['lost','restored','requiresWatch','unknownCurrency'].includes(type);
+    const from=currency ? currencyStatusLabel(row.from) : String(row.from ?? '—');
+    const to=currency ? currencyStatusLabel(row.to) : String(row.to ?? '—');
+    return ['<strong>'+h(row.name)+'</strong><small>'+h(ship.name)+'</small>',h(COMMAND_CHANGE_LABELS[type]),h(from+' → '+to),h(commandDateLabel(row.observedFrom)+' → '+commandDateLabel(row.observedAt))];
+  }));
+}
+function commandLastThirtyPanel(model) {
+  const c=model.counts;
+  const hasAnswer=!!model.confirmed.length;
+  const coverage=model.confirmed.length+' of '+model.entries.length+' ships have two dated reports entirely inside this window';
+  const cards='<div class="command-kpis command-kpis-last30">'+
+    commandPassiveStat('Lost currency',hasAnswer?c.lost:'—','Confirmed within the last 30 days','loss')+
+    commandPassiveStat('Restored to current',hasAnswer?c.restored:'—','Confirmed within the last 30 days','current')+
+    commandPassiveStat('New proficiency-watch need',hasAnswer?c.requiresWatch:'—','Confirmed within the last 30 days','need')+
+    commandPassiveStat('Level increased',hasAnswer?c.levelUp:'—','Confirmed within the last 30 days','progress')+'</div>';
+  const coverageRows=model.entries.map(({ship,review}) => {
+    const dates=review.reports.map(item => commandDateLabel(item.date)).join(', ');
+    const files=review.reports.map(item => item.snapshot.fileName || 'Unnamed source').join(', ');
+    const status=review.available ? 'Confirmed: '+review.intervals.length+' report pair'+(review.intervals.length===1?'':'s')+' inside the window.' : review.reason;
+    return ['<button class="ship-link" type="button" data-command-ship="'+h(keyFor(ship.name))+'">'+h(ship.name)+'</button>',h(dates || 'No dated source report'),'<small>'+h(files || 'No source file in the window')+'</small>',h(status)];
+  });
+  const boundaryNote=model.boundary.length ? '<p class="command-note">'+h(model.boundary.length)+' ship'+(model.boundary.length===1?' has':'s have')+' a report inside the window whose prior report is older. Those differences are deliberately excluded from the last-30-day counts.</p>' : '';
+  return '<section class="command-panel command-last30"><div class="command-section-heading"><div><span class="section-kicker">CO direct answer · '+h(commandDateLabel(new Date(Date.parse(model.now) - 30*86400000)))+' through '+h(commandDateLabel(model.now))+' UTC</span><h2>What changed in the last 30 days?</h2><p>'+h(hasAnswer ? 'These are the changes actually observed between dated reports both inside the last 30 days.' : 'The app cannot yet make a factual last-30-day change claim for this scope. The evidence gap is shown below.')+'</p></div><span class="command-coverage">'+h(coverage)+'</span></div>'+cards+commandLastThirtyEvidence(model)+'<details class="command-last30-coverage"><summary>Show source coverage for this answer</summary>'+commandTable(['Ship','Reports dated inside the last 30 days','Source files','Last-30-day conclusion'],coverageRows)+boundaryNote+'<p class="command-note">A report uploaded today is not enough by itself. Two dated reports within this window are required before a transition is counted here. The comparison does not guess an occurrence date or treat an older baseline as a confirmed change last month.</p></details></section>';
+}
+function commandPassiveStat(label,value,detail,tone) {
+  return '<article class="command-stat command-stat-passive '+h(tone||'')+'"><span>'+h(label)+'</span><strong>'+h(value)+'</strong><small>'+h(detail)+'</small></article>';
 }
 function commandStat(label,value,detail,tone,key) {
   return '<button type="button" class="command-stat '+h(tone||'')+'" data-command-evidence="'+h(key||'all')+'"><span>'+h(label)+'</span><strong>'+h(value)+'</strong><small>'+h(detail)+'</small><em>View named evidence &rarr;</em></button>';
@@ -16070,10 +16262,11 @@ function commandSourcesPanel(model) {
   return '<details class="command-panel command-sources"><summary>Source register &amp; comparison rules <span>'+rows.length+' records</span></summary><p>Baseline uses the latest available report on or before the requested date. End uses the latest on or before the through date. Actual source dates may be earlier than requested. Undated uploads are retained, but cannot establish a calendar trend.</p>'+commandTable(['Ship','File','Source date','Imported','Roster','Evidence status'],rows)+(warnings.length?'<ul>'+Array.from(new Set(warnings)).map(value=>'<li>'+h(value)+'</li>').join('')+'</ul>':'')+'<p class="command-note">Current: fewer than 45 days since qualifying watch. Requires proficiency watch: 45–90 days. Lost currency: more than 90 days. Unknown evidence is never counted as a confirmed loss or recovery. Roster additions and absences are not proof of arrival or transfer dates. Changes in cumulative hours can include corrections and are not automatically hours performed during the period.</p></details>';
 }
 function commandWorkspace() {
-  if(!allShips().length) return '<section class="command-empty command-panel"><span class="section-kicker">Command evidence</span><h1>What changed since last time?</h1><p>Build a dated record of ship proficiency, progression, and currency from the WAKE exports you already use.</p><div class="command-onboarding"><article><b>01</b><h2>Establish the baseline</h2><p>Upload a ship’s WAKE JSON or CSV. Its source date anchors the first observation.</p></article><article><b>02</b><h2>Add the next report</h2><p>Upload later exports. Earlier rosters and recorded status remain available.</p></article><article><b>03</b><h2>See the change</h2><p>Choose a date or period. Review losses, recoveries, level changes, and the people behind them.</p></article></div></section>';
+  if(!allShips().length) return '<section class="command-empty command-panel"><span class="section-kicker">Command evidence</span><h1>What changed in the last 30 days?</h1><p>Build a dated record of ship proficiency, progression, and currency from the WAKE exports you already use.</p><div class="command-onboarding"><article><b>01</b><h2>Establish the baseline</h2><p>Upload a ship’s WAKE JSON or CSV. Its source date anchors the first observation.</p></article><article><b>02</b><h2>Add the next report</h2><p>Upload another dated report within 30 days. Both dates are required before the app can confirm a last-30-day change.</p></article><article><b>03</b><h2>See the direct answer</h2><p>Review observed losses, recoveries, proficiency-watch needs, level changes, and the people behind them.</p></article></div></section>';
   if(commandFilters.ship&&!state.ships[commandFilters.ship]) commandFilters.ship='';
+  const lastThirty=commandLastThirtyModel();
   const model=commandReviewModel();
-  return '<div class="command-workspace"><section class="command-hero"><div><span class="section-kicker">CO command review</span><h1 class="view-title">What changed since last time?</h1><p>Progress over time. Currency today. Every change tied to imported evidence.</p></div><div class="command-hero-stamp"><strong>'+h(model.entries.length)+'</strong><span>ships in review</span></div></section>'+commandControls()+'<div class="command-period-note" role="status"><strong>'+h(model.comparable.length)+' of '+h(model.entries.length)+' ships have comparable reports.</strong> '+(commandFilters.mode==='previous'?'Comparing each ship’s two latest dated reports through '+h(commandDateLabel(model.to))+'.':'Requested baseline '+h(commandDateLabel(model.from))+' through '+h(commandDateLabel(model.to))+'.')+' Counts below are observed transitions; multiple changes for one person remain visible.</div>'+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+commandCurrentPanel(model)+commandEvidencePanel(model)+commandSourcesPanel(model)+'</div>';
+  return '<div class="command-workspace"><section class="command-hero"><div><span class="section-kicker">CO command review</span><h1 class="view-title">What changed in the last 30 days?</h1><p>Start with the direct period answer. Then explore another comparison or inspect currency today.</p></div><div class="command-hero-stamp"><strong>'+h(lastThirty.entries.length)+'</strong><span>ships in review</span></div></section>'+commandLastThirtyPanel(lastThirty)+commandControls()+'<div class="command-period-note" role="status"><strong>Other comparison:</strong> '+(commandFilters.mode==='previous'?'each ship’s two latest dated reports through '+h(commandDateLabel(model.to))+'.':'requested baseline '+h(commandDateLabel(model.from))+' through '+h(commandDateLabel(model.to))+'.')+' These figures may span more than 30 days; use them to explore a different question.</div>'+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+commandCurrentPanel(model)+commandEvidencePanel(model)+commandSourcesPanel(model)+'</div>';
 }
 function commandOpenShipReview(shipKey) { commandFilters.ship=shipKey; renderDashboard(); switchView('dashboard'); document.getElementById('view-dashboard')?.scrollIntoView({block:'start'}); }
 function commandShipCallout(ship) {
@@ -16096,7 +16289,11 @@ function commandOpenCurrent(shipKey) {
 }
 function commandExportCsv() {
   const model=commandReviewModel();
+  const lastThirty=commandLastThirtyModel();
   const rows=[['Record','Ship','Person / measure','Change type','Before','After','Baseline source date','End source date','Baseline file','End file','Note']];
+  rows.push(['LAST_30_REVIEW','','Window','direct answer',commandDateLabel(new Date(Date.parse(lastThirty.now)-30*86400000)),commandDateLabel(lastThirty.now),'','','','Only changes between two dated reports wholly inside this window are included.']);
+  lastThirty.confirmed.forEach(({ship,review})=>Object.entries(review.rows).forEach(([type,changes])=>changes.forEach(row=>rows.push(['LAST_30_TRANSITION',ship.name,row.name,COMMAND_CHANGE_LABELS[type],row.from,row.to,row.observedFrom,row.observedAt,'','', 'Observed inside the 30-day window; exact occurrence date is not established.']))));
+  lastThirty.entries.filter(entry=>!entry.review.available).forEach(({ship,review})=>rows.push(['LAST_30_COVERAGE',ship.name,'','','','','','','','',review.reason]));
   rows.push(['REVIEW','','Requested period',commandFilters.mode,model.from,model.to,'','','','','Observed intervals, not exact occurrence dates. Currency today assumes no later qualifying watch.']);
   model.entries.forEach(({ship,comparison:c,current})=>{
     Array.from(new Set([...c.caveats,...current.caveats])).forEach(note=>rows.push(['EVIDENCE_NOTE',ship.name,'','','','','','','','',note]));
@@ -16115,8 +16312,9 @@ function commandExportCsv() {
 }
 function commandBriefHtml() {
   const model=commandReviewModel();
+  const lastThirty=commandLastThirtyModel();
   const scope=commandFilters.ship?state.ships[commandFilters.ship].name:'All imported ships';
-  return '<!doctype html><html><head><meta charset="utf-8"><title>WAKE Fleet — CO Progress Brief</title><style>@page{size:landscape;margin:12mm}body{font:12px Arial,sans-serif;color:#142b42}h1{font-size:26px}h2{font-size:18px;margin-top:24px}p{line-height:1.5}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #bbb;padding:6px;text-align:left;vertical-align:top}th{background:#edf3f8}small{display:block}button{font:inherit;border:0;background:transparent;color:inherit;padding:0;text-align:left}.command-kpis{display:flex;gap:12px}.command-stat{flex:1;border:1px solid #bccbd8;padding:12px}.command-stat strong{display:block;font-size:28px}.command-stat em{display:none}.command-stat span,.command-stat small{display:block}.command-panel{margin:16px 0}.section-kicker{font-size:10px;text-transform:uppercase}.command-coverage{font-weight:bold}.command-trend,.command-legend{display:none}.command-note{font-size:10px}tr{break-inside:avoid}.command-pill{font-weight:bold}.command-sources summary{font-size:18px;font-weight:bold}a{color:inherit}</style></head><body><header><p>WAKE FLEET / COMMAND EVIDENCE</p><h1>What changed since last time?</h1><p>'+h(scope)+' · Generated '+h(new Date(model.now).toLocaleString())+'</p><p>'+h(commandFilters.mode==='previous'?'Previous report comparison through '+commandDateLabel(model.to):'Requested baseline '+commandDateLabel(model.from)+' through '+commandDateLabel(model.to))+' · '+model.comparable.length+' of '+model.entries.length+' ships comparable.</p></header>'+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+commandCurrentPanel(model)+'<section><h2>Named transition evidence</h2>'+commandEvidenceTable(model,'all')+'</section>'+commandSourcesPanel(model).replace('<details','<details open')+'<p>Observed transitions are not exact event dates. Retain a Fleet Backup with this brief to preserve the underlying snapshots.</p></body></html>';
+  return '<!doctype html><html><head><meta charset="utf-8"><title>WAKE Fleet — CO Progress Brief</title><style>@page{size:landscape;margin:12mm}body{font:12px Arial,sans-serif;color:#142b42}h1{font-size:26px}h2{font-size:18px;margin-top:24px}p{line-height:1.5}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #bbb;padding:6px;text-align:left;vertical-align:top}th{background:#edf3f8}small{display:block}button{font:inherit;border:0;background:transparent;color:inherit;padding:0;text-align:left}.command-kpis{display:flex;gap:12px}.command-stat{flex:1;border:1px solid #bccbd8;padding:12px}.command-stat strong{display:block;font-size:28px}.command-stat em{display:none}.command-stat span,.command-stat small{display:block}.command-panel{margin:16px 0}.section-kicker{font-size:10px;text-transform:uppercase}.command-coverage{font-weight:bold}.command-trend,.command-legend{display:none}.command-note{font-size:10px}tr{break-inside:avoid}.command-pill{font-weight:bold}.command-sources summary{font-size:18px;font-weight:bold}a{color:inherit}</style></head><body><header><p>WAKE FLEET / COMMAND EVIDENCE</p><h1>What changed in the last 30 days?</h1><p>'+h(scope)+' · Generated '+h(new Date(model.now).toLocaleString())+'</p><p>'+h(lastThirty.confirmed.length)+' of '+h(lastThirty.entries.length)+' ships have two dated reports entirely inside the last-30-day window.</p></header>'+commandLastThirtyPanel(lastThirty)+'<h2>Other comparison period</h2><p>'+h(commandFilters.mode==='previous'?'Previous report comparison through '+commandDateLabel(model.to):'Requested baseline '+commandDateLabel(model.from)+' through '+commandDateLabel(model.to))+' · '+model.comparable.length+' of '+model.entries.length+' ships comparable. This section may span more than 30 days.</p>'+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+commandCurrentPanel(model)+'<section><h2>Named transition evidence</h2>'+commandEvidenceTable(model,'all')+'</section>'+commandSourcesPanel(model).replace('<details','<details open')+'<p>Observed transitions are not exact event dates. Retain a Fleet Backup with this brief to preserve the underlying snapshots.</p></body></html>';
 }
 function commandPrintBrief() {
   const content=commandBriefHtml();
@@ -16150,6 +16348,87 @@ function attachCommandEvents() {
 
 
 let commandFleetFilters={phase:"",search:""};
+const commandShipActivitySelections={};
+
+function commandActivityMonth(log) {
+  const candidates=[log&&log.month,log&&log.watchDate,log&&log.dateLogged,log&&log.meta&&log.meta.watchDate,log&&log.meta&&log.meta.dateLabel];
+  for(const candidate of candidates){
+    const raw=String(candidate||'').trim();
+    if(!raw)continue;
+    let time=NaN;
+    if(/^\d{4}-\d{2}$/.test(raw)) time=Date.parse(raw+'-01T12:00:00Z');
+    else if(/^\d{4}-\d{2}-\d{2}/.test(raw)) time=Date.parse(raw.slice(0,10)+'T12:00:00Z');
+    else time=Date.parse('1 '+raw+' 12:00:00Z');
+    if(!Number.isFinite(time))continue;
+    const date=new Date(time);
+    return {key:date.toISOString().slice(0,7),label:date.toLocaleDateString(undefined,{month:'short',year:'numeric',timeZone:'UTC'})};
+  }
+  return null;
+}
+
+function commandLatestWatch(ship) {
+  const candidates=historicalActivityLogsForShip(ship).map(log=>{
+    const evidence=commandWatchDateInfo(log);
+    if(!evidence.day)return null;
+    const raw=String(evidence.raw||'').trim();
+    const sourceTime=Date.parse(raw);
+    const hasTime=/(?:T|\s)\d{1,2}:\d{2}|\b\d{4}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])\d{4,6}\b/.test(raw);
+    return {log,evidence,raw,hasTime,time:Number.isFinite(sourceTime)?sourceTime:Date.parse(evidence.day+'T12:00:00Z')};
+  }).filter(Boolean).sort((a,b)=>b.time-a.time);
+  if(!candidates.length)return {available:false,label:'No recorded watch date',detail:'No retained bridge-watch row has an exact calendar day.'};
+  const latest=candidates[0];
+  const label=latest.hasTime&&latest.raw?latest.raw:commandDateLabel(latest.evidence.day)+' · time not captured';
+  return {available:true,label,detail:(latest.log.officer?latest.log.officer+' · ':'')+(latest.log.watchstation||'Watchstation not recorded')+' · '+(latest.hasTime?'recorded source time':'recorded day only'),day:latest.evidence.day,log:latest.log};
+}
+
+function commandShipActivityModel(ship) {
+  const buckets=new Map();
+  let excludedLogs=0;
+  historicalActivityLogsForShip(ship).forEach(log=>{
+    const month=commandActivityMonth(log);
+    if(!month){excludedLogs++;return;}
+    if(!buckets.has(month.key)) buckets.set(month.key,{key:month.key,label:month.label,logs:[],hours:0,people:new Set()});
+    const row=buckets.get(month.key);
+    row.logs.push(log);
+    row.hours+=Math.max(0,Number(log&&log.hours)||0);
+    const person=String(log&&log.officer||'').trim();
+    if(person)row.people.add(keyFor(person));
+  });
+  const keys=Array.from(buckets.keys()).sort();
+  const rows=[];
+  if(keys.length){
+    const cursor=new Date(keys[0]+'-01T12:00:00Z');
+    const final=keys[keys.length-1];
+    while(cursor.toISOString().slice(0,7)<=final){
+      const key=cursor.toISOString().slice(0,7);
+      const bucket=buckets.get(key);
+      const label=cursor.toLocaleDateString(undefined,{month:'short',year:'numeric',timeZone:'UTC'});
+      const summary=bucket?evolutionSummary(bucket.logs):{total:0,rows:[]};
+      rows.push({key,label,hours:bucket?bucket.hours:0,logCount:bucket?bucket.logs.length:0,people:bucket?bucket.people.size:0,evolutions:summary.total||0,evolutionRows:(summary.rows||[]).filter(row=>row.count>0).sort((a,b)=>b.count-a.count||String(a.label).localeCompare(String(b.label))),hasRecordedActivity:!!bucket});
+      cursor.setUTCMonth(cursor.getUTCMonth()+1);
+    }
+  }
+  const shipKey=keyFor(ship&&ship.name);
+  const requested=commandShipActivitySelections[shipKey];
+  const selected=rows.find(row=>row.key===requested)||rows[rows.length-1]||null;
+  return {rows,selected,excludedLogs,maxHours:Math.max(1,...rows.map(row=>row.hours)),totalHours:rows.reduce((sum,row)=>sum+row.hours,0),totalEvolutions:rows.reduce((sum,row)=>sum+row.evolutions,0),lastWatch:commandLatestWatch(ship)};
+}
+
+function commandShipActivityPanel(ship) {
+  const model=commandShipActivityModel(ship);
+  if(!model.rows.length) return '<section class="command-panel command-ship-activity"><div class="command-section-heading"><div><span class="section-kicker">Monthly activity history</span><h2>Hours and evolutions by month</h2><p>Each imported bridge-watch row needs a usable calendar month before it can appear here.</p></div></div>'+emptyState('No dated monthly bridge-watch activity is retained for this ship.')+'</section>';
+  const selected=model.selected;
+  const selection='<label class="command-activity-selector" for="command-activity-month-'+h(keyFor(ship.name))+'">Inspect a past month<select id="command-activity-month-'+h(keyFor(ship.name))+'" data-command-activity-select="'+h(keyFor(ship.name))+'">'+model.rows.map(row=>'<option value="'+h(row.key)+'"'+(selected&&selected.key===row.key?' selected':'')+'>'+h(row.label)+(row.hasRecordedActivity?'':' · no recorded activity')+'</option>').join('')+'</select></label>';
+  const lastWatch='<article class="command-last-watch"><span>Last watch conducted</span><strong>'+h(model.lastWatch.label)+'</strong><small>'+h(model.lastWatch.detail)+'</small></article>';
+  const chart='<div class="command-activity-chart" role="list" aria-label="Chronological recorded bridge hours and evolution occurrences">'+model.rows.map(row=>{
+    const height=Math.max(row.hours?12:3,Math.round(row.hours/model.maxHours*100));
+    const active=selected&&selected.key===row.key;
+    const description=row.label+': '+fmt(row.hours,1)+' recorded bridge hours; '+row.evolutions+' evolution occurrence'+(row.evolutions===1?'':'s')+(row.hasRecordedActivity?'':' ; no recorded activity');
+    return '<button type="button" class="command-activity-bar'+(active?' selected':'')+'" data-command-activity-month="'+h(row.key)+'" data-command-activity-ship="'+h(keyFor(ship.name))+'" aria-pressed="'+(active?'true':'false')+'" title="'+h(description)+'" aria-label="'+h(description)+'"><span class="command-activity-hours" style="height:'+height+'%"><strong>'+h(fmt(row.hours,1))+' h</strong></span><span class="command-activity-evolutions">'+(row.evolutions?'◆ '+h(row.evolutions):'—')+'</span><span class="command-activity-label">'+h(row.label)+'</span></button>';
+  }).join('')+'</div>';
+  const evolutionList=selected.evolutionRows.length?'<ul class="command-evolution-list">'+selected.evolutionRows.map(row=>'<li><span>'+h(row.label)+'</span><strong>'+h(row.count)+'</strong></li>').join('')+'</ul>':'<p class="command-note">No evolution occurrence is recorded for the selected month. That does not establish that no evolution was conducted.</p>';
+  return '<section class="command-panel command-ship-activity"><div class="command-section-heading"><div><span class="section-kicker">Monthly activity history</span><h2>Hours logged and evolutions conducted</h2><p>Bars show retained bridge-watch hours in chronological order. The diamond count shows distinct recorded evolution occurrences for that month.</p></div>'+selection+'</div>'+lastWatch+chart+'<div class="command-activity-detail"><div><span class="section-kicker">Selected month · '+h(selected.label)+'</span><h3>'+h(fmt(selected.hours,1))+' recorded bridge hours</h3><p>'+h(selected.logCount)+' recorded watch row'+(selected.logCount===1?'':'s')+' · '+h(selected.people)+' person'+(selected.people===1?'':'s')+' represented · '+h(selected.evolutions)+' evolution occurrence'+(selected.evolutions===1?'':'s')+'.</p></div><div><h3>Evolutions recorded</h3>'+evolutionList+'</div></div>'+(model.excludedLogs?'<p class="command-note">'+h(model.excludedLogs)+' retained bridge-watch row'+(model.excludedLogs===1?' lacks':'s lack')+' a usable calendar month and '+(model.excludedLogs===1?'is':'are')+' excluded from the chart.</p>':'')+'<p class="command-note">Hours and evolution evidence come from retained bridge-watch records across accepted source imports. A zero, gap, or empty month means no matching retained row; it does not prove no underway activity or no training occurred.</p></section>';
+}
 function commandPageHeading(kicker,title,description,actions) {
   return '<div class="command-page-heading"><div><span class="section-kicker">'+h(kicker)+'</span><h1 class="view-title">'+h(title)+'</h1><p>'+h(description)+'</p></div><div class="toolbar">'+(actions||'')+'</div></div>';
 }
@@ -16181,7 +16460,8 @@ function commandRenderShipDetail() {
   const emptyCounts=Object.fromEntries(Object.keys(COMMAND_CHANGE_LABELS).map(key=>[key,0]));
   const from=c.requestedFrom||commandSubtractMonths(new Date().toISOString().slice(0,10),5), to=commandFilters.to||new Date().toISOString().slice(0,10);
   const model={entries:[entry],comparable:c.available?[entry]:[],counts:c.available?c.observed.counts:emptyCounts,monthly:[{ship,data:commandMonthly(ship,from,to)}],from,to,now:new Date().toISOString()};
-  host.innerHTML=commandPageHeading('Ship evidence review',ship.name,'Trace recorded progression, review today’s currency, and inspect the underlying WAKE evidence.',selector)+commandPeriodSummary()+commandShipCallout(ship)+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+commandCurrentPanel(model)+'<section class="command-panel"><div class="command-section-heading"><div><span class="section-kicker">People behind the change</span><h2>Recorded transitions</h2><p>Roster differences remain separate from proficiency and currency movement.</p></div></div>'+commandEvidenceTable(model,'all')+'</section>'+commandSourcesPanel(model)+'<section class="command-panel"><div class="command-section-heading"><div><span class="section-kicker">WAKE fundamentals</span><h2>Inspect the source evidence</h2><p>Current imported roster, bridge watches, ROR, and evolution evidence remain available.</p></div></div><div class="command-link-grid">'+quickBtn(selectedShipKey,'roster','Current imported roster')+quickBtn(selectedShipKey,'logs','Bridge watch evidence')+quickBtn(selectedShipKey,'ror','ROR evidence')+quickBtn(selectedShipKey,'months','Recorded bridge hours')+'</div></section>'+shipEvolutionPanel(ship);
+  const lastThirty=commandLastThirtyModel([ship]);
+  host.innerHTML=commandPageHeading('Ship evidence review',ship.name,'See the direct last-30-day answer, recorded watch activity over time, and the evidence behind both.',selector)+commandLastThirtyPanel(lastThirty)+commandShipActivityPanel(ship)+commandCurrentPanel(model)+'<section class="command-panel"><div class="command-section-heading"><div><span class="section-kicker">Other historical comparison</span><h2>Explore a different comparison period</h2><p>Use this only for questions outside the direct last-30-day answer. It may span more than 30 days.</p></div></div>'+commandPeriodSummary()+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+'</section>'+'<section class="command-panel"><div class="command-section-heading"><div><span class="section-kicker">People behind the change</span><h2>Recorded transitions</h2><p>Roster differences remain separate from proficiency and currency movement.</p></div></div>'+commandEvidenceTable(model,'all')+'</section>'+commandSourcesPanel(model)+'<section class="command-panel"><div class="command-section-heading"><div><span class="section-kicker">WAKE evidence</span><h2>Inspect the source records</h2><p>Open the current imported roster, bridge watch evidence, or ROR evidence.</p></div></div><div class="command-link-grid">'+quickBtn(selectedShipKey,'roster','Current imported roster')+quickBtn(selectedShipKey,'logs','Bridge watch evidence')+quickBtn(selectedShipKey,'ror','ROR evidence')+'</div></section>';
 }
 function commandRenderOfrp() {
   const host=document.getElementById('view-ofrp');
@@ -16202,6 +16482,17 @@ function attachCommandFleetEvents() {
     const field=event.target.dataset&&event.target.dataset.commandFleet;if(!field)return;
     const host=document.getElementById('view-heatmaps'), focus=captureRerenderFocus(host);
     commandFleetFilters[field]=event.target.value;commandRenderShipList();restoreRerenderFocus(host,focus);
+  });
+  document.addEventListener('change',event=>{
+    const shipKey=event.target.dataset&&event.target.dataset.commandActivitySelect;if(!shipKey)return;
+    const host=document.getElementById('view-ships'), focus=captureRerenderFocus(host);
+    commandShipActivitySelections[shipKey]=event.target.value;commandRenderShipDetail();restoreRerenderFocus(host,focus);
+  });
+  document.addEventListener('click',event=>{
+    const button=event.target.closest&&event.target.closest('[data-command-activity-month][data-command-activity-ship]');if(!button)return;
+    event.preventDefault();
+    const host=document.getElementById('view-ships'), focus=captureRerenderFocus(host);
+    commandShipActivitySelections[button.dataset.commandActivityShip]=button.dataset.commandActivityMonth;commandRenderShipDetail();restoreRerenderFocus(host,focus);
   });
 }
 

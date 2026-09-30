@@ -4,7 +4,8 @@ const COMMAND_CHANGE_LABELS = { lost:"Lost currency", restored:"Restored to curr
 
 function commandDateLabel(value) {
   if (!value) return "Unavailable";
-  const date = new Date(String(value).slice(0,10) + "T12:00:00Z");
+  const raw = value instanceof Date ? value.toISOString() : typeof value === "number" ? new Date(value).toISOString() : String(value);
+  const date = new Date(raw.slice(0,10) + "T12:00:00Z");
   return Number.isFinite(date.getTime()) ? date.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"}) : "Unavailable";
 }
 

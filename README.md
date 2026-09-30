@@ -1,30 +1,26 @@
 # FLEET WAKE
 
-FLEET WAKE is a standalone, single-file command evidence application. It leads with the CO question: **What changed in the last 30 days?** It also retains other dated comparisons when a different period is needed.
+FLEET WAKE is a standalone, single-file fleet analytics application. It keeps the familiar Fleet Overview, Ship List, and ship screens, with calendar-month comparisons and interactive charts.
 
 ## Current program
 
 Open `WAKE FLEET - Only Secure in FS Sharepoint-current.html` in the approved SharePoint/Firepit host. The application renders immediately from its local offline copy, then reconciles with SharePoint in the background.
 
-## Command review
+## Fleet and ship review
 
-- **Command Review:** answer the last 30 days first. A change is counted only when two dated source reports fall wholly inside that window. Compare the previous report, 3/6/12 months, or a chosen baseline only as a separate historical question.
-- **Ship Progress:** compare ships with their actual source intervals and roster sizes, then open one ship's complete progression review.
-- **Ship Evidence Review:** select any retained past month in a chronological chart of recorded bridge hours and distinct evolution occurrences. The same view shows the latest watch with an exact recorded day or time when the source provided one.
-- **Currency & Recovery:** review a named attention queue and conditional 30-day threshold exposure, with source age and unknown evidence visible.
-- **Training Evidence:** filter activity and distinct evolution occurrences by ship/month, alongside separately observed progression and dated MSA outcomes.
-- **OFRP Review:** compare the same ships grouped by baseline phase, with phase changes and missing comparisons visible.
-- **Evidence Search:** filter retained watch records and export the matching rows, distinguishing exact-day, month-only, and undated evidence.
-- **Upload History:** inspect source chronology, preserved rosters, backfills, corrections, repeated files, and rejected imports.
-- **Guide:** review definitions, evidence limits, coverage settings, and the existing backup/SharePoint workflow.
+- **Fleet Overview:** compare September with August, or choose other calendar months. See lost/restored currency and level changes, with names and source dates in expandable evidence.
+- **Fleet chart:** view every ship's hours, current currency, Level 2+ depth, or lost currency in both selected months. Select a ship to open its activity chart.
+- **Ship View:** select any retained month in the chronological hours/evolutions chart. Select a date or evolution to open matching watch logs, then open an individual log's source details. The ship's calendar comparison follows the selected month.
+- **Last watch conducted:** displays the latest retained watch with an exact recorded date, and time when supplied. Month-only and future dates cannot establish the last watch.
+- **Ship List, Decision Board, Evolutions, OFRP, All Data, Import Report, and References:** retain the established screens and workflows.
 
-Use **Evidence CSV** or **Print CO brief** in Command Review to export the selected comparison. Browser print can save the brief as PDF; a blocked print window falls back to downloadable HTML.
+Tabs replace the visible page and reset its scroll position. Backup, export, WAKE input, and SharePoint controls retain the established workflow.
 
 ## How to read the history
 
-The source export timestamp anchors an observation. Comparison dates and months use UTC; displayed upload timestamps use the browser's local time. Upload time does not substitute for a missing source date. The last-30-day answer counts only a pair of reports both dated inside that window; a pair that crosses its start date is disclosed as a coverage gap instead of being attributed to the month. A selected baseline uses the latest dated observation on or before that date; the screen shows the actual dates used. Months with no observation remain unknown. The first dated report establishes a baseline and does not prove zero changes.
+The source export timestamp anchors an observation. Calendar comparisons use the latest valid dated report **inside each selected month**, regardless of upload order. September versus August is a comparison of those months' recorded statuses. A missing August report cannot be replaced by July or by an upload timestamp. The source dates remain available in the evidence details; they do not prove month-end status or the exact day a change occurred. Comparison dates and months use UTC.
 
-Changes are observed between reports; their exact occurrence dates are usually unknown. A watchstander can lose and regain currency in one period, so gross movements remain separate from net endpoint changes. Matching uses normalized ship and person names. Added or absent names indicate export membership, not proven arrival or transfer dates. Unknown currency never counts as a confirmed loss or recovery.
+Monthly change counts compare the two selected monthly endpoints. Fleet totals include only ships with evidence in both months. Matching uses normalized ship and person names. Added or absent names indicate export membership, not proven arrival or transfer dates. Unknown currency never counts as a confirmed loss or recovery. Intermediate changes within a month are not attributed to a specific date.
 
 Historical status remains frozen. Currency today ages from the latest dated numeric evidence under the explicit assumption of no later qualifying watch. A fresh export is needed to confirm actual status. Newer undated roster conflicts are flagged. Previously erased historical records cannot be reconstructed without the original exports; those files can be imported again as backfills.
 

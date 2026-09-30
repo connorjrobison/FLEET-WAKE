@@ -49,6 +49,13 @@ function loadUi(ships) {
 function loadFleetViews(ships) {
   const uiSource = fs.readFileSync(path.resolve(__dirname, "../progression/command-progress-ui.js"), "utf8");
   const fleetSource = fs.readFileSync(path.resolve(__dirname, "../progression/command-fleet-views.js"), "utf8");
+  const activitySource = fs.readFileSync(path.resolve(__dirname, "../progression/activity-drilldown.js"), "utf8");
+  const canonical = fs.readFileSync(path.resolve(__dirname, "../../WAKE FLEET - Only Secure in FS Sharepoint-current.html"), "utf8");
+  const helpers = ["unique", "splitEvolutionValues", "evolutionKey", "evolutionDayKey", "evolutionSessionDescriptor", "evolutionOccurrenceKey", "commandWatchDateInfo"].map(name => {
+    const match = canonical.match(new RegExp("^function " + name + "\\([^)]*\\) \\{[\\s\\S]*?^\\}", "m"));
+    assert.ok(match, "canonical activity helper " + name);
+    return match[0];
+  }).join("\n");
   class FixedDate extends Date {
     constructor(...args) { super(...(args.length ? args : [NOW])); }
     static now() { return Date.parse(NOW); }
@@ -63,23 +70,19 @@ function loadFleetViews(ships) {
     fmt: (value, decimals) => Number(value).toFixed(decimals || 0),
     emptyState: message => "<p>" + message + "</p>",
     bridgeLogsForShip: item => item.logs || [],
-    historicalActivityLogsForShip: item => item.activityHistory || item.logs || [],
-    commandWatchDateInfo: log => {
-      const raw = String(log.watchDate || log.dateLogged || "").trim();
-      const direct = raw.match(/^(\d{4}-\d{2}-\d{2})/);
-      const dayOnly = raw.match(/^\d{1,2}$/);
-      const month = String(log.month || "").match(/\b((?:19|20)\d{2})\b/) && String(log.month || "").match(/\b([A-Z]{3})/i);
-      const monthNumber = month ? ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].indexOf(month[1].toUpperCase()) + 1 : 0;
-      return { day:direct ? direct[1] : dayOnly && monthNumber ? month[1] + "-" + String(monthNumber).padStart(2,"0") + "-" + dayOnly[0].padStart(2,"0") : "", raw };
-    },
-    evolutionSummary: logs => {
-      const labels=[];
-      logs.forEach(log => [log.events, log.specialConditions].forEach(value => String(value || "").split(/[;,|]/).map(item => item.trim()).filter(Boolean).forEach(label => labels.push(label))));
-      const counts=new Map(); labels.forEach(label => counts.set(label,(counts.get(label)||0)+1));
-      return { total:labels.length, rows:Array.from(counts,([label,count])=>({label,count})) };
-    }
+    historicalActivityLogsForShip: item => item.activityHistory || item.logs || []
   });
-  vm.runInContext(engineSource + "\n" + uiSource + "\n" + fleetSource + "\nthis.fleet = { commandShipActivityModel, commandShipActivityPanel, setActivityMonth:(shipKey, month) => { commandShipActivitySelections[shipKey] = month; } };", fleetContext);
+  const summaryMock = `function evolutionSummary(logs) {
+    const groups = new Map();
+    logs.forEach((log, index) => [log.events, log.specialConditions].forEach(raw => splitEvolutionValues(raw).forEach(label => {
+      const key = evolutionKey(label);
+      if (!groups.has(key)) groups.set(key, {label, occurrences:new Set()});
+      groups.get(key).occurrences.add(evolutionOccurrenceKey(log, index));
+    })));
+    const rows = Array.from(groups.values(), row => ({label:row.label, count:row.occurrences.size}));
+    return {total:rows.reduce((sum, row) => sum + row.count, 0), rows};
+  }`;
+  vm.runInContext(engineSource + "\n" + uiSource + "\n" + helpers + "\n" + summaryMock + "\n" + fleetSource + "\n" + activitySource + "\nthis.fleet = { commandActivityMonth, commandLatestWatch, commandRecordedActivityLogs, commandShipActivityModel, commandShipActivityPanel, setActivityMonth:(shipKey, month) => { commandShipActivitySelections[shipKey] = month; } };", fleetContext);
   return fleetContext.fleet;
 }
 
@@ -334,9 +337,73 @@ test("ship activity history keeps months chronological, exposes a selected past 
   model = plain(fleet.commandShipActivityModel(source));
   assert.equal(model.selected.key, "2026-07");
   const html = fleet.commandShipActivityPanel(source);
-  assert.match(html, /Hours logged and evolutions conducted/);
+  assert.match(html, /Hours logged &amp; evolutions/);
   assert.match(html, /Last watch conducted/);
   assert.match(html, /Man Overboard/);
+  assert.match(html, /data-command-activity-records="evolution:0"/);
+  assert.match(html, /data-command-activity-records="day:2026-07-21"/);
+});
+
+test("exact watch date determines the activity month before a conflicting month label", () => {
+  const source = ship([], { logs:[{ month:"AUG 2026", watchDate:"2026-09-12", officer:"Alpha", hours:4, events:"Man Overboard" }] });
+  const fleet = loadFleetViews([source]);
+  assert.equal(fleet.commandActivityMonth(source.logs[0]).key, "2026-09");
+  const model = fleet.commandShipActivityModel(source);
+  assert.deepEqual(plain(model.rows.map(row => row.key)), ["2026-09"]);
+  assert.equal(model.rows[0].hours, 4);
+});
+
+test("last watch excludes future dates and month-only rows", () => {
+  const source = ship([], { logs:[
+    { month:"SEP 2026", watchDate:"2026-09-29T14:45:00Z", officer:"Alpha" },
+    { month:"OCT 2026", watchDate:"2026-10-01T08:00:00Z", officer:"Future" },
+    { month:"OCT 2026", officer:"Month only" }
+  ] });
+  const fleet = loadFleetViews([source]);
+  assert.equal(fleet.commandLatestWatch(source).log.officer, "Alpha");
+  source.logs = source.logs.slice(1);
+  assert.equal(fleet.commandLatestWatch(source).available, false);
+});
+
+test("last watch orders day-only source dates by their resolved month and year", () => {
+  const source = ship([], { logs:[
+    { month:"MAR 2026", watchDate:"2026-03-15T14:00:00Z", officer:"March watch" },
+    { month:"SEP 2026", dateLogged:"5", officer:"September watch" }
+  ] });
+  const fleet = loadFleetViews([source]), latest = fleet.commandLatestWatch(source);
+  assert.equal(latest.day, "2026-09-05");
+  assert.equal(latest.log.officer, "September watch");
+  assert.match(latest.label, /time not captured/);
+});
+
+test("an invalid ISO watch day cannot normalize into a different activity month", () => {
+  const source = ship([], { logs:[
+    { watchDate:"2026-02-30", officer:"Invalid date", hours:4, events:"Mooring" },
+    { watchDate:"2026-02-28", officer:"Valid date", hours:6, events:"Mooring" }
+  ] });
+  const fleet = loadFleetViews([source]);
+  assert.equal(fleet.commandActivityMonth(source.logs[0]), null);
+  const model = fleet.commandShipActivityModel(source);
+  assert.deepEqual(plain(model.rows.map(row => row.key)), ["2026-02"]);
+  assert.equal(model.totalHours, 6);
+  assert.equal(model.excludedLogs, 1);
+});
+
+test("recorded activity and ship totals exclude future days, times, and month-only rows", () => {
+  const source = ship([], { logs:[
+    { watchDate:"2026-09-29T08:00:00Z", month:"SEP 2026", officer:"Past watch", hours:4, events:"Mooring" },
+    { month:"SEP 2026", officer:"Current month only", hours:2, events:"UNREP" },
+    { watchDate:"2026-10-01", officer:"Future day", hours:6, events:"Mooring" },
+    { watchDate:"2026-09-30T15:00:00Z", officer:"Later today", hours:8, events:"Mooring" },
+    { month:"OCT 2026", officer:"Future month", hours:10, events:"Mooring" }
+  ] });
+  const fleet = loadFleetViews([source]);
+  assert.deepEqual(plain(fleet.commandRecordedActivityLogs(source).map(log => log.officer)), ["Past watch", "Current month only"]);
+  const model = fleet.commandShipActivityModel(source);
+  assert.deepEqual(plain(model.rows.map(row => row.key)), ["2026-09"]);
+  assert.equal(model.totalHours, 6);
+  assert.equal(model.totalEvolutions, 2);
+  assert.equal(model.excludedLogs, 3);
 });
 
 test("requested dates select real source observations at or before each boundary", () => {

@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WAKE Fleet — Command Evidence</title>
+<title>WAKE Fleet Staff App</title>
 <style>
 :root {
   --navy:#003366;
@@ -6546,11 +6546,24 @@ button.ultrawide-mini-chart-fill:focus-visible {
 .command-empty{padding:34px}.command-empty h1{font-size:clamp(26px,3vw,40px);margin:12px 0}.command-empty>p{font-size:15px;max-width:700px}.command-onboarding{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:30px}.command-onboarding article{border-top:1px solid var(--wn-border,#cfdae4);padding-top:18px}.command-onboarding b{font-size:24px;color:#66889f}.command-onboarding h2{font-size:16px}.command-onboarding p{font-size:13px;color:var(--wn-text-muted,#536a7e);line-height:1.6}
 [data-theme="dark"] .command-pill.current{background:#193f36;color:#ade1ca}[data-theme="dark"] .command-pill.need{background:#493e20;color:#f0d592}[data-theme="dark"] .command-pill.loss{background:#482c35;color:#f2b4bc}[data-theme="dark"] .command-pill.unknown{background:#2d3b4a;color:#cad6e2}
 [data-theme="dark"] .command-table th,[data-theme="dark"] .command-coverage,[data-theme="dark"] .command-last-watch,[data-theme="dark"] .command-activity-detail{background:#223b4b;color:#e1edf5}[data-theme="dark"] .command-stack{background:#223542}[data-theme="dark"] .command-stack .no-report{color:#bccedb}[data-theme="dark"] .command-panel p,[data-theme="dark"] .command-table td small,[data-theme="dark"] .command-stat small,[data-theme="dark"] .command-stat em,[data-theme="dark"] .command-note,[data-theme="dark"] .command-period-note,[data-theme="dark"] .command-trend-row>span{color:#b8ccda!important}
-.command-page-heading{display:flex;justify-content:space-between;align-items:start;gap:24px;margin:12px 0 20px}.command-page-heading h1{font-size:clamp(24px,2.2vw,34px);line-height:1.2;margin:9px 0;color:var(--wn-text,#172d42)}.command-page-heading p{font-size:13px;line-height:1.6;max-width:850px;color:var(--wn-text-muted,#536a7e);margin:0}.command-inline-label{display:grid;gap:6px;font-size:11px;font-weight:800;min-width:200px}.command-inline-label select{padding:9px;border:1px solid var(--wn-border,#cfdae4);border-radius:6px;background:var(--wn-surface,#fff);color:var(--wn-text,#172d42)}.command-link-grid{display:flex;gap:10px;flex-wrap:wrap}.wake-topbar .wake-top-controls{min-width:0}.wake-main-nav{flex-wrap:wrap!important;justify-content:flex-end}.wake-main-nav .wake-nav-btn{font-size:11px;padding:8px 10px}.wake-topbar{grid-template-columns:auto minmax(120px,1fr) auto!important}.ultrawide-enabled-view,#view-dashboard{display:block!important}.view.hidden{display:none!important}
+.command-page-heading{display:flex;justify-content:space-between;align-items:start;gap:24px;margin:12px 0 20px}.command-page-heading h1{font-size:clamp(24px,2.2vw,34px);line-height:1.2;margin:9px 0;color:var(--wn-text,#172d42)}.command-page-heading p{font-size:13px;line-height:1.6;max-width:850px;color:var(--wn-text-muted,#536a7e);margin:0}.command-inline-label{display:grid;gap:6px;font-size:11px;font-weight:800;min-width:200px}.command-inline-label select{padding:9px;border:1px solid var(--wn-border,#cfdae4);border-radius:6px;background:var(--wn-surface,#fff);color:var(--wn-text,#172d42)}.command-link-grid{display:flex;gap:10px;flex-wrap:wrap}.wake-topbar .wake-top-controls{min-width:0}.wake-main-nav{flex-wrap:wrap!important;justify-content:flex-end}.wake-main-nav .wake-nav-btn{font-size:11px;padding:8px 10px}#view-dashboard.hidden,.view.hidden{display:none!important}
 @media(min-width:1760px){.command-kpis{gap:18px}.command-stat>span{min-height:auto}.app-shell{max-width:2200px}.command-panel{padding:26px}.command-table table{font-size:13px}}
 @media(max-width:1100px){.wake-topbar{grid-template-columns:auto minmax(100px,1fr)!important}.wake-top-controls{grid-column:1/-1}.wake-main-nav{justify-content:flex-start}.command-page-heading{flex-wrap:wrap}}
 @media(max-width:900px){.command-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.command-section-heading{flex-wrap:wrap}.command-hero{padding:23px}.command-panel{padding:16px}.command-onboarding{gap:16px}.command-export-actions{width:100%}.command-activity-detail{grid-template-columns:1fr}.command-activity-selector{width:100%;max-width:none}}
 @media(max-width:560px){.command-hero{padding:20px 16px}.command-hero-stamp{display:none}.command-hero p{font-size:12px}.command-controls{padding:14px;gap:12px}.command-controls label{min-width:130px}.command-controls label:first-child{flex-basis:100%}.command-kpis{gap:9px}.command-stat{padding:13px}.command-stat>span{font-size:11px;min-height:32px}.command-stat strong{font-size:32px}.command-stat em{font-size:9px}.command-panel{padding:14px}.command-section-heading h2{font-size:18px}.command-section-heading{gap:12px}.command-trend-row{grid-template-columns:64px minmax(70px,1fr);gap:8px}.command-trend-row>span{grid-column:2;text-align:left;margin-top:-4px}.command-legend{gap:10px}.command-sources summary span{float:none;display:block}.command-empty{padding:22px}.command-onboarding{grid-template-columns:1fr;gap:16px}.command-ship-callout{flex-direction:column;align-items:start}}
+
+/* Compact controls in the original Fleet WAKE shell. */
+.fleet-chart-legend{display:flex;gap:20px;margin-top:18px;font-size:12px}.fleet-chart-legend span:before{content:"";display:inline-block;width:12px;height:12px;margin-right:7px;border-radius:3px;vertical-align:middle;background:#95afbf}.fleet-chart-legend .after:before{background:#39799f}.fleet-ship-tracks{display:grid;gap:6px}.fleet-ship-track.before{height:18px}.fleet-ship-track.before>span{background:#95afbf}.fleet-ship-track.after{height:34px}.fleet-ship-value{font-size:17px!important}.command-activity-bar{height:100%;min-height:0!important;grid-template-rows:minmax(0,1fr) 22px 30px!important}
+#view-dashboard:not(.hidden),#view-ships:not(.hidden){display:block}
+#view-dashboard.hidden,.view.hidden{display:none!important}
+.fleet-calendar-panel,.fleet-overview-chart,.command-ship-activity,#view-dashboard .overview-start-card{margin-bottom:20px}
+.fleet-month-controls{display:flex;gap:12px;flex-wrap:wrap}.fleet-month-controls label,.fleet-chart-choice{display:grid;gap:5px;font-size:12px;font-weight:700}.fleet-month-controls select,.fleet-chart-choice select{padding:8px 12px;background:var(--wn-surface,#fff);color:var(--wn-text,#162d42);border:1px solid var(--wn-border,#ccdae4);border-radius:6px;min-width:150px}
+.fleet-month-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:20px 0 12px}.fleet-month-stat{border-left:4px solid #3f7e9f;background:var(--wn-surface-alt,#edf4f8);padding:16px 20px;border-radius:6px}.fleet-month-stat span{display:block;font-size:13px}.fleet-month-stat strong{display:block;font-size:38px;line-height:1.2;margin-top:5px}.fleet-month-stat.bad{border-color:#b3555d}.fleet-month-stat.good{border-color:#338168}.fleet-month-stat.warn{border-color:#ab842e}.fleet-chart-note{font-size:12px;color:var(--wn-text-muted,#586f7f);margin:12px 0 0}.fleet-month-evidence{margin-top:16px}.fleet-month-evidence summary{font-size:13px;font-weight:700;cursor:pointer}.fleet-month-evidence[open] summary{margin-bottom:14px}
+.fleet-overview-chart{padding:26px!important}.fleet-ship-chart{display:grid;gap:20px;margin:30px 0}.fleet-ship-bar{display:grid;grid-template-columns:minmax(130px,220px) minmax(130px,1fr) 140px;align-items:center;gap:20px;width:100%;text-align:left;background:transparent;border:0;color:var(--wn-text,#162d42);padding:10px 0;cursor:pointer}.fleet-ship-bar-label{font-size:15px;font-weight:800}.fleet-ship-track{height:42px;background:var(--wn-surface-alt,#e8eff4);border-radius:5px;overflow:hidden}.fleet-ship-track>span{display:block;height:100%;background:linear-gradient(90deg,#39799f,#58a7b7);min-width:0}.fleet-ship-value{font-size:22px;font-weight:800}.fleet-ship-value small{display:block;font-size:11px;font-weight:400;margin-top:4px}.fleet-ship-bar:hover .fleet-ship-track{outline:2px solid #60a0bf}.fleet-ship-bar:focus-visible,.command-activity-bar:focus-visible{outline:3px solid #3e87ad;outline-offset:4px}
+.command-ship-activity{padding:26px!important}.command-activity-chart{height:310px!important;margin-top:32px}.command-activity-bar{min-width:90px!important;flex:1}.command-activity-detail{display:block!important;padding:16px!important}.command-last-watch{max-width:600px}.command-last-watch strong{font-size:17px}.command-activity-selector{max-width:260px}.command-ship-activity .command-section-heading h2{font-size:22px}.command-ship-activity .command-table{margin-top:14px}
+[data-theme="dark"] .fleet-month-stat,[data-theme="dark"] .fleet-ship-track{background:#223b4b}[data-theme="dark"] .fleet-chart-note{color:#bdd0dc}
+@media(max-width:900px){.fleet-calendar-panel .section-title,.fleet-overview-chart .section-title{flex-wrap:wrap;gap:16px}.fleet-ship-bar{grid-template-columns:140px minmax(60px,1fr) 100px;gap:12px}.fleet-ship-bar-label{font-size:13px}.fleet-ship-value{font-size:18px}.fleet-month-stat{padding:14px}.command-activity-chart{height:260px!important}}
+@media(max-width:560px){.fleet-month-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.fleet-month-stat strong{font-size:30px}.fleet-ship-bar{grid-template-columns:minmax(0,1fr) 90px}.fleet-ship-bar-label{grid-column:1/-1}.fleet-ship-track{height:34px}.fleet-overview-chart,.command-ship-activity{padding:16px!important}.fleet-month-controls select{min-width:125px}.command-activity-chart{height:230px!important}.command-activity-bar{min-width:74px!important}}
 
 /* END CO PROGRESSION STYLES */
 </style>
@@ -6588,16 +6601,11 @@ button.ultrawide-mini-chart-fill:focus-visible {
   <div class="wake-top-controls">
     <button aria-label="Light mode on. Switch to dark mode" aria-pressed="false" class="theme-toggle" id="theme-toggle" type="button" title="Switch to dark mode"><span aria-hidden="true" class="theme-icon" data-theme-icon>&#9790;</span><span aria-hidden="true" data-theme-label>Dark</span></button>
     <nav class="wake-main-nav" aria-label="Main navigation">
-      <button class="wake-nav-btn active" id="top-nav-overview" aria-current="page" type="button" data-view="dashboard">Command Review</button>
-      <button class="wake-nav-btn" type="button" data-view="heatmaps">Ship Progress</button>
-      <button class="wake-nav-btn" type="button" data-view="performance">Currency & Recovery</button>
-      <button class="wake-nav-btn" type="button" data-view="evolutions">Training Evidence</button>
-      <button class="wake-nav-btn" type="button" data-view="ofrp">OFRP Review</button>
-      <button class="wake-nav-btn" type="button" data-view="explorer">Evidence Search</button>
-      <button class="wake-nav-btn" type="button" data-view="imports">Upload History</button>
-      <button class="wake-nav-btn" type="button" data-view="references">Guide</button>
-      <button class="btn" type="button" data-command-import="true">Import WAKE</button>
-    </nav>
+<button class="wake-nav-btn active" id="top-nav-overview" aria-current="page" type="button" data-view="dashboard">Fleet Overview</button>
+<button class="wake-nav-btn" type="button" data-view="heatmaps">Ship List</button>
+<button class="wake-nav-btn" type="button" data-view="references">References</button>
+<button class="btn" type="button" data-command-import="true">Import WAKE</button>
+</nav>
   </div>
 </header>
 <div class="app-shell">
@@ -7846,102 +7854,15 @@ const els = {
 };
 
 const COACH_STEPS = [
-  {
-    "id": "import",
-    "title": "Establish the source record",
-    "category": "WAKE Inputs",
-    "selector": "[data-command-import]",
-    "action": "import",
-    "launchLabel": "Import WAKE Data",
-    "why": "The source export date anchors the ship observation.",
-    "do": "Upload WAKE ship JSON or CSV files using the existing import workflow.",
-    "look": "Upload History distinguishes new observations, backfills, corrections, repeats, and rejected files.",
-    "tip": "An upload date cannot replace a missing source date."
-  },
-  {
-    "id": "dashboard",
-    "title": "What changed in the last 30 days?",
-    "category": "Command Review",
-    "selector": "[data-view=\"dashboard\"]",
-    "action": "dashboard",
-    "launchLabel": "Open Command Review",
-    "why": "A prior report outside the period cannot be called a last-month change.",
-    "do": "Review the direct 30-day answer first, then select another period only when you need a different question answered.",
-    "look": "Read actual source dates and open named evidence behind each count.",
-    "tip": "Missing months and first observations do not establish zero change."
-  },
-  {
-    "id": "heatmaps",
-    "title": "Which ships progressed?",
-    "category": "Ship Progress",
-    "selector": "[data-view=\"heatmaps\"]",
-    "action": "heatmaps",
-    "launchLabel": "Open Ship Progress",
-    "why": "Ship-level source dates and roster sizes make changes interpretable.",
-    "do": "Compare observed movement and select a ship for its complete progression review.",
-    "look": "Roster additions and absences are separate from currency and level changes.",
-    "tip": "Matching uses normalized ship and person names."
-  },
-  {
-    "id": "performance",
-    "title": "Who needs attention now?",
-    "category": "Currency and Recovery",
-    "selector": "[data-view=\"performance\"]",
-    "action": "performance",
-    "launchLabel": "Open Currency and Recovery",
-    "why": "Currency can age after the latest export.",
-    "do": "Review the named attention queue, unknown evidence, and next-30-day thresholds.",
-    "look": "Source age and the no-new-watch assumption are visible beside the figures.",
-    "tip": "Upload a new report to confirm actual status."
-  },
-  {
-    "id": "evolutions",
-    "title": "Is training rebuilding proficiency?",
-    "category": "Training Evidence",
-    "selector": "[data-view=\"evolutions\"]",
-    "action": "evolutions",
-    "launchLabel": "Open Training Evidence",
-    "why": "Recorded activity supports a review but does not by itself prove proficiency.",
-    "do": "Select a ship and month; inspect activity, observed progression, and separately dated assessment outcomes.",
-    "look": "Use scoped evolution controls to open the rows behind counts.",
-    "tip": "Watch hours count once; event evidence does not multiply hours."
-  },
-  {
-    "id": "ofrp",
-    "title": "Did proficiency improve through the phase?",
-    "category": "OFRP Review",
-    "selector": "[data-view=\"ofrp\"]",
-    "action": "ofrp",
-    "launchLabel": "Open OFRP Review",
-    "why": "Phase changes can change a group’s composition.",
-    "do": "Review the same ships grouped by their baseline phase and inspect phase transitions.",
-    "look": "Actual comparison intervals and missing baselines remain visible.",
-    "tip": "A recorded phase association does not prove causation."
-  },
-  {
-    "id": "explorer",
-    "title": "What evidence supports the change?",
-    "category": "Evidence Search",
-    "selector": "[data-view=\"explorer\"]",
-    "action": "explorer",
-    "launchLabel": "Open Evidence Search",
-    "why": "Every briefing needs a way back to records.",
-    "do": "Filter retained activity by ship, person, month, or exact recorded watch date.",
-    "look": "Exported rows match the selected evidence filters.",
-    "tip": "Month-only and undated activity are not exact-day evidence."
-  },
-  {
-    "id": "backup",
-    "title": "Preserve the command record",
-    "category": "Handoff",
-    "selector": "[data-view=\"imports\"]",
-    "action": "backup",
-    "launchLabel": "Export Fleet Backup",
-    "why": "Retained observations support future comparisons.",
-    "do": "Review Upload History, export the selected CO brief or evidence CSV, and retain a Fleet Backup.",
-    "look": "The existing save status reports local and SharePoint synchronization.",
-    "tip": "Current-source summaries and period-change briefs answer different questions."
-  }
+  { id:"import", title:"Import Ship Data", category:"Start", selector:"#drop-zone", action:"import", launchLabel:"Import WAKE Data", why:"WAKE Fleet accepts each ship's WAKE CSV export or WAKE JSON working copy.", do:"Import one file per ship. The OFRP phase must be Basic, Advanced, Integrated, Sustainment, or Maintenance. Re-importing later exports creates snapshots for history without duplicating bridge logs.", look:"The import report should show source type, ship, phase, bridge officers, bridge logs, snapshots, and movement events.", tip:"Use repeated exports over time to build all-time level-up and lost-currency history." },
+  { id:"dashboard", title:"Fleet Overview", category:"Leader Home", selector:"[data-walkthrough-step='dashboard']", action:"dashboard", launchLabel:"Open Overview", why:"This is the high-level fleet picture across imported bridge watchstanders.", do:"Start with the simple fleet figures and level distribution, then use the shortcuts for deeper review.", look:"The overview stays aggregated and data-first. Ship names appear in Ship List or after a category drilldown.", tip:"Overview numbers remain bridge-only and do not change imported WAKE data." },
+  { id:"performance", title:"Watchstander Decision Board", category:"Command View", selector:"button[data-view='performance']", action:"performance", launchLabel:"Open Decision Board", why:"This board shows which ships are short on qualified senior watchstander depth and which ships are setting the fleet benchmark.", do:"Scan the qualified-depth map first, then use the level ladder to understand the watchstander mix behind each ship.", look:"The map runs from red in the lower-left to green in the upper-right. Dashed lines are weighted fleet averages, marker size is the imported watchstander population, and every ship mark opens its full data.", tip:"Red ships need support on both qualified share and Level 2+ depth; green ships are potential benchmark and mentoring sources. Orange and yellow identify the specific measure that needs work." },
+  { id:"evolutions", title:"Fleet Evolutions", category:"Training Activity", selector:"#admin-evolutions-btn", action:"evolutions", launchLabel:"Open Evolutions", why:"This workspace compares average evolution activity and fleet participation across the standard WAKE/TORIS evolution catalog.", do:"Compare average-height bars and use the red, orange, yellow, and green coverage key to find fleet gaps.", look:"Bar height is the average distinct sessions per imported ship. Participating watchstanders in the same date and watch period count together, while separate same-day periods remain separate. Bar color is the percentage of imported ships with at least one occurrence, including red zero-coverage evolutions.", tip:"Use the table below the chart for each average, ship-coverage percentage, source, and latest date." },
+  { id:"heatmaps", title:"Ship List", category:"Ship Scan", selector:"[data-walkthrough-step='heatmap-list']", action:"heatmaps", launchLabel:"Open Ship List", why:"The Ship List is the detailed horizontal table for ship-by-ship evidence.", do:"Filter the list as needed, then click anywhere on a ship row to open that ship.", look:"Each ship occupies one row with L0 through L3 plus Unclassified, currency, qualification, ROR, hours, logs, and outcome data shown across the page.", tip:"Use Ship List when the fleet overview needs ship-by-ship detail." },
+  { id:"ship", title:"Ship Drilldown", category:"Ship Detail", selector:".ship-list-table", action:"ship", launchLabel:"Open First Ship", why:"The ship view connects fleet analytics to an individual ship's overall data and supporting evidence.", do:"Open a ship row to see its full-width level distribution and overall data, then use the ship actions for roster, logs, ROR, activity, OFRP context, or history.", look:"The default ship screen stays on summary figures; detailed roster and evidence open only when requested.", tip:"Use the action buttons at the top of the ship view for supporting records." },
+  { id:"ofrp", title:"OFRP Phase Comparison", category:"Phase", selector:"button[data-view='ofrp']", action:"ofrp", launchLabel:"Open OFRP Analysis", why:"This view compares the OFRP phases on the same weighted watchstander measures.", do:"Compare the baseline bars, level-mix chart, and phase relationship map, then select any phase to open its ships.", look:"Each phase rate is weighted by its watchstanders; the marker in each comparison bar is the weighted fleet baseline.", tip:"Use the relationship map to separate a phase-level pattern from a single-ship problem, then drill into the filtered Ship List." },
+  { id:"explorer", title:"All Data Explorer", category:"Evidence", selector:"button[data-view='explorer']", action:"explorer", launchLabel:"Open Explorer", why:"The explorer exposes every imported bridge watch row for filtering and export.", do:"Filter by ship, phase, month, watchstation, level, currency, area, traffic, or text search.", look:"Use filtered export when staff needs a focused data pull.", tip:"The explorer uses deduplicated latest bridge log rows." },
+  { id:"backup", title:"Exports And History", category:"Protect Work", selector:"#admin-export-btn", action:"backup", launchLabel:"Export Backup", why:"WAKE Fleet stores data offline in browser storage and IndexedDB, and can export leader-ready products.", do:"Use Export Backup for data protection, Full Fleet CSV for analysis, and Current Status PDF for a polished WAKE-logo brief.", look:"Snapshots and history events are included in backup JSON; full CSV includes ship, officer, watch log, and phase summary rows.", tip:"The import report is the audit trail for what changed." }
 ];
 
 function h(value) {
@@ -11305,34 +11226,7 @@ function fleetAggregateMetrics(metrics) {
 }
 
 function homeCommandRibbon() {
-  const hasData = allShips().length > 0;
-  const quality = fleetDataQuality(allShipMetrics());
-  return "<div class=\"card overview-start-card admin-command-card\" data-walkthrough-step=\"dashboard\">" +
-    "<div class=\"overview-start-head\">" +
-      "<div class=\"overview-start-title\"><h2>Data &amp; reports</h2><p>" + h(hasData ? "Refresh ship data or open a fleet workflow." : "Import fleet data first, then use the common review tools.") + "</p></div>" +
-      "<div class=\"overview-start-actions\">" +
-        "<button class=\"btn btn-export start-primary\" id=\"admin-import-btn\" type=\"button\">Import WAKE Data</button>" +
-        "<button class=\"start-secondary start-backup\" id=\"admin-export-btn\" type=\"button\">Export Backup</button>" +
-        "<button class=\"start-secondary\" id=\"admin-roster-btn\" type=\"button\" data-view=\"heatmaps\">Ship Progress</button>" +
-        "<button class=\"start-secondary\" id=\"admin-decision-btn\" type=\"button\" data-view=\"performance\">Currency &amp; Recovery</button>" +
-        "<button class=\"start-secondary\" id=\"admin-evolutions-btn\" type=\"button\" data-view=\"evolutions\">Training Evidence</button>" +
-        "<button class=\"start-secondary\" id=\"admin-ofrp-btn\" type=\"button\" data-view=\"ofrp\">OFRP Review</button>" +
-        "<details class=\"more-actions\"><summary class=\"start-secondary\">More Actions</summary><div class=\"more-actions-menu\">" +
-          "<button class=\"admin-command-btn\" id=\"coach-btn\" type=\"button\">Interactive Coach<span>Guided fleet workflow</span></button>" +
-          "<button class=\"admin-command-btn\" type=\"button\" data-view=\"references\">References / User Guide<span>Metric definitions and workflow notes</span></button>" +
-          "<button class=\"admin-command-btn\" id=\"admin-data-btn\" type=\"button\" data-view=\"explorer\">Evidence Search<span>Filter and export imported bridge rows</span></button>" +
-          "<button class=\"admin-command-btn\" id=\"admin-import-report-btn\" type=\"button\" data-view=\"imports\">Upload History<span>Validation results and file summaries</span></button>" +
-          "<button class=\"admin-command-btn\" id=\"restore-btn\" type=\"button\">Import Fleet Backup<span>Restore a saved WAKE Fleet working copy</span></button>" +
-          "<button class=\"admin-command-btn\" id=\"full-csv-btn\" type=\"button\">Export Full Fleet CSV<span>Ship, officer, log, and phase rows</span></button>" +
-          "<button class=\"admin-command-btn\" id=\"pdf-report-btn\" type=\"button\">Export Current Source Summary<span>Current-source supporting figures</span></button>" +
-          "<button class=\"admin-command-btn\" id=\"filtered-export-btn\" type=\"button\">Export Filtered Rows<span>Current All Data Explorer rows</span></button>" +
-          "<button class=\"admin-command-btn danger\" id=\"clear-btn\" type=\"button\">Clear Uploaded Data<span>Reset local fleet data</span></button>" +
-        "</div></details>" +
-      "</div>" +
-    "</div>" +
-    "<label class=\"drop-zone\" id=\"drop-zone\" for=\"file-input\"><strong>Import WAKE ship data</strong><span>Drag and drop WAKE CSV exports or WAKE JSON working copies here - or click to browse. Accepted OFRP phases: Basic, Advanced, Integrated, Sustainment, or Maintenance.</span></label>" +
-    dataHealthStrip(quality) +
-  "</div>";
+  return classicHomeCommandRibbon();
 }
 
 function ribbonButton(title, subtitle, targetId) {
@@ -11814,7 +11708,7 @@ function ofrpImpactSnapshot(metrics) {
 }
 
 function renderPerformance() {
-  commandRenderRecovery();
+  classicRenderPerformance();
 }
 
 function performanceGraph(metrics) {
@@ -12174,61 +12068,7 @@ function ultrawideNoDataRail(title) {
 }
 
 function ultrawideFleetLens(rows, aggregate) {
-  const normalized = phaseNormalizedMetrics(rows || []);
-  const quality = fleetDataQuality(normalized);
-  const movement = leadershipMovementSummary();
-  const lowestLevel2 = normalized.slice().sort((a,b) => asNumber(a.level2Plus) - asNumber(b.level2Plus) || String(a.ship).localeCompare(String(b.ship)));
-  const lowestQualification = normalized.slice().sort((a,b) => asNumber(a.qualRate) - asNumber(b.qualRate) || String(a.ship).localeCompare(String(b.ship)));
-  const activityDepth = normalized.slice().sort((a,b) => asNumber(b.logsPerOfficer) - asNumber(a.logsPerOfficer) || String(a.ship).localeCompare(String(b.ship)));
-  const core =
-    ultrawideRailStats([
-      { label:"Current", value:aggregate.officers ? pct(aggregate.current / aggregate.officers) : "N/A", detail:aggregate.current + " of " + aggregate.officers, attrs:figureAttrs("Current", aggregate.officers ? pct(aggregate.current / aggregate.officers) : "N/A", aggregate.current + " of " + aggregate.officers + " watchstanders", "fleet", "", "ultrawide") },
-      { label:"Level 2+", value:aggregate.officers ? pct(aggregate.level2PlusPeople / aggregate.officers) : "N/A", detail:aggregate.level2PlusPeople + " people", attrs:figureAttrs("Level 2+", aggregate.officers ? pct(aggregate.level2PlusPeople / aggregate.officers) : "N/A", aggregate.level2PlusPeople + " at Level 2 or 3", "fleet", "", "ultrawide") },
-      { label:"Ship Qualified", value:aggregate.officers ? pct(aggregate.shipQual / aggregate.officers) : "N/A", detail:aggregate.shipQual + " people", attrs:figureAttrs("Ship Qualified", aggregate.officers ? pct(aggregate.shipQual / aggregate.officers) : "N/A", aggregate.shipQual + " ship-qualified watchstanders", "fleet", "", "ultrawide") },
-      { label:"ROR Coverage", value:aggregate.officers ? pct(aggregate.rorCurrent / aggregate.officers) : "N/A", detail:aggregate.rorCurrent + " current", attrs:figureAttrs("ROR Coverage", aggregate.officers ? pct(aggregate.rorCurrent / aggregate.officers) : "N/A", aggregate.rorCurrent + " with current ROR", "fleet", "", "ultrawide") }
-    ]) +
-    ultrawideMiniBarChart("Currency Posture", [
-      { label:"Current", value:aggregate.current, max:aggregate.officers, display:aggregate.current, tone:"good", attrs:figureAttrs("Current", aggregate.current, aggregate.officers ? pct(aggregate.current / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") },
-      { label:"Requires Proficiency Watch", value:aggregate.need, max:aggregate.officers, display:aggregate.need, tone:"warn", attrs:figureAttrs("Requires Proficiency Watch", aggregate.need, aggregate.officers ? pct(aggregate.need / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") },
-      { label:"Lost Currency", value:aggregate.loss, max:aggregate.officers, display:aggregate.loss, tone:"bad", attrs:figureAttrs("Lost Currency", aggregate.loss, aggregate.officers ? pct(aggregate.loss / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") },
-      { label:"Unknown", value:aggregate.unknown, max:aggregate.officers, display:aggregate.unknown, attrs:figureAttrs("Unknown Currency", aggregate.unknown, aggregate.officers ? pct(aggregate.unknown / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") }
-    ], "Counts use the imported fleet watchstander denominator.") +
-    ultrawideRailSection("Lowest Level 2+ Share", ultrawideShipEntries(lowestLevel2, row => pct(row.level2Plus), row => row.phase, 6)) +
-    ultrawideRailSection("Open full comparison", "<button class=\"btn secondary\" type=\"button\" data-view=\"performance\">Currency &amp; Recovery</button>");
-  const tierTwo =
-    ultrawideRailStats([
-      { label:"Requires Proficiency Watch", value:aggregate.need, detail:aggregate.officers ? pct(aggregate.need / aggregate.officers) : "N/A", attrs:figureAttrs("Requires Proficiency Watch", aggregate.need, aggregate.officers ? pct(aggregate.need / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") },
-      { label:"Lost Currency", value:aggregate.loss, detail:aggregate.officers ? pct(aggregate.loss / aggregate.officers) : "N/A", attrs:figureAttrs("Lost Currency", aggregate.loss, aggregate.officers ? pct(aggregate.loss / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") }
-    ]) +
-    ultrawideRailSection("Lowest Ship Qualification Rate", ultrawideShipEntries(lowestQualification, row => pct(row.qualRate), row => row.phase, 7), "Ship-qualified watchstanders divided by imported bridge watchstanders.");
-  const tierThree =
-    ultrawideRailStats([
-      { label:"Bridge Logs", value:aggregate.logs.toLocaleString(), detail:fmt(aggregate.logsPerOfficer,1) + " per watchstander", attrs:figureAttrs("Bridge Logs", aggregate.logs.toLocaleString(), "All imported bridge watch logs", "fleet", "", "ultrawide") },
-      { label:"Bridge Hours", value:fmt(aggregate.totalHours,1), detail:fmt(aggregate.avgHours,1) + " per watchstander", attrs:figureAttrs("Bridge Hours", fmt(aggregate.totalHours,1), "Cumulative imported bridge hours", "fleet", "", "ultrawide") }
-    ]) +
-    ultrawideRailSection("Highest Logs per Watchstander", ultrawideShipEntries(activityDepth, row => fmt(row.logsPerOfficer,1), row => row.phase + " · logs / person", 8), "Imported bridge logs divided by imported bridge watchstanders.");
-  const tierFour =
-    ultrawideRailStats([
-      { label:"Data Confidence", value:quality.label, detail:quality.coverageText },
-      { label:"Stale / Unverified", value:quality.staleShips.length, detail:quality.staleAfterDays + "-day threshold" },
-      { label:"Comparable Ships", value:quality.comparableShips, detail:"With snapshot pairs" },
-      { label:"L2 Gained / Reduced", value:movement.level2Gained + " / " + movement.level2Reduced, detail:"Latest comparable snapshots" }
-    ]) +
-    ultrawideRailSection("Freshness Review", ultrawideRailEntries((quality.staleShips || []).slice(0,9).map(ship => ({
-      label:ship.name,
-      meta:ship.sourceGeneratedAt ? fleetDateTime(ship.sourceGeneratedAt) : "Source timestamp missing",
-      value:ship.phase || "Unspecified",
-      attrs:" data-open-ship=\"" + h(keyFor(ship.name)) + "\""
-    })), "No stale or unverified ship exports."));
-  return ultrawideWorkspaceRail(
-    "Fleet Lens",
-    "Direct fleet measures, currency posture, qualification, and activity remain beside the overview.",
-    core,
-    tierTwo,
-    tierThree,
-    "ultrawide-fleet-lens",
-    tierFour
-  );
+  return classicUltrawideFleetLens(rows, aggregate);
 }
 
 function ultrawideDecisionBoardRail(metrics) {
@@ -12623,32 +12463,7 @@ function ultrawideImportsRail(reports) {
 }
 
 function ultrawideReferencesRail() {
-  const metrics = allShipMetrics();
-  const levelTotals = ["0","1","2","3"].map(level => ({
-    level,
-    count:metrics.reduce((sum,row) => sum + asNumber(row.levels && row.levels[level]),0)
-  }));
-  const watchstanders = metrics.reduce((sum,row) => sum + asNumber(row.officerCount),0);
-  const core =
-    ultrawideRailSection("Quick Navigation", "<div class=\"ultrawide-rail-link-grid\"><button class=\"btn secondary\" type=\"button\" data-view=\"dashboard\">Fleet Overview</button><button class=\"btn secondary\" type=\"button\" data-view=\"heatmaps\">Ship Progress</button><button class=\"btn secondary\" type=\"button\" data-view=\"evolutions\">Training Evidence</button><button class=\"btn secondary\" type=\"button\" data-view=\"ofrp\">OFRP Review</button></div>") +
-    ultrawideMiniBarChart("Live Fleet Level Distribution", levelTotals.map(row => ({
-      label:"L" + row.level,
-      value:row.count,
-      max:watchstanders,
-      display:row.count,
-      attrs:" data-open-fleet-level=\"" + h(row.level) + "\""
-    })), "Current imported watchstanders at each WAKE level.") +
-    ultrawideRailSection("Primary denominator", "<p class=\"ultrawide-rail-note\">Fleet rates use imported bridge watchstanders. OFRP rates use watchstanders assigned to each ship's currently reported phase.</p>");
-  const tierTwo =
-    ultrawideRailSection("Metric Guardrails", "<p class=\"ultrawide-rail-note\">Current, Requires Proficiency Watch, and Lost Currency come from imported currency evidence. Level 2+ is Level 2 plus Level 3. Approaching is an hours-based indicator, not proof of advancement eligibility.</p>") +
-    ultrawideRailSection("Evolution Counting", "<p class=\"ultrawide-rail-note\">Watchstanders on the same ship, date, and watch period count together. Separate periods on the same day remain separate occurrences.</p>");
-  const tierThree =
-    ultrawideRailSection("Evidence Workflow", "<div class=\"ultrawide-rail-link-grid\"><button class=\"btn secondary\" type=\"button\" data-view=\"performance\">Currency &amp; Recovery</button><button class=\"btn secondary\" type=\"button\" data-view=\"explorer\">All Data Explorer</button><button class=\"btn secondary\" type=\"button\" data-view=\"imports\">Import Report</button></div>") +
-    ultrawideRailSection("Data Handling", "<p class=\"ultrawide-rail-note\">Names, watch records, and exported products remain command data. Use the visible timestamps and warnings when evaluating completeness.</p>");
-  const tierFour =
-    ultrawideRailSection("Command Workflow", "<div class=\"ultrawide-rail-link-grid\"><button class=\"btn secondary\" type=\"button\" data-view=\"ships\">Current Ship View</button><button class=\"btn secondary\" type=\"button\" data-view=\"performance\">Qualified Depth</button><button class=\"btn secondary\" type=\"button\" data-view=\"evolutions\">Evolution Coverage</button><button class=\"btn secondary\" type=\"button\" data-view=\"imports\">Data Confidence</button></div>") +
-    ultrawideRailSection("SharePoint Boundary", "<p class=\"ultrawide-rail-note\">Large-screen presentation changes do not alter the configured SharePoint lists, persistence payload, or live polling cadence.</p>");
-  return ultrawideWorkspaceRail("Reference Desk", "Workflow shortcuts, live level distribution, and calculation guardrails stay beside the full guide.", core, tierTwo, tierThree, "", tierFour);
+  return classicUltrawideReferencesRail();
 }
 
 function shipDataPosture(m) {
@@ -12698,11 +12513,7 @@ function fleetDataPosturePanel(metrics) {
 }
 
 function renderDashboard() {
-  const host = document.getElementById("view-dashboard");
-  const rows = categorizedShipMetrics(allShipMetrics());
-  const aggregate = fleetAggregateMetrics(rows);
-  host.innerHTML = commandWorkspace() + homeCommandRibbon() + (allShips().length
-    ? '<details class="command-supporting"><summary>Supporting current-source totals: levels, training outcomes, and recorded activity</summary>' + fleetOverviewFigures(rows, aggregate) + assessmentOutcomePanel(aggregate, rows) + '</details>' : '');
+  compactRenderDashboard();
 }
 
 function fleetImportStatusPanel() {
@@ -12935,7 +12746,7 @@ function movementScore(m) {
 }
 
 function renderHeatMaps() {
-  commandRenderShipList();
+  classicRenderHeatMaps();
 }
 
 function openShipListWithFilters(filters) {
@@ -13474,7 +13285,7 @@ function evolutionTable(rows, includeShips, fleetShipCount, shipKey) {
 }
 
 function renderEvolutions() {
-  commandRenderTraining();
+  classicRenderEvolutions();
 }
 
 function sortRows(rows, tableId, fallbackField, numericFields) {
@@ -13620,7 +13431,7 @@ function openShipView(shipKey) {
 }
 
 function renderShips() {
-  commandRenderShipDetail();
+  compactRenderShips();
 }
 
 function shipProfileHero(m) {
@@ -13638,19 +13449,7 @@ function shipProfileHero(m) {
 }
 
 function shipProfileSummary(m) {
-  const total = Math.max(0, asNumber(m.officerCount));
-  const level2Plus = asNumber(m.levels && m.levels['2']) + asNumber(m.levels && m.levels['3']);
-  return '<section class="card ship-profile-summary"><div class="ship-profile-summary-head"><div><h3>Overall Ship Data</h3><p>Current ship status and observed proficiency progression. Monthly hours and evolution evidence appear in the activity history.</p></div></div><div class="ship-profile-data-grid">' +
-    shipProfileStat('Watchstanders', total, m.bridgeWatchstanders + ' bridge watchstanders', 'blue') +
-    shipProfileStat('Current', total ? pct(m.current / total) : 'N/A', m.current + ' of ' + total, 'blue') +
-    shipProfileStat('Unknown Currency', m.unknown, m.unknown ? 'Missing or invalid currency evidence' : 'All currency records assessed', m.unknown ? 'warn' : 'blue') +
-    shipProfileStat('Level 2+', total ? pct(level2Plus / total) : 'N/A', level2Plus + ' at Level 2 or 3', 'blue') +
-    shipProfileStat('ROR Coverage', total ? pct(m.rorRate) : 'N/A', m.rorCurrent + ' with current ROR', 'blue') +
-    shipProfileStat('Average Hours', fmt(m.avgHours,1), 'Cumulative bridge hours per watchstander', 'blue') +
-    shipProfileStat('All-Time Level Ups', m.allTimeLevelUps, 'Recorded across snapshots', 'good') +
-    shipProfileStat('All-Time Lost Currency', m.allTimeLost, 'Unique watchstanders seen with lost currency', m.allTimeLost ? 'bad' : 'good') +
-    shipProfileStat('Currency Restored', m.restoredProficiency, 'Recorded recoveries', 'good') +
-    '</div></section>';
+  return classicShipProfileSummary(m);
 }
 
 function shipProfileStat(label, value, detail, tone) {
@@ -14002,7 +13801,7 @@ function ofrpCompleteDataTable(rows) {
 }
 
 function renderOfrp() {
-  commandRenderOfrp();
+  classicRenderOfrp();
 }
 
 function filterOptions(field) {
@@ -14010,7 +13809,7 @@ function filterOptions(field) {
 }
 
 function renderExplorer() {
-  commandRenderExplorer();
+  classicRenderExplorer();
 }
 
 function selectFilter(id, label, options) {
@@ -14701,11 +14500,11 @@ function historyTable(ship) {
 }
 
 function renderImports() {
-  commandRenderImports();
+  classicRenderImports();
 }
 
 function renderReferences() {
-  commandRenderReferences();
+  classicRenderReferences();
 }
 
 function referenceGuideCard(title, lines) {
@@ -15147,6 +14946,7 @@ function switchView(view) {
     else btn.removeAttribute("aria-current");
   });
   if (host && previousView !== currentView) {
+    window.scrollTo({top:0,left:0,behavior:"instant"});
     requestAnimationFrame(() => {
       const heading = host.querySelector(".view-title, h1, h2");
       if (!heading) return;
@@ -15330,6 +15130,8 @@ function attachEvents() {
   attachCommandFleetEvents();
   attachCommandActionEvents();
   attachCommandEvidenceEvents();
+  attachCompactFleetEvents();
+  attachActivityDrilldownEvents();
   // END CO event hooks
   observeGeneratedButtonTypes();
   document.addEventListener("submit", event => {
@@ -16097,7 +15899,8 @@ const COMMAND_CHANGE_LABELS = { lost:"Lost currency", restored:"Restored to curr
 
 function commandDateLabel(value) {
   if (!value) return "Unavailable";
-  const date = new Date(String(value).slice(0,10) + "T12:00:00Z");
+  const raw = value instanceof Date ? value.toISOString() : typeof value === "number" ? new Date(value).toISOString() : String(value);
+  const date = new Date(raw.slice(0,10) + "T12:00:00Z");
   return Number.isFinite(date.getTime()) ? date.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"}) : "Unavailable";
 }
 
@@ -16351,13 +16154,18 @@ let commandFleetFilters={phase:"",search:""};
 const commandShipActivitySelections={};
 
 function commandActivityMonth(log) {
+  const day=commandWatchDateInfo(log).day;
+  if(day){const key=day.slice(0,7);return {key,label:new Date(key+"-01T12:00:00Z").toLocaleDateString(undefined,{month:"short",year:"numeric",timeZone:"UTC"})};}
   const candidates=[log&&log.month,log&&log.watchDate,log&&log.dateLogged,log&&log.meta&&log.meta.watchDate,log&&log.meta&&log.meta.dateLabel];
   for(const candidate of candidates){
     const raw=String(candidate||'').trim();
     if(!raw)continue;
     let time=NaN;
     if(/^\d{4}-\d{2}$/.test(raw)) time=Date.parse(raw+'-01T12:00:00Z');
-    else if(/^\d{4}-\d{2}-\d{2}/.test(raw)) time=Date.parse(raw.slice(0,10)+'T12:00:00Z');
+    else if(/^\d{4}-\d{2}-\d{2}/.test(raw)) {
+      if(commandTimestamp(raw.slice(0,10))==null)continue;
+      time=Date.parse(raw.slice(0,10)+'T12:00:00Z');
+    }
     else time=Date.parse('1 '+raw+' 12:00:00Z');
     if(!Number.isFinite(time))continue;
     const date=new Date(time);
@@ -16373,18 +16181,31 @@ function commandLatestWatch(ship) {
     const raw=String(evidence.raw||'').trim();
     const sourceTime=Date.parse(raw);
     const hasTime=/(?:T|\s)\d{1,2}:\d{2}|\b\d{4}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])\d{4,6}\b/.test(raw);
-    return {log,evidence,raw,hasTime,time:Number.isFinite(sourceTime)?sourceTime:Date.parse(evidence.day+'T12:00:00Z')};
-  }).filter(Boolean).sort((a,b)=>b.time-a.time);
+    return {log,evidence,raw,hasTime,time:hasTime&&Number.isFinite(sourceTime)?sourceTime:Date.parse(evidence.day+'T00:00:00Z')};
+  }).filter(item=>item&&item.time<=Date.now()).sort((a,b)=>b.time-a.time);
   if(!candidates.length)return {available:false,label:'No recorded watch date',detail:'No retained bridge-watch row has an exact calendar day.'};
   const latest=candidates[0];
   const label=latest.hasTime&&latest.raw?latest.raw:commandDateLabel(latest.evidence.day)+' · time not captured';
   return {available:true,label,detail:(latest.log.officer?latest.log.officer+' · ':'')+(latest.log.watchstation||'Watchstation not recorded')+' · '+(latest.hasTime?'recorded source time':'recorded day only'),day:latest.evidence.day,log:latest.log};
 }
 
+function commandRecordedActivityLogs(ship) {
+  const now=Date.now(),day=new Date(now).toISOString().slice(0,10),month=day.slice(0,7);
+  return historicalActivityLogsForShip(ship).filter(log=>{
+    const evidence=commandWatchDateInfo(log),period=commandActivityMonth(log);
+    if(evidence.day&&evidence.day>day)return false;
+    if(!evidence.day&&period&&period.key>month)return false;
+    const timed=/(?:T|\s)\d{1,2}:\d{2}/.test(evidence.raw||'');
+    const timestamp=timed?Date.parse(evidence.raw):NaN;
+    return !Number.isFinite(timestamp)||timestamp<=now;
+  });
+}
+
 function commandShipActivityModel(ship) {
   const buckets=new Map();
-  let excludedLogs=0;
-  historicalActivityLogsForShip(ship).forEach(log=>{
+  const activity=commandRecordedActivityLogs(ship);
+  let excludedLogs=historicalActivityLogsForShip(ship).length-activity.length;
+  activity.forEach(log=>{
     const month=commandActivityMonth(log);
     if(!month){excludedLogs++;return;}
     if(!buckets.has(month.key)) buckets.set(month.key,{key:month.key,label:month.label,logs:[],hours:0,people:new Set()});
@@ -16394,7 +16215,8 @@ function commandShipActivityModel(ship) {
     const person=String(log&&log.officer||'').trim();
     if(person)row.people.add(keyFor(person));
   });
-  const keys=Array.from(buckets.keys()).sort();
+  const requestedMonth=commandShipActivitySelections[keyFor(ship&&ship.name)];
+  const keys=Array.from(new Set([...buckets.keys(),...(/^\d{4}-\d{2}$/.test(requestedMonth||'')?[requestedMonth]:[])])).sort();
   const rows=[];
   if(keys.length){
     const cursor=new Date(keys[0]+'-01T12:00:00Z');
@@ -16416,18 +16238,18 @@ function commandShipActivityModel(ship) {
 
 function commandShipActivityPanel(ship) {
   const model=commandShipActivityModel(ship);
-  if(!model.rows.length) return '<section class="command-panel command-ship-activity"><div class="command-section-heading"><div><span class="section-kicker">Monthly activity history</span><h2>Hours and evolutions by month</h2><p>Each imported bridge-watch row needs a usable calendar month before it can appear here.</p></div></div>'+emptyState('No dated monthly bridge-watch activity is retained for this ship.')+'</section>';
+  const lastWatchLabel=model.lastWatch.available&&model.lastWatch.log&&/(?:T|\s)\d{1,2}:\d{2}/.test(model.lastWatch.label)?new Date(model.lastWatch.label).toLocaleString(undefined,{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZone:'UTC',timeZoneName:'short'}):model.lastWatch.label;
+  const lastWatch='<article class="command-last-watch"><span>Last watch conducted</span><strong title="'+h(model.lastWatch.label)+'">'+h(lastWatchLabel)+'</strong><small>'+h(model.lastWatch.detail)+'</small></article>';
+  if(!model.rows.length)return '<section class="card command-ship-activity"><h3>Monthly activity</h3>'+lastWatch+emptyState('No dated watch logs.')+'</section>';
   const selected=model.selected;
-  const selection='<label class="command-activity-selector" for="command-activity-month-'+h(keyFor(ship.name))+'">Inspect a past month<select id="command-activity-month-'+h(keyFor(ship.name))+'" data-command-activity-select="'+h(keyFor(ship.name))+'">'+model.rows.map(row=>'<option value="'+h(row.key)+'"'+(selected&&selected.key===row.key?' selected':'')+'>'+h(row.label)+(row.hasRecordedActivity?'':' · no recorded activity')+'</option>').join('')+'</select></label>';
-  const lastWatch='<article class="command-last-watch"><span>Last watch conducted</span><strong>'+h(model.lastWatch.label)+'</strong><small>'+h(model.lastWatch.detail)+'</small></article>';
-  const chart='<div class="command-activity-chart" role="list" aria-label="Chronological recorded bridge hours and evolution occurrences">'+model.rows.map(row=>{
-    const height=Math.max(row.hours?12:3,Math.round(row.hours/model.maxHours*100));
-    const active=selected&&selected.key===row.key;
-    const description=row.label+': '+fmt(row.hours,1)+' recorded bridge hours; '+row.evolutions+' evolution occurrence'+(row.evolutions===1?'':'s')+(row.hasRecordedActivity?'':' ; no recorded activity');
-    return '<button type="button" class="command-activity-bar'+(active?' selected':'')+'" data-command-activity-month="'+h(row.key)+'" data-command-activity-ship="'+h(keyFor(ship.name))+'" aria-pressed="'+(active?'true':'false')+'" title="'+h(description)+'" aria-label="'+h(description)+'"><span class="command-activity-hours" style="height:'+height+'%"><strong>'+h(fmt(row.hours,1))+' h</strong></span><span class="command-activity-evolutions">'+(row.evolutions?'◆ '+h(row.evolutions):'—')+'</span><span class="command-activity-label">'+h(row.label)+'</span></button>';
+  const selection='<label class="command-activity-selector">Month<select data-command-activity-select="'+h(keyFor(ship.name))+'">'+model.rows.map(row=>'<option value="'+h(row.key)+'"'+(selected.key===row.key?' selected':'')+'>'+h(row.label)+'</option>').join('')+'</select></label>';
+  const chart='<div class="command-activity-chart" aria-label="Monthly hours and evolutions">'+model.rows.map(row=>{
+    const height=Math.max(row.hours?8:1,Math.round(row.hours/model.maxHours*100));
+    const active=selected.key===row.key;
+    const description=row.label+': '+fmt(row.hours,1)+' hours; '+row.evolutions+' evolutions'+(row.hasRecordedActivity?'':'; no recorded activity');
+    return '<button type="button" class="command-activity-bar'+(active?' selected':'')+'" data-command-activity-month="'+h(row.key)+'" data-command-activity-ship="'+h(keyFor(ship.name))+'" aria-pressed="'+active+'" aria-label="'+h(description)+'"><span class="command-activity-hours" style="height:'+height+'%"><strong>'+h(fmt(row.hours,1))+' h</strong></span><span class="command-activity-evolutions">◆ '+h(row.evolutions)+'</span><span class="command-activity-label">'+h(row.label)+'</span></button>';
   }).join('')+'</div>';
-  const evolutionList=selected.evolutionRows.length?'<ul class="command-evolution-list">'+selected.evolutionRows.map(row=>'<li><span>'+h(row.label)+'</span><strong>'+h(row.count)+'</strong></li>').join('')+'</ul>':'<p class="command-note">No evolution occurrence is recorded for the selected month. That does not establish that no evolution was conducted.</p>';
-  return '<section class="command-panel command-ship-activity"><div class="command-section-heading"><div><span class="section-kicker">Monthly activity history</span><h2>Hours logged and evolutions conducted</h2><p>Bars show retained bridge-watch hours in chronological order. The diamond count shows distinct recorded evolution occurrences for that month.</p></div>'+selection+'</div>'+lastWatch+chart+'<div class="command-activity-detail"><div><span class="section-kicker">Selected month · '+h(selected.label)+'</span><h3>'+h(fmt(selected.hours,1))+' recorded bridge hours</h3><p>'+h(selected.logCount)+' recorded watch row'+(selected.logCount===1?'':'s')+' · '+h(selected.people)+' person'+(selected.people===1?'':'s')+' represented · '+h(selected.evolutions)+' evolution occurrence'+(selected.evolutions===1?'':'s')+'.</p></div><div><h3>Evolutions recorded</h3>'+evolutionList+'</div></div>'+(model.excludedLogs?'<p class="command-note">'+h(model.excludedLogs)+' retained bridge-watch row'+(model.excludedLogs===1?' lacks':'s lack')+' a usable calendar month and '+(model.excludedLogs===1?'is':'are')+' excluded from the chart.</p>':'')+'<p class="command-note">Hours and evolution evidence come from retained bridge-watch records across accepted source imports. A zero, gap, or empty month means no matching retained row; it does not prove no underway activity or no training occurred.</p></section>';
+  return '<section class="card command-ship-activity"><div class="command-section-heading"><div><h2>Hours logged &amp; evolutions</h2><p>Hours by month · ◆ evolution sessions. Select a month for logs.</p></div>'+selection+'</div>'+lastWatch+chart+'<div class="command-activity-detail"><h3>'+h(selected.label)+' · '+h(fmt(selected.hours,1))+' hours · '+h(selected.evolutions)+' evolutions</h3>'+commandActivityDrilldownPanel(ship,selected.key)+'</div><p class="fleet-chart-note">'+(model.excludedLogs?h(model.excludedLogs)+' undated or future logs excluded. ':'')+'Blank months mean no retained activity evidence.</p></section>';
 }
 function commandPageHeading(kicker,title,description,actions) {
   return '<div class="command-page-heading"><div><span class="section-kicker">'+h(kicker)+'</span><h1 class="view-title">'+h(title)+'</h1><p>'+h(description)+'</p></div><div class="toolbar">'+(actions||'')+'</div></div>';
@@ -16451,17 +16273,7 @@ function commandRenderShipList() {
   host.innerHTML=commandPageHeading('Across the fleet','Which ships progressed, and which lost ground?','Compare observed losses, recoveries, and level changes. Read each ship’s actual source dates before comparing results.')+commandPeriodSummary()+controls+'<section class="command-panel" style="margin-top:18px">'+(ships.length?commandTable(['Ship / current phase','Latest source','Actual comparison','Losses / recoveries','Level up / down','L2+ before → after','Today: current / need / lost / unknown','Roster added / absent','Review'],rows):emptyState('No ships match. Import WAKE ship exports or adjust the filter.'))+'<p class="command-note">Today’s currency is aged from source evidence assuming no later watch. Counts have different roster sizes and source dates; this is not a readiness ranking. Level changes reflect recorded evidence and may include corrections.</p></section>';
 }
 function commandRenderShipDetail() {
-  const host=document.getElementById('view-ships'), ships=allShips();
-  if(!ships.length){host.innerHTML=commandPageHeading('Individual ship','How has this ship progressed?','Import a WAKE export to establish its first observation.')+emptyState('No ship evidence available.');return;}
-  if(!selectedShipKey||!state.ships[selectedShipKey])selectedShipKey=keyFor(ships[0].name);
-  const ship=state.ships[selectedShipKey], c=commandCompare(ship,commandFilters), current=commandCurrent(ship);
-  const selector='<label class="command-inline-label" for="ship-select">Ship<select id="ship-select">'+ships.map(item=>'<option value="'+h(keyFor(item.name))+'"'+(item===ship?' selected':'')+'>'+h(item.name)+'</option>').join('')+'</select></label>';
-  const entry={ship,comparison:c,current};
-  const emptyCounts=Object.fromEntries(Object.keys(COMMAND_CHANGE_LABELS).map(key=>[key,0]));
-  const from=c.requestedFrom||commandSubtractMonths(new Date().toISOString().slice(0,10),5), to=commandFilters.to||new Date().toISOString().slice(0,10);
-  const model={entries:[entry],comparable:c.available?[entry]:[],counts:c.available?c.observed.counts:emptyCounts,monthly:[{ship,data:commandMonthly(ship,from,to)}],from,to,now:new Date().toISOString()};
-  const lastThirty=commandLastThirtyModel([ship]);
-  host.innerHTML=commandPageHeading('Ship evidence review',ship.name,'See the direct last-30-day answer, recorded watch activity over time, and the evidence behind both.',selector)+commandLastThirtyPanel(lastThirty)+commandShipActivityPanel(ship)+commandCurrentPanel(model)+'<section class="command-panel"><div class="command-section-heading"><div><span class="section-kicker">Other historical comparison</span><h2>Explore a different comparison period</h2><p>Use this only for questions outside the direct last-30-day answer. It may span more than 30 days.</p></div></div>'+commandPeriodSummary()+commandSummaryCards(model)+commandComparisonTable(model)+commandMonthlyPanel(model)+'</section>'+'<section class="command-panel"><div class="command-section-heading"><div><span class="section-kicker">People behind the change</span><h2>Recorded transitions</h2><p>Roster differences remain separate from proficiency and currency movement.</p></div></div>'+commandEvidenceTable(model,'all')+'</section>'+commandSourcesPanel(model)+'<section class="command-panel"><div class="command-section-heading"><div><span class="section-kicker">WAKE evidence</span><h2>Inspect the source records</h2><p>Open the current imported roster, bridge watch evidence, or ROR evidence.</p></div></div><div class="command-link-grid">'+quickBtn(selectedShipKey,'roster','Current imported roster')+quickBtn(selectedShipKey,'logs','Bridge watch evidence')+quickBtn(selectedShipKey,'ror','ROR evidence')+'</div></section>';
+  compactRenderShips();
 }
 function commandRenderOfrp() {
   const host=document.getElementById('view-ofrp');
@@ -16486,13 +16298,13 @@ function attachCommandFleetEvents() {
   document.addEventListener('change',event=>{
     const shipKey=event.target.dataset&&event.target.dataset.commandActivitySelect;if(!shipKey)return;
     const host=document.getElementById('view-ships'), focus=captureRerenderFocus(host);
-    commandShipActivitySelections[shipKey]=event.target.value;commandRenderShipDetail();restoreRerenderFocus(host,focus);
+    commandShipActivitySelections[shipKey]=event.target.value;fleetCalendarSelection={month:event.target.value,baselineMonth:commandCalendarPreviousMonth(event.target.value)};commandRenderShipDetail();restoreRerenderFocus(host,focus);
   });
   document.addEventListener('click',event=>{
     const button=event.target.closest&&event.target.closest('[data-command-activity-month][data-command-activity-ship]');if(!button)return;
     event.preventDefault();
     const host=document.getElementById('view-ships'), focus=captureRerenderFocus(host);
-    commandShipActivitySelections[button.dataset.commandActivityShip]=button.dataset.commandActivityMonth;commandRenderShipDetail();restoreRerenderFocus(host,focus);
+    commandShipActivitySelections[button.dataset.commandActivityShip]=button.dataset.commandActivityMonth;fleetCalendarSelection={month:button.dataset.commandActivityMonth,baselineMonth:commandCalendarPreviousMonth(button.dataset.commandActivityMonth)};commandRenderShipDetail();restoreRerenderFocus(host,focus);
   });
 }
 
@@ -16974,6 +16786,751 @@ function attachCommandEvidenceEvents() {
     else if(action==='restore') { if(els.backupInput)els.backupInput.click(); }
     else if(action==='coverage') configureDataExpectations();
     else if(action==='full-csv') exportFullFleetCsv();
+  });
+}
+
+
+/* Calendar-month readiness comparisons. Source dates, not upload order, choose each month's observation. */
+function commandCalendarMonth(value) {
+  const month = String(value == null ? "" : value).trim();
+  return /^\d{4}-(?:0[1-9]|1[0-2])$/.test(month) && Number(month.slice(0, 4)) > 0 ? month : "";
+}
+
+function commandCalendarPreviousMonth(value) {
+  const month = commandCalendarMonth(value);
+  if (!month) return "";
+  const year = Number(month.slice(0, 4));
+  const number = Number(month.slice(5));
+  if (year === 1 && number === 1) return "";
+  return String(number === 1 ? year - 1 : year).padStart(4, "0") + "-" + String(number === 1 ? 12 : number - 1).padStart(2, "0");
+}
+
+function commandCalendarMonthLabel(value) {
+  const month = commandCalendarMonth(value);
+  if (!month) return "";
+  return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][Number(month.slice(5)) - 1] + " " + month.slice(0, 4);
+}
+
+function commandCalendarMonths(ship, nowISO) {
+  const timeline = commandTimeline(ship, commandNow(nowISO));
+  return Array.from(new Set(timeline.snapshots.map(item => item.date.slice(0, 7)))).sort();
+}
+
+function commandCalendarEndpoint(timeline, month) {
+  const observations = timeline.snapshots.filter(item => item.date.slice(0, 7) === month);
+  const wrapper = observations.length ? observations[observations.length - 1] : null;
+  return {
+    month,
+    label: commandCalendarMonthLabel(month),
+    available: !!wrapper,
+    observation: wrapper,
+    sourceDate: wrapper ? wrapper.date : "",
+    sourceAt: wrapper ? wrapper.at : "",
+    metrics: wrapper ? commandMetrics(wrapper.snapshot) : null,
+    observations,
+    reportCount: observations.length
+  };
+}
+
+function commandCalendarCompare(ship, options) {
+  const opts = options || {};
+  const now = commandNow(opts.nowISO);
+  const month = opts.month == null || opts.month === "" ? new Date(now).toISOString().slice(0, 7) : commandCalendarMonth(opts.month);
+  const baselineMonth = opts.baselineMonth == null || opts.baselineMonth === "" ? commandCalendarPreviousMonth(month) : commandCalendarMonth(opts.baselineMonth);
+  const timeline = commandTimeline(ship, now);
+  const empty = commandEmptyChanges();
+  const result = {
+    available: false,
+    reason: "",
+    mode: "calendar",
+    month,
+    baselineMonth,
+    monthLabel: commandCalendarMonthLabel(month),
+    baselineMonthLabel: commandCalendarMonthLabel(baselineMonth),
+    timeline,
+    baseline: null,
+    end: null,
+    before: null,
+    after: null,
+    baselinePeriod: commandCalendarEndpoint(timeline, baselineMonth),
+    period: commandCalendarEndpoint(timeline, month),
+    counts: empty.counts,
+    rows: empty.rows,
+    net: null,
+    matchedPeople: 0,
+    caveats: timeline.warnings.slice()
+  };
+  if (!month || !baselineMonth) { result.reason = "Choose valid calendar months."; return result; }
+  if (baselineMonth >= month) { result.reason = "Choose a baseline month before the selected month."; return result; }
+  result.baseline = result.baselinePeriod.observation;
+  result.end = result.period.observation;
+  result.before = result.baselinePeriod.metrics;
+  result.after = result.period.metrics;
+  const missing = [result.baselinePeriod, result.period].filter(period => !period.available).map(period => period.label);
+  if (missing.length) {
+    result.reason = "No dated source report for " + missing.join(" or ") + ".";
+    return result;
+  }
+  const changes = commandPair(result.baseline, result.end);
+  result.counts = changes.counts;
+  result.rows = changes.rows;
+  result.net = {};
+  ["officerCount", "current", "need", "loss", "unknown", "shipQual", "approaching", "totalHours", "totalQ", "totalUI"].forEach(key => {
+    result.net[key] = result.after[key] - result.before[key];
+  });
+  result.matchedPeople = Object.keys(result.baseline.snapshot.officerStates).filter(key => Object.prototype.hasOwnProperty.call(result.end.snapshot.officerStates, key)).length;
+  result.available = true;
+  result.reason = "Latest dated source report in each calendar month.";
+  result.caveats.push("Status is as of each month's displayed source date. Month-end condition and exact change dates are unknown.");
+  result.caveats.push("Lost currency, proficiency levels, and roster changes are separate measures.");
+  return result;
+}
+
+function commandCalendarFleet(ships, options) {
+  const opts = options || {};
+  const now = commandNow(opts.nowISO);
+  const month = opts.month == null || opts.month === "" ? new Date(now).toISOString().slice(0, 7) : commandCalendarMonth(opts.month);
+  const baselineMonth = opts.baselineMonth == null || opts.baselineMonth === "" ? commandCalendarPreviousMonth(month) : commandCalendarMonth(opts.baselineMonth);
+  const empty = commandEmptyChanges();
+  const result = {
+    available: false,
+    reason: "",
+    month,
+    baselineMonth,
+    monthLabel: commandCalendarMonthLabel(month),
+    baselineMonthLabel: commandCalendarMonthLabel(baselineMonth),
+    rows: [],
+    shipCount: 0,
+    comparedShipCount: 0,
+    missingShipCount: 0,
+    matchedPeople: 0,
+    counts: empty.counts,
+    changes: empty.rows,
+    before: null,
+    after: null,
+    net: null
+  };
+  (Array.isArray(ships) ? ships : []).forEach(ship => {
+    const comparison = commandCalendarCompare(ship, Object.assign({}, opts, { nowISO: now }));
+    result.rows.push({ ship, name: ship && ship.name || "", comparison });
+    result.shipCount++;
+    if (!comparison.available) { result.missingShipCount++; return; }
+    result.comparedShipCount++;
+    result.matchedPeople += comparison.matchedPeople;
+    Object.keys(result.counts).forEach(key => {
+      result.counts[key] += comparison.counts[key];
+      result.changes[key].push(...comparison.rows[key].map(row => Object.assign({}, row, { shipName: ship && ship.name || "" })));
+    });
+    if (!result.before) { result.before = {}; result.after = {}; result.net = {}; }
+    Object.keys(comparison.net).forEach(key => {
+      result.before[key] = (result.before[key] || 0) + comparison.before[key];
+      result.after[key] = (result.after[key] || 0) + comparison.after[key];
+      result.net[key] = result.after[key] - result.before[key];
+    });
+  });
+  result.available = result.comparedShipCount > 0;
+  result.reason = result.available ? "Compared ships have a dated source report in both months." : !month || !baselineMonth ? "Choose valid calendar months." : baselineMonth >= month ? "Choose a baseline month before the selected month." : "No ship has a dated source report in both months.";
+  return result;
+}
+
+
+function commandActivityDrilldownModel(ship, monthKey) {
+  const logs = commandRecordedActivityLogs(ship).filter(log => {
+    const month = commandActivityMonth(log);
+    return month && month.key === monthKey;
+  });
+  const groups = new Map();
+  logs.forEach((log, index) => {
+    const labels = new Map();
+    [['Event', log.events], ['Special Condition', log.specialConditions]].forEach(([source, raw]) => {
+      splitEvolutionValues(raw).forEach(label => {
+        const key = evolutionKey(label);
+        if (!key) return;
+        if (!labels.has(key)) labels.set(key, { label, sources:new Set() });
+        labels.get(key).sources.add(source);
+      });
+    });
+    const date = commandWatchDateInfo(log);
+    const occurrence = evolutionOccurrenceKey(log, index);
+    const session = evolutionSessionDescriptor(log);
+    labels.forEach((item, evolution) => {
+      const key = occurrence + '|' + evolution;
+      if (!groups.has(key)) groups.set(key, {
+        key, evolution, label:item.label, day:date.day || '',
+        dateLabel:date.day ? commandDateLabel(date.day) : 'Day not recorded',
+        sessionLabel:session.label, records:[], people:new Set(), sources:new Set()
+      });
+      const group = groups.get(key);
+      group.records.push({ log, index });
+      const person = keyFor(log.officer || '');
+      if (person) group.people.add(person);
+      item.sources.forEach(source => group.sources.add(source));
+    });
+  });
+  const rows = Array.from(groups.values()).sort((a, b) =>
+    (a.day || '9999').localeCompare(b.day || '9999') ||
+    a.sessionLabel.localeCompare(b.sessionLabel) || a.label.localeCompare(b.label)
+  );
+  return { ship, monthKey, logs, rows, hours:logs.reduce((sum, log) => sum + Math.max(0, Number(log.hours) || 0), 0) };
+}
+
+function commandActivityDrilldownButton(ship, monthKey, attribute, value, label, cls) {
+  return '<button type="button" class="'+(cls || 'ship-link')+'" data-command-activity-'+attribute+'="'+h(value)+'" data-activity-ship="'+h(keyFor(ship.name))+'" data-activity-month="'+h(monthKey)+'">'+h(label)+'</button>';
+}
+
+function commandActivityDrilldownPanel(ship, monthKey) {
+  const model = commandActivityDrilldownModel(ship, monthKey);
+  const monthButton = commandActivityDrilldownButton(ship, monthKey, 'records', 'month', 'All month logs ('+model.logs.length+')', 'mini-btn');
+  const rows = model.rows.map((row, index) => [
+    commandActivityDrilldownButton(ship, monthKey, 'records', 'day:'+row.day, row.dateLabel),
+    commandActivityDrilldownButton(ship, monthKey, 'records', 'evolution:'+index, row.label)+'<small>'+h(row.sessionLabel)+'</small>',
+    h(row.people.size)+' / '+h(row.records.length)
+  ]);
+  return '<div class="command-activity-drilldown"><div class="command-section-heading"><h3>Dates &amp; evolutions</h3>'+monthButton+'</div>'+
+    (rows.length ? commandTable(['Date', 'Evolution / watch period', 'Watchstanders / records'], rows) : '<p class="command-note">No recorded evolutions for this month.</p>')+
+    '<small class="command-note">Select a date or evolution to open its logs.</small></div>';
+}
+
+function commandActivityDrilldownSource(ship, log) {
+  const fingerprint = log.activitySourceFingerprint || log.sourceFingerprint || '';
+  const snapshot = fingerprint && (ship.snapshots || []).filter(item => item.sourceFingerprint === fingerprint)
+    .sort((a, b) => String(b.importedAt || '').localeCompare(String(a.importedAt || '')))[0];
+  return {
+    file:log.activitySourceFile || log.sourceFile || snapshot && snapshot.fileName || 'Not retained',
+    date:log.activitySourceGeneratedAt || log.sourceGeneratedAt || snapshot && snapshot.sourceGeneratedAt || 'Not retained',
+    importedAt:log.activityImportedAt || snapshot && snapshot.importedAt || 'Not retained'
+  };
+}
+
+function commandActivityDrilldownLogTable(model, records) {
+  const rows = records.map(({ log, index }) => {
+    const date = commandWatchDateInfo(log);
+    const source = commandActivityDrilldownSource(model.ship, log);
+    return [
+      h(date.day ? commandDateLabel(date.day) : 'Day not recorded'),
+      h(log.officer || 'Not named'), h(log.watchstation || 'Not recorded'),
+      h(fmt(Math.max(0, Number(log.hours) || 0), 1)),
+      h([log.events, log.specialConditions].filter(Boolean).join('; ') || 'No evolution recorded'),
+      commandActivityDrilldownButton(model.ship, model.monthKey, 'log', index, 'Open log', 'mini-btn')+(source.file !== 'Not retained' ? '<small>'+h(source.file)+'</small>' : '')
+    ];
+  });
+  return rows.length ? commandTable(['Date', 'Watchstander', 'Watchstation', 'Hours', 'Evolutions', 'Record'], rows) : emptyState('No retained logs match.');
+}
+
+function commandOpenActivityDrilldown(shipKey, monthKey, selection) {
+  const ship = state.ships[shipKey];
+  if (!ship) return;
+  const model = commandActivityDrilldownModel(ship, monthKey);
+  let records = model.logs.map((log, index) => ({ log, index }));
+  let title = 'Watch logs';
+  if (selection.startsWith('day:')) {
+    const day = selection.slice(4);
+    records = records.filter(({ log }) => (commandWatchDateInfo(log).day || '') === day);
+    title = day ? commandDateLabel(day) : 'Day not recorded';
+  } else if (selection.startsWith('evolution:')) {
+    const index = Number(selection.slice(10));
+    const row = Number.isInteger(index) && model.rows[index];
+    if (!row) return;
+    records = row.records;
+    title = row.label+' · '+row.dateLabel;
+  }
+  const hours = records.reduce((sum, { log }) => sum + Math.max(0, Number(log.hours) || 0), 0);
+  showModal(title+' — '+ship.name, monthKey+' · '+records.length+' records · '+fmt(hours, 1)+' recorded hours', commandActivityDrilldownLogTable(model, records));
+}
+
+function commandOpenActivityLog(shipKey, monthKey, logIndex) {
+  const ship = state.ships[shipKey];
+  const index = Number(logIndex);
+  if (!ship || !Number.isInteger(index)) return;
+  const model = commandActivityDrilldownModel(ship, monthKey);
+  const log = model.logs[index];
+  if (!log) return;
+  const date = commandWatchDateInfo(log);
+  const source = commandActivityDrilldownSource(ship, log);
+  const evidenceRows = [
+    ['Watch date', date.day ? commandDateLabel(date.day) : 'Day not recorded'],
+    ['Recorded date', log.watchDate || log.dateLogged || log.meta && (log.meta.watchDate || log.meta.dateLabel) || 'Not recorded'],
+    ['Recorded month', log.month || monthKey], ['Watchstander', log.officer || 'Not named'],
+    ['Watchstation', log.watchstation || 'Not recorded'], ['Watch period', evolutionSessionDescriptor(log).label],
+    ['Hours', fmt(Math.max(0, Number(log.hours) || 0), 1)], ['Events', log.events || 'Not recorded'],
+    ['Special conditions', log.specialConditions || 'Not recorded'], ['Evidence', log.rawText || log.comments || 'Not recorded'],
+    ['Log ID', log.logId || log.key || 'Not recorded'],
+    ['Source file', source.file], ['Source date', source.date], ['Uploaded', source.importedAt]
+  ];
+  const raw = log.rawRowData && typeof log.rawRowData === 'object' ? JSON.stringify(log.rawRowData, null, 2) : '';
+  const body = commandTable(['Field', 'Recorded value'], evidenceRows.map(row => row.map(h)))+
+    (raw ? '<details><summary>Source record</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere">'+h(raw)+'</pre></details>' : '')+
+    '<p>'+commandActivityDrilldownButton(ship, monthKey, 'records', 'day:'+(date.day || ''), 'Back to date logs', 'mini-btn')+' '+commandActivityDrilldownButton(ship, monthKey, 'records', 'month', 'All month logs', 'mini-btn')+'</p>';
+  showModal('Watch log — '+ship.name, log.officer || 'Watchstander not named', body);
+}
+
+function attachActivityDrilldownEvents() {
+  document.addEventListener('click', event => {
+    const button = event.target.closest && event.target.closest('[data-command-activity-records],[data-command-activity-log]');
+    if (!button) return;
+    event.preventDefault();
+    if (button.hasAttribute('data-command-activity-log')) commandOpenActivityLog(button.dataset.activityShip, button.dataset.activityMonth, button.dataset.commandActivityLog);
+    else commandOpenActivityDrilldown(button.dataset.activityShip, button.dataset.activityMonth, button.dataset.commandActivityRecords);
+  });
+}
+
+
+// Familiar Fleet WAKE views retained from the SharePoint application before the redesign.
+function classicRenderDashboard() {
+  const host = document.getElementById("view-dashboard");
+  const fleet = fleetMetrics();
+  const baseMetrics = allShipMetrics();
+  const rows = categorizedShipMetrics(baseMetrics);
+  const aggregate = fleetAggregateMetrics(rows);
+  if (!fleet.shipCount) {
+    host.innerHTML =
+      "<div class=\"dashboard-hero\" data-walkthrough-step=\"dashboard\"><h1 class=\"view-title\">Fleet Overview</h1><p>Import WAKE ship data to begin.</p></div>" +
+      homeCommandRibbon() +
+      emptyState("No fleet data loaded. Import one WAKE CSV export or WAKE JSON working copy per ship.") +
+      ultrawideNoDataRail("Fleet Overview");
+    return;
+  }
+  host.innerHTML =
+    topbar("Fleet Overview", "Simple fleet figures, level distribution, training outcomes, and drill-to-evidence data.") +
+    homeCommandRibbon() +
+    fleetDataPosturePanel(rows) +
+    "<div class=\"fleet-overview-stack\">" +
+    "<section class=\"analytics-panel\" id=\"level-layout-home\"><h3>Fleet Level Distribution</h3><p>Total L0, L1, L2, L3, and Unclassified watchstanders across the imported fleet.</p>" + levelDistributionPanel(rows) + "</section>" +
+    fleetOverviewFigures(rows, aggregate) +
+    assessmentOutcomePanel(aggregate, rows) + "</div>" +
+    ultrawideFleetLens(rows, aggregate);
+}
+
+function classicRenderHeatMaps() {
+  const host = document.getElementById("view-heatmaps");
+  const focusState = captureRerenderFocus(host);
+  const baseMetrics = allShipMetrics();
+  const metrics = withOperationalMetrics(baseMetrics);
+  if (!metrics.length) {
+    host.innerHTML = topbar("Ship List", "Horizontal ship data view of OFRP phase, levels, currency, qualifications, ROR, activity, and outcomes.") + emptyState("No ships imported.") + ultrawideNoDataRail("Ship List");
+    restoreRerenderFocus(host, focusState);
+    return;
+  }
+  const rows = filteredHeatmapMetrics(metrics);
+  const postureContext = heatmapFilters.posture ? " Showing only " + heatmapFilters.posture + " ships." : "";
+  host.innerHTML =
+    ultrawideShipListRail(metrics,rows) +
+    "<div class=\"card roster-workspace-card fleet-ship-list-card\" data-walkthrough-step=\"heatmap-list\">" +
+    "<div class=\"roster-workspace-head\"><div><span class=\"section-kicker\">Fleet Roster</span><h2 class=\"card-header\" style=\"margin-bottom:2px;\">Ship List</h2><p>Each ship is one horizontal row with its imported levels, currency, qualifications, ROR, hours, logs, and outcomes." + h(postureContext) + "</p></div>" +
+    "<button class=\"btn secondary fleet-overview-return\" type=\"button\" data-view=\"dashboard\">Fleet Overview</button></div>" +
+    shipListSummary(rows) +
+    heatmapControlPanel(metrics, rows.length) +
+    (rows.length ? shipListTable(rows, "shipList") : emptyState("No ships match the current filters.")) +
+    "</div>";
+  restoreRerenderFocus(host, focusState);
+}
+
+function classicRenderShips() {
+  const host = document.getElementById("view-ships");
+  const ships = allShips();
+  if (!ships.length) {
+    host.innerHTML = topbar("Ships", "Review each imported ship.") + emptyState("No ships imported.") + ultrawideNoDataRail("Ship View");
+    return;
+  }
+  if (!selectedShipKey || !state.ships[selectedShipKey]) selectedShipKey = keyFor(ships[0].name);
+  const ship = state.ships[selectedShipKey];
+  const m = shipMetrics(ship);
+  const options = ships.map(item => "<option value=\"" + h(keyFor(item.name)) + "\"" + (keyFor(item.name) === selectedShipKey ? " selected" : "") + ">" + h(item.name) + "</option>").join("");
+  const controls = "<select id=\"ship-select\">" + options + "</select>";
+  host.innerHTML =
+    topbar("Ship View", "Overall ship data with roster and evidence available through the ship actions.", controls) +
+    shipProfileHero(m) +
+    shipEvolutionPanel(ship) +
+    shipProfileSummary(m) +
+    "<div class=\"ship-profile-secondary\">" +
+    "<div class=\"card\"><div class=\"section-title\"><h3>Watchstation Activity</h3><span>Select a bar to see its logs</span></div>" + barsHtml(m.byWatchstation, { shipKey:keyFor(ship.name), type:"watchstation" }) + "</div>" +
+    "<div class=\"card\"><div class=\"section-title\"><h3>Monthly Bridge Hours</h3><span>Select a bar to see its logs and recorded hours</span></div>" + barsHtml(monthlyBridgeHoursByMonth(bridgeLogsForShip(ship)), { shipKey:keyFor(ship.name), type:"month", sort:"month", unit:"recorded bridge hours", valueFormatter:value => fmt(value,1) }) + "</div>" +
+    "</div>" +
+    ultrawideShipRail(ship,m);
+}
+
+function classicRenderPerformance() {
+  const host = document.getElementById("view-performance");
+  const metrics = allShipMetrics();
+  if (!metrics.length) {
+    host.innerHTML = topbar("Watchstander Decision Board", "See which ships need qualified watchstander depth and which ships set the fleet benchmark.") + emptyState("No ships imported.") + ultrawideNoDataRail("Decision Board");
+    return;
+  }
+  host.innerHTML =
+    topbar("Watchstander Decision Board", "Compare every ship's watchstander levels and qualified depth, then open the underlying ship data.") +
+    performanceGraph(metrics) +
+    ultrawideDecisionBoardRail(metrics);
+}
+
+function classicRenderEvolutions() {
+  const host = document.getElementById("view-evolutions");
+  if (!host) return;
+  const summary = evolutionSummary(allLogs(), allShips().length, true);
+  host.innerHTML =
+    topbar("Evolutions", "Average evolution activity with bar colors showing the share of imported ships that recorded each evolution.") +
+    "<div class=\"evolution-summary-grid\">" +
+      evolutionSummaryCard("Tracked Evolutions", summary.unique, summary.observedCount + " have at least one current fleet record", "event") +
+      evolutionSummaryCard("Average Evolutions / Ship", formatEvolutionAverage(summary.average), "Distinct evolution sessions divided by all imported ships", "event") +
+      evolutionSummaryCard("Average Fleet Coverage", formatEvolutionCoverage(summary.averageCoverage), "Mean share of ships represented across tracked evolutions", "warn") +
+      evolutionSummaryCard("Fleet-Wide Evolutions", summary.coverageCounts.fleet, "Recorded by at least 95% of imported ships", "good") +
+      evolutionSummaryCard("Not Yet Observed", summary.coverageCounts.none, "Red bars recorded by 0% of imported ships", "bad") +
+    "</div>" +
+    "<section class=\"card evolution-chart-card\"><div class=\"section-title\"><h3>Fleet Evolution Average</h3><span>" + h(summary.unique.toLocaleString()) + " tracked evolutions</span></div><p class=\"plain-explain\">Bar height is the average distinct sessions per imported ship. Watchstanders on the same ship, date, and watch period count together; separate time periods on the same day remain separate evolutions. Bar color is fleet participation: red at 0%, orange from 1-49%, yellow from 50-94%, and green at 95% or greater. Ships with zero records remain in every average.</p>" + evolutionCoverageLegend(summary) + evolutionChart(summary.rows, summary.shipCount) +
+    "<div class=\"evolution-detail-block\"><div class=\"section-title\"><h3>Evolution Averages</h3><span>Average, ship coverage, and latest date</span></div>" + evolutionTable(summary.rows, true, summary.shipCount) + "</div></section>" +
+    ultrawideEvolutionRail(summary);
+}
+
+function classicRenderOfrp() {
+  const host = document.getElementById("view-ofrp");
+  const metrics = allShipMetrics();
+  if (!metrics.length) {
+    host.innerHTML = topbar("OFRP Phase Comparison", "Compare phases on the same weighted watchstander measures.") + emptyState("No ships imported.") + ultrawideNoDataRail("OFRP Analysis");
+    return;
+  }
+  const rows = phaseSummaryRows(metrics);
+  const fleet = fleetAggregateMetrics(metrics);
+  host.innerHTML =
+    topbar("OFRP Phase Comparison", "Compare phases, see where phase outcomes diverge, and open the ships behind every point.") +
+    "<div class=\"command-analytics-page\">" +
+    "<section class=\"command-chart-panel\"><div class=\"command-chart-head\"><div><h3>Weighted Phase Comparison</h3><p>Every rate uses the people in that phase, not an average of ship percentages. The marker inside each bar is the weighted fleet baseline; select a phase to open its ships.</p></div></div>" + ofrpPhaseComparisonMatrix(rows, fleet) + "</section>" +
+    "<section class=\"command-chart-panel\"><div class=\"command-chart-head\"><div><h3>Watchstander Level Mix by Phase</h3><p>Each phase is normalized to 100%, revealing whether changes between phases are coming from a deeper senior bench or a larger developing population.</p></div>" + watchstanderLevelLegend() + "</div><div class=\"command-chart-scroll\">" + ofrpPhaseLevelChart(rows) + "</div></section>" +
+    "<section class=\"command-chart-panel\"><div class=\"command-chart-head\"><div><h3>Phase Relationship Map</h3><p>Current currency and Level 2+ depth are plotted together. Phases in the upper-right outperform the fleet on both; phases in the lower-left trail the fleet on both.</p></div></div><div class=\"command-chart-scroll\">" + ofrpPhaseRelationshipMap(rows, fleet) + "</div>" +
+    "<p class=\"chart-method-note\">Each ship is assigned to its currently reported OFRP phase. Historical logs may span earlier periods; WAKE Fleet does not infer the phase in effect for each event.</p></section>" +
+    "<details class=\"analysis-disclosure\"><summary>Open complete OFRP phase data</summary>" + ofrpCompleteDataTable(rows) + "</details>" +
+    "</div>" +
+    ultrawideOfrpRail(rows,fleet);
+}
+
+function classicRenderExplorer() {
+  const host = document.getElementById("view-explorer");
+  const focusState = captureRerenderFocus(host);
+  const logs = filteredLogs();
+  if (!allLogs().length) {
+    host.innerHTML = topbar("All Data Explorer", "Search and filter every imported bridge watch row.") + emptyState("No bridge watch rows imported.") + ultrawideNoDataRail("Data Explorer");
+    restoreRerenderFocus(host, focusState);
+    return;
+  }
+  const shipOpts = allShips().map(ship => "<option value=\"" + h(ship.name) + "\">" + h(ship.name) + "</option>").join("");
+  const phaseOpts = sortPhaseNames(unique(allShipMetrics().map(m => m.phase))).map(v => "<option value=\"" + h(v) + "\">" + h(v) + "</option>").join("");
+  const exportControl = "<button class=\"btn secondary\" id=\"explorer-export-btn\" type=\"button\"" + (logs.length ? "" : " disabled aria-disabled=\"true\"") + ">Export Filtered Rows</button>";
+  host.innerHTML =
+    topbar("All Data Explorer", logs.length.toLocaleString() + " matching rows from " + allLogs().length.toLocaleString() + " imported bridge logs.", exportControl) +
+    "<div class=\"filters\">" +
+    selectFilter("ship", "All ships", shipOpts) +
+    selectFilter("phase", "All phases", phaseOpts) +
+    selectFilter("month", "All months", filterOptions("month")) +
+    selectFilter("watchstation", "All watchstations", filterOptions("watchstation")) +
+    selectFilter("level", "All levels", "<option value=\"Blank\">Blank</option><option value=\"0\">0</option><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option>") +
+    selectFilter("currency", "All currency", "<option value=\"Current\">Current</option><option value=\"Need\">Requires Proficiency Watch</option><option value=\"Loss\">Lost Currency</option>") +
+    selectFilter("area", "All areas", filterOptions("area")) +
+    selectFilter("traffic", "All traffic", filterOptions("traffic")) +
+    "<input aria-label=\"Search imported rows\" id=\"filter-search\" placeholder=\"Search officer, ship, log text\" type=\"search\" value=\"" + h(explorerFilters.search) + "\">" +
+    "<button class=\"admin-roster-reset\" id=\"explorer-reset\" type=\"button\">Clear filters</button>" +
+    "<div aria-atomic=\"true\" aria-live=\"polite\" class=\"admin-roster-count\" id=\"explorer-count\" role=\"status\">" + h(logs.length.toLocaleString()) + " of " + h(allLogs().length.toLocaleString()) + " rows shown</div>" +
+    "</div>" +
+    "<div class=\"card\"><div class=\"section-title\"><h3>Imported Watch Rows</h3><span>" + h(logs.length.toLocaleString()) + " matching rows</span></div>" + (logs.length ? logsTable(logs) : emptyState("No imported rows match the current filters.")) + "</div>" +
+    ultrawideExplorerRail(logs,allLogs().length);
+  restoreRerenderFocus(host, focusState);
+}
+
+function classicRenderImports() {
+  const host = document.getElementById("view-imports");
+  const reports = (state.importReports || []).slice().reverse();
+  host.innerHTML =
+    topbar("Import Report", "Validation results and per-file summaries.") +
+    (reports.length ? "<div class=\"import-log\">" + reports.map(report => {
+      const kind = report.errors && report.errors.length ? "error" : (report.warnings && report.warnings.length ? "warn" : "");
+      return "<div class=\"import-item " + kind + "\"><strong>" + h(report.fileName) + " - " + h(report.status) + "</strong>" +
+        "<div>" + h(report.sourceType || "WAKE CSV") + " | " + h(report.ship || "No ship") + " | " + h(report.phase || "No phase") + " | " + h(report.officers || 0) + " officers | " + h((report.logsAdded || 0).toLocaleString()) + " bridge logs added | " + h(report.duplicateLogs || 0) + " log duplicates ignored | " + h(report.msaRecordsAdded || 0) + " MSA outcomes added | " + h(report.msaRecordsUpdated || 0) + " MSA outcomes corrected | " + h(report.duplicateMsaRecords || 0) + " MSA duplicates ignored | " + h(report.nonBridgeRowsSkipped || 0) + " non-bridge skipped | " + h(report.snapshots || 0) + " snapshots | " + h(report.historyEvents || 0) + " movement events</div>" +
+        (report.errors && report.errors.length ? "<ul>" + report.errors.map(e => "<li>" + h(e) + "</li>").join("") + "</ul>" : "") +
+        (report.warnings && report.warnings.length ? "<ul>" + unique(report.warnings).map(w => "<li>" + h(w) + "</li>").join("") + "</ul>" : "") +
+        (report.notes && report.notes.length ? "<ul>" + unique(report.notes).map(note => "<li>Info: " + h(note) + "</li>").join("") + "</ul>" : "") +
+        "</div>";
+    }).join("") + "</div>" : emptyState("No imports yet.")) +
+    ultrawideImportsRail(reports);
+}
+
+function classicRenderReferences() {
+  const host = document.getElementById("view-references");
+  if (!host) return;
+  host.innerHTML =
+    topbar("References", "WAKE Fleet guide, metric definitions, and common workflows.") +
+    "<div class=\"card roster-workspace-card\">" +
+      "<div class=\"roster-workspace-head\"><div><h2 class=\"card-header\" style=\"margin-bottom:2px;\">WAKE Fleet Guide</h2><p>Use the same WAKE workflow at fleet scale: import, review the overview, open the roster-style Ship List, then drill into evidence.</p></div></div>" +
+      "<div class=\"reference-guide-grid\">" +
+        referenceGuideCard("Metric Scope", [
+          "WAKE Fleet reads WAKE ship CSV exports and WAKE JSON working copies, then keeps OOD, JOOD, and CONN bridge watch data.",
+          "Fleet metrics aggregate ships, bridge watchstanders, logs, levels, currency, ROR, and OFRP phase posture.",
+          "Ship detail and officer profiles remain drilldowns; Fleet Overview stays an aggregated commander picture."
+        ]) +
+        referenceGuideCard("Core Workflow", [
+          "Import one WAKE CSV export or WAKE JSON working copy per ship from Start Here.",
+          "Use Start Here first, then scan the simple figures at the top of Fleet Overview.",
+          "Use Evolutions to compare average activity and ship coverage. Red means 0%, orange means 1-49%, yellow means 50-94%, and green means at least 95% of imported ships recorded the evolution.",
+          "Use Ship List to scan one horizontal data row per ship, filter the imported measures, and open ship-level evidence."
+        ]) +
+        referenceGuideCard("Exports And Backups", [
+          "Export Fleet Backup preserves the local WAKE Fleet working state.",
+          "Full Fleet CSV exports ship, officer, watch log, and phase summary rows for analysis.",
+          "Current Status PDF creates a leader-ready WAKE-branded status report."
+        ]) +
+        referenceGuideCard("Readiness Terms", [
+          "Current, Requires Proficiency Watch, and Lost Currency are derived from imported WAKE bridge watchstander currency posture.",
+          "Level 2+ shows depth of more experienced WAKE watchstanders across the imported force.",
+          "ROR coverage requires a dated passing score of 90% or higher within 365 days. Undated or future-dated passing records are flagged Needs review."
+        ]) +
+        referenceGuideCard("Direct Data & Governance", [
+          "WAKE Fleet reports imported totals, counts, and rates; it does not create a composite fleet or ship risk score.",
+          "WAKE JSON submitted hours are counted once from each base watch row; related event and special-condition evidence does not inflate watchstander or fleet totals.",
+          "OFRP comparisons group each ship under its current reported phase. Logs and MSA outcomes can span imported capture periods and are not treated as event-time phase evidence.",
+          "Approaching Next Level is an hours-based progression indicator, not an approval queue or proof that every advancement gate is complete.",
+          "Source timestamps, import warnings, and explicit Unknown values remain visible so missing evidence cannot appear favorable."
+        ]) +
+        referenceGuideCard("Data Confidence", [
+          "Set the expected ship count and freshness threshold from Fleet Overview so missing data cannot look green.",
+          "High confidence requires configured coverage, current ship imports, no recent rejection, and comparable snapshots for most ships.",
+          "Training outcome rates with fewer than 10 evaluated MSA attempts are directional only."
+        ]) +
+      "</div>" +
+    "</div>" +
+    ultrawideReferencesRail();
+}
+
+function classicHomeCommandRibbon() {
+  const hasData = allShips().length > 0;
+  const quality = fleetDataQuality(allShipMetrics());
+  return "<div class=\"card overview-start-card admin-command-card\" data-walkthrough-step=\"dashboard\">" +
+    "<div class=\"overview-start-head\">" +
+      "<div class=\"overview-start-title\"><h2>Start Here</h2><p>" + h(hasData ? "Refresh ship data or open a fleet workflow." : "Import fleet data first, then use the common review tools.") + "</p></div>" +
+      "<div class=\"overview-start-actions\">" +
+        "<button class=\"btn btn-export start-primary\" id=\"admin-import-btn\" type=\"button\">Import WAKE Data</button>" +
+        "<button class=\"start-secondary start-backup\" id=\"admin-export-btn\" type=\"button\">Export Backup</button>" +
+        "<button class=\"start-secondary\" id=\"admin-roster-btn\" type=\"button\" data-view=\"heatmaps\">Ship List</button>" +
+        "<button class=\"start-secondary\" id=\"admin-decision-btn\" type=\"button\" data-view=\"performance\">Decision Board</button>" +
+        "<button class=\"start-secondary\" id=\"admin-evolutions-btn\" type=\"button\" data-view=\"evolutions\">Evolutions</button>" +
+        "<button class=\"start-secondary\" id=\"admin-ofrp-btn\" type=\"button\" data-view=\"ofrp\">OFRP Analysis</button>" +
+        "<details class=\"more-actions\"><summary class=\"start-secondary\">More Actions</summary><div class=\"more-actions-menu\">" +
+          "<button class=\"admin-command-btn\" id=\"coach-btn\" type=\"button\">Interactive Coach<span>Guided fleet workflow</span></button>" +
+          "<button class=\"admin-command-btn\" type=\"button\" data-view=\"references\">References / User Guide<span>Metric definitions and workflow notes</span></button>" +
+          "<button class=\"admin-command-btn\" id=\"admin-data-btn\" type=\"button\" data-view=\"explorer\">All Data<span>Filter and export imported bridge rows</span></button>" +
+          "<button class=\"admin-command-btn\" id=\"admin-import-report-btn\" type=\"button\" data-view=\"imports\">Import Report<span>Validation results and file summaries</span></button>" +
+          "<button class=\"admin-command-btn\" id=\"restore-btn\" type=\"button\">Import Fleet Backup<span>Restore a saved WAKE Fleet working copy</span></button>" +
+          "<button class=\"admin-command-btn\" id=\"full-csv-btn\" type=\"button\">Export Full Fleet CSV<span>Ship, officer, log, and phase rows</span></button>" +
+          "<button class=\"admin-command-btn\" id=\"pdf-report-btn\" type=\"button\">Export Current Status PDF<span>Leader-ready WAKE status brief</span></button>" +
+          "<button class=\"admin-command-btn\" id=\"filtered-export-btn\" type=\"button\">Export Filtered Rows<span>Current All Data Explorer rows</span></button>" +
+          "<button class=\"admin-command-btn danger\" id=\"clear-btn\" type=\"button\">Clear Uploaded Data<span>Reset local fleet data</span></button>" +
+        "</div></details>" +
+      "</div>" +
+    "</div>" +
+    "<label class=\"drop-zone\" id=\"drop-zone\" for=\"file-input\"><strong>Import WAKE ship data</strong><span>Drop WAKE CSV or JSON files here, or select files.</span></label>" +
+    dataHealthStrip(quality) +
+  "</div>";
+}
+
+function classicShipProfileSummary(m) {
+  const total = Math.max(0, asNumber(m.officerCount));
+  const level2Plus = asNumber(m.levels && m.levels["2"]) + asNumber(m.levels && m.levels["3"]);
+  return "<section class=\"card ship-profile-summary\"><div class=\"ship-profile-summary-head\"><div><h3>Overall Ship Data</h3><p>Latest roster · currency aged to today, assuming no later watch.</p></div></div><div class=\"ship-profile-data-grid\">" +
+    shipProfileStat("Watchstanders", total, m.bridgeWatchstanders + " bridge watchstanders", "blue") +
+    shipProfileStat("Current", total ? pct(m.current / total) : "N/A", m.current + " of " + total, "blue") +
+    shipProfileStat("Unknown Currency", m.unknown, m.unknown ? "Missing or invalid currency evidence" : "All currency records assessed", m.unknown ? "warn" : "blue") +
+    shipProfileStat("Level 2+", total ? pct(level2Plus / total) : "N/A", level2Plus + " at Level 2 or 3", "blue") +
+    shipProfileStat("Ship Qualified", total ? pct(m.shipQual / total) : "N/A", m.shipQual + " of " + total, "blue") +
+    shipProfileStat("Requires Proficiency Watch", m.need, total ? pct(m.need / total) + " of watchstanders" : "No watchstanders", m.need ? "warn" : "good") +
+    shipProfileStat("Lost Currency", m.loss, total ? pct(m.loss / total) + " of watchstanders" : "No watchstanders", m.loss ? "bad" : "good") +
+    shipProfileStat("Approaching Next Level", m.readyToLevelUp, total ? pct(m.readyToLevelUp / total) + " of watchstanders" : "N/A", "blue") +
+    shipProfileStat("ROR Coverage", total ? pct(m.rorRate) : "N/A", m.rorCurrent + " with current ROR", "blue") +    shipProfileStat("Average Hours", fmt(m.avgHours,1), "Cumulative bridge hours per watchstander", "blue") +    shipProfileStat("All-Time Level Ups", m.allTimeLevelUps, "Recorded across snapshots", "good") +
+    shipProfileStat("All-Time Lost Currency", m.allTimeLost, "Unique watchstanders seen with lost currency", m.allTimeLost ? "bad" : "good") +
+    shipProfileStat("Currency Restored", m.restoredProficiency, "Recorded recoveries", "good") +
+    "</div></section>";
+}
+
+function classicUltrawideFleetLens(rows, aggregate) {
+  const normalized = phaseNormalizedMetrics(rows || []);
+  const quality = fleetDataQuality(normalized);
+  const movement = leadershipMovementSummary();
+  const lowestLevel2 = normalized.slice().sort((a,b) => asNumber(a.level2Plus) - asNumber(b.level2Plus) || String(a.ship).localeCompare(String(b.ship)));
+  const lowestQualification = normalized.slice().sort((a,b) => asNumber(a.qualRate) - asNumber(b.qualRate) || String(a.ship).localeCompare(String(b.ship)));
+  const activityDepth = normalized.slice().sort((a,b) => asNumber(b.logsPerOfficer) - asNumber(a.logsPerOfficer) || String(a.ship).localeCompare(String(b.ship)));
+  const core =
+    ultrawideRailStats([
+      { label:"Current", value:aggregate.officers ? pct(aggregate.current / aggregate.officers) : "N/A", detail:aggregate.current + " of " + aggregate.officers, attrs:figureAttrs("Current", aggregate.officers ? pct(aggregate.current / aggregate.officers) : "N/A", aggregate.current + " of " + aggregate.officers + " watchstanders", "fleet", "", "ultrawide") },
+      { label:"Level 2+", value:aggregate.officers ? pct(aggregate.level2PlusPeople / aggregate.officers) : "N/A", detail:aggregate.level2PlusPeople + " people", attrs:figureAttrs("Level 2+", aggregate.officers ? pct(aggregate.level2PlusPeople / aggregate.officers) : "N/A", aggregate.level2PlusPeople + " at Level 2 or 3", "fleet", "", "ultrawide") },
+      { label:"Ship Qualified", value:aggregate.officers ? pct(aggregate.shipQual / aggregate.officers) : "N/A", detail:aggregate.shipQual + " people", attrs:figureAttrs("Ship Qualified", aggregate.officers ? pct(aggregate.shipQual / aggregate.officers) : "N/A", aggregate.shipQual + " ship-qualified watchstanders", "fleet", "", "ultrawide") },
+      { label:"ROR Coverage", value:aggregate.officers ? pct(aggregate.rorCurrent / aggregate.officers) : "N/A", detail:aggregate.rorCurrent + " current", attrs:figureAttrs("ROR Coverage", aggregate.officers ? pct(aggregate.rorCurrent / aggregate.officers) : "N/A", aggregate.rorCurrent + " with current ROR", "fleet", "", "ultrawide") }
+    ]) +
+    ultrawideMiniBarChart("Currency Posture", [
+      { label:"Current", value:aggregate.current, max:aggregate.officers, display:aggregate.current, tone:"good", attrs:figureAttrs("Current", aggregate.current, aggregate.officers ? pct(aggregate.current / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") },
+      { label:"Requires Proficiency Watch", value:aggregate.need, max:aggregate.officers, display:aggregate.need, tone:"warn", attrs:figureAttrs("Requires Proficiency Watch", aggregate.need, aggregate.officers ? pct(aggregate.need / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") },
+      { label:"Lost Currency", value:aggregate.loss, max:aggregate.officers, display:aggregate.loss, tone:"bad", attrs:figureAttrs("Lost Currency", aggregate.loss, aggregate.officers ? pct(aggregate.loss / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") },
+      { label:"Unknown", value:aggregate.unknown, max:aggregate.officers, display:aggregate.unknown, attrs:figureAttrs("Unknown Currency", aggregate.unknown, aggregate.officers ? pct(aggregate.unknown / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") }
+    ], "Counts use the imported fleet watchstander denominator.") +
+    ultrawideRailSection("Lowest Level 2+ Share", ultrawideShipEntries(lowestLevel2, row => pct(row.level2Plus), row => row.phase, 6)) +
+    ultrawideRailSection("Open full comparison", "<button class=\"btn secondary\" type=\"button\" data-view=\"performance\">Decision Board</button>");
+  const tierTwo =
+    ultrawideRailStats([
+      { label:"Requires Proficiency Watch", value:aggregate.need, detail:aggregate.officers ? pct(aggregate.need / aggregate.officers) : "N/A", attrs:figureAttrs("Requires Proficiency Watch", aggregate.need, aggregate.officers ? pct(aggregate.need / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") },
+      { label:"Lost Currency", value:aggregate.loss, detail:aggregate.officers ? pct(aggregate.loss / aggregate.officers) : "N/A", attrs:figureAttrs("Lost Currency", aggregate.loss, aggregate.officers ? pct(aggregate.loss / aggregate.officers) + " of watchstanders" : "N/A", "fleet", "", "ultrawide") }
+    ]) +
+    ultrawideRailSection("Lowest Ship Qualification Rate", ultrawideShipEntries(lowestQualification, row => pct(row.qualRate), row => row.phase, 7), "Ship-qualified watchstanders divided by imported bridge watchstanders.");
+  const tierThree =
+    ultrawideRailStats([
+      { label:"Bridge Logs", value:aggregate.logs.toLocaleString(), detail:fmt(aggregate.logsPerOfficer,1) + " per watchstander", attrs:figureAttrs("Bridge Logs", aggregate.logs.toLocaleString(), "All imported bridge watch logs", "fleet", "", "ultrawide") },
+      { label:"Bridge Hours", value:fmt(aggregate.totalHours,1), detail:fmt(aggregate.avgHours,1) + " per watchstander", attrs:figureAttrs("Bridge Hours", fmt(aggregate.totalHours,1), "Cumulative imported bridge hours", "fleet", "", "ultrawide") }
+    ]) +
+    ultrawideRailSection("Highest Logs per Watchstander", ultrawideShipEntries(activityDepth, row => fmt(row.logsPerOfficer,1), row => row.phase + " · logs / person", 8), "Imported bridge logs divided by imported bridge watchstanders.");
+  const tierFour =
+    ultrawideRailStats([
+      { label:"Data Confidence", value:quality.label, detail:quality.coverageText },
+      { label:"Stale / Unverified", value:quality.staleShips.length, detail:quality.staleAfterDays + "-day threshold" },
+      { label:"Comparable Ships", value:quality.comparableShips, detail:"With snapshot pairs" },
+      { label:"L2 Gained / Reduced", value:movement.level2Gained + " / " + movement.level2Reduced, detail:"Latest comparable snapshots" }
+    ]) +
+    ultrawideRailSection("Freshness Review", ultrawideRailEntries((quality.staleShips || []).slice(0,9).map(ship => ({
+      label:ship.name,
+      meta:ship.sourceGeneratedAt ? fleetDateTime(ship.sourceGeneratedAt) : "Source timestamp missing",
+      value:ship.phase || "Unspecified",
+      attrs:" data-open-ship=\"" + h(keyFor(ship.name)) + "\""
+    })), "No stale or unverified ship exports."));
+  return ultrawideWorkspaceRail(
+    "Fleet Lens",
+    "Direct fleet measures, currency posture, qualification, and activity remain beside the overview.",
+    core,
+    tierTwo,
+    tierThree,
+    "ultrawide-fleet-lens",
+    tierFour
+  );
+}
+
+function classicUltrawideReferencesRail() {
+  const metrics = allShipMetrics();
+  const levelTotals = ["0","1","2","3"].map(level => ({
+    level,
+    count:metrics.reduce((sum,row) => sum + asNumber(row.levels && row.levels[level]),0)
+  }));
+  const watchstanders = metrics.reduce((sum,row) => sum + asNumber(row.officerCount),0);
+  const core =
+    ultrawideRailSection("Quick Navigation", "<div class=\"ultrawide-rail-link-grid\"><button class=\"btn secondary\" type=\"button\" data-view=\"dashboard\">Fleet Overview</button><button class=\"btn secondary\" type=\"button\" data-view=\"heatmaps\">Ship List</button><button class=\"btn secondary\" type=\"button\" data-view=\"evolutions\">Evolutions</button><button class=\"btn secondary\" type=\"button\" data-view=\"ofrp\">OFRP Analysis</button></div>") +
+    ultrawideMiniBarChart("Live Fleet Level Distribution", levelTotals.map(row => ({
+      label:"L" + row.level,
+      value:row.count,
+      max:watchstanders,
+      display:row.count,
+      attrs:" data-open-fleet-level=\"" + h(row.level) + "\""
+    })), "Current imported watchstanders at each WAKE level.") +
+    ultrawideRailSection("Primary denominator", "<p class=\"ultrawide-rail-note\">Fleet rates use imported bridge watchstanders. OFRP rates use watchstanders assigned to each ship's currently reported phase.</p>");
+  const tierTwo =
+    ultrawideRailSection("Metric Guardrails", "<p class=\"ultrawide-rail-note\">Current, Requires Proficiency Watch, and Lost Currency come from imported currency evidence. Level 2+ is Level 2 plus Level 3. Approaching is an hours-based indicator, not proof of advancement eligibility.</p>") +
+    ultrawideRailSection("Evolution Counting", "<p class=\"ultrawide-rail-note\">Watchstanders on the same ship, date, and watch period count together. Separate periods on the same day remain separate occurrences.</p>");
+  const tierThree =
+    ultrawideRailSection("Evidence Workflow", "<div class=\"ultrawide-rail-link-grid\"><button class=\"btn secondary\" type=\"button\" data-view=\"performance\">Decision Board</button><button class=\"btn secondary\" type=\"button\" data-view=\"explorer\">All Data Explorer</button><button class=\"btn secondary\" type=\"button\" data-view=\"imports\">Import Report</button></div>") +
+    ultrawideRailSection("Data Handling", "<p class=\"ultrawide-rail-note\">Names, watch records, and exported products remain command data. Use the visible timestamps and warnings when evaluating completeness.</p>");
+  const tierFour =
+    ultrawideRailSection("Command Workflow", "<div class=\"ultrawide-rail-link-grid\"><button class=\"btn secondary\" type=\"button\" data-view=\"ships\">Current Ship View</button><button class=\"btn secondary\" type=\"button\" data-view=\"performance\">Qualified Depth</button><button class=\"btn secondary\" type=\"button\" data-view=\"evolutions\">Evolution Coverage</button><button class=\"btn secondary\" type=\"button\" data-view=\"imports\">Data Confidence</button></div>") +
+    ultrawideRailSection("SharePoint Boundary", "<p class=\"ultrawide-rail-note\">Large-screen presentation changes do not alter the configured SharePoint lists, persistence payload, or live polling cadence.</p>");
+  return ultrawideWorkspaceRail("Reference Desk", "Workflow shortcuts, live level distribution, and calculation guardrails stay beside the full guide.", core, tierTwo, tierThree, "", tierFour);
+}
+
+const CLASSIC_COACH_STEPS = [
+  { id:"import", title:"Import Ship Data", category:"Start", selector:"#drop-zone", action:"import", launchLabel:"Import WAKE Data", why:"WAKE Fleet accepts each ship's WAKE CSV export or WAKE JSON working copy.", do:"Import one file per ship. The OFRP phase must be Basic, Advanced, Integrated, Sustainment, or Maintenance. Re-importing later exports creates snapshots for history without duplicating bridge logs.", look:"The import report should show source type, ship, phase, bridge officers, bridge logs, snapshots, and movement events.", tip:"Use repeated exports over time to build all-time level-up and lost-currency history." },
+  { id:"dashboard", title:"Fleet Overview", category:"Leader Home", selector:"[data-walkthrough-step='dashboard']", action:"dashboard", launchLabel:"Open Overview", why:"This is the high-level fleet picture across imported bridge watchstanders.", do:"Start with the simple fleet figures and level distribution, then use the shortcuts for deeper review.", look:"The overview stays aggregated and data-first. Ship names appear in Ship List or after a category drilldown.", tip:"Overview numbers remain bridge-only and do not change imported WAKE data." },
+  { id:"performance", title:"Watchstander Decision Board", category:"Command View", selector:"button[data-view='performance']", action:"performance", launchLabel:"Open Decision Board", why:"This board shows which ships are short on qualified senior watchstander depth and which ships are setting the fleet benchmark.", do:"Scan the qualified-depth map first, then use the level ladder to understand the watchstander mix behind each ship.", look:"The map runs from red in the lower-left to green in the upper-right. Dashed lines are weighted fleet averages, marker size is the imported watchstander population, and every ship mark opens its full data.", tip:"Red ships need support on both qualified share and Level 2+ depth; green ships are potential benchmark and mentoring sources. Orange and yellow identify the specific measure that needs work." },
+  { id:"evolutions", title:"Fleet Evolutions", category:"Training Activity", selector:"#admin-evolutions-btn", action:"evolutions", launchLabel:"Open Evolutions", why:"This workspace compares average evolution activity and fleet participation across the standard WAKE/TORIS evolution catalog.", do:"Compare average-height bars and use the red, orange, yellow, and green coverage key to find fleet gaps.", look:"Bar height is the average distinct sessions per imported ship. Participating watchstanders in the same date and watch period count together, while separate same-day periods remain separate. Bar color is the percentage of imported ships with at least one occurrence, including red zero-coverage evolutions.", tip:"Use the table below the chart for each average, ship-coverage percentage, source, and latest date." },
+  { id:"heatmaps", title:"Ship List", category:"Ship Scan", selector:"[data-walkthrough-step='heatmap-list']", action:"heatmaps", launchLabel:"Open Ship List", why:"The Ship List is the detailed horizontal table for ship-by-ship evidence.", do:"Filter the list as needed, then click anywhere on a ship row to open that ship.", look:"Each ship occupies one row with L0 through L3 plus Unclassified, currency, qualification, ROR, hours, logs, and outcome data shown across the page.", tip:"Use Ship List when the fleet overview needs ship-by-ship detail." },
+  { id:"ship", title:"Ship Drilldown", category:"Ship Detail", selector:".ship-list-table", action:"ship", launchLabel:"Open First Ship", why:"The ship view connects fleet analytics to an individual ship's overall data and supporting evidence.", do:"Open a ship row to see its full-width level distribution and overall data, then use the ship actions for roster, logs, ROR, activity, OFRP context, or history.", look:"The default ship screen stays on summary figures; detailed roster and evidence open only when requested.", tip:"Use the action buttons at the top of the ship view for supporting records." },
+  { id:"ofrp", title:"OFRP Phase Comparison", category:"Phase", selector:"button[data-view='ofrp']", action:"ofrp", launchLabel:"Open OFRP Analysis", why:"This view compares the OFRP phases on the same weighted watchstander measures.", do:"Compare the baseline bars, level-mix chart, and phase relationship map, then select any phase to open its ships.", look:"Each phase rate is weighted by its watchstanders; the marker in each comparison bar is the weighted fleet baseline.", tip:"Use the relationship map to separate a phase-level pattern from a single-ship problem, then drill into the filtered Ship List." },
+  { id:"explorer", title:"All Data Explorer", category:"Evidence", selector:"button[data-view='explorer']", action:"explorer", launchLabel:"Open Explorer", why:"The explorer exposes every imported bridge watch row for filtering and export.", do:"Filter by ship, phase, month, watchstation, level, currency, area, traffic, or text search.", look:"Use filtered export when staff needs a focused data pull.", tip:"The explorer uses deduplicated latest bridge log rows." },
+  { id:"backup", title:"Exports And History", category:"Protect Work", selector:"#admin-export-btn", action:"backup", launchLabel:"Export Backup", why:"WAKE Fleet stores data offline in browser storage and IndexedDB, and can export leader-ready products.", do:"Use Export Backup for data protection, Full Fleet CSV for analysis, and Current Status PDF for a polished WAKE-logo brief.", look:"Snapshots and history events are included in backup JSON; full CSV includes ship, officer, watch log, and phase summary rows.", tip:"The import report is the audit trail for what changed." }
+];
+
+
+// Calendar comparisons and charts inside the familiar Fleet WAKE screens.
+let fleetCalendarSelection={month:'',baselineMonth:''};
+let fleetChartMetric='hours';
+
+function fleetCalendarOptions() {
+  const month=fleetCalendarSelection.month||new Date().toISOString().slice(0,7);
+  return {month,baselineMonth:fleetCalendarSelection.baselineMonth||commandCalendarPreviousMonth(month)};
+}
+function fleetMonthChoices() {
+  const keys=new Set([new Date().toISOString().slice(0,7)]);
+  allShips().forEach(ship=>{
+    commandCalendarMonths(ship).forEach(month=>keys.add(month));
+    commandShipActivityModel(ship).rows.forEach(row=>keys.add(row.key));
+  });
+  const options=fleetCalendarOptions();keys.add(options.month);keys.add(options.baselineMonth);
+  const first=Array.from(keys).sort()[0], last=new Date().toISOString().slice(0,7);
+  if(first){const cursor=new Date(first+'-01T12:00:00Z');while(cursor.toISOString().slice(0,7)<=last){keys.add(cursor.toISOString().slice(0,7));cursor.setUTCMonth(cursor.getUTCMonth()+1);}}
+  return Array.from(keys).sort().reverse();
+}
+function fleetCalendarControls(mode) {
+  const options=fleetCalendarOptions(), months=fleetMonthChoices();
+  return '<div class="fleet-month-controls">'+[['month','Month'],['baselineMonth','Compare with']].filter(([field])=>mode!=='baseline'||field==='baselineMonth').map(([field,label])=>'<label>'+label+'<select data-fleet-calendar="'+field+'">'+months.filter(month=>field!=="baselineMonth"||month<options.month).map(month=>'<option value="'+h(month)+'"'+(options[field]===month?' selected':'')+'>'+h(commandCalendarMonthLabel(month))+'</option>').join('')+'</select></label>').join('')+'</div>';
+}
+function fleetCalendarPanel(ships,controls) {
+  const options=fleetCalendarOptions();
+  const entries=ships.map(ship=>({ship,c:commandCalendarCompare(ship,options)}));
+  const comparable=entries.filter(entry=>entry.c.available);
+  const counts={lost:0,restored:0,levelUp:0,levelDown:0};
+  comparable.forEach(({c})=>Object.keys(counts).forEach(key=>counts[key]+=c.counts[key]||0));
+  const stats=[['New currency losses','lost','bad'],['Restored','restored','good'],['Level up','levelUp','good'],['Level down','levelDown','warn']];
+  const table=entries.map(({ship,c})=>[
+    '<button class="ship-link" type="button" data-open-ship="'+h(keyFor(ship.name))+'">'+h(ship.name)+'</button>',
+    c.available?h(c.before.current+' → '+c.after.current):'—',
+    c.available?h(c.counts.lost):'—',c.available?h(c.counts.restored):'—',
+    c.available?h(c.counts.levelUp+' / '+c.counts.levelDown):'—',
+    c.available?h(c.counts.joined+' / '+c.counts.departed):'—',
+    c.available?h(commandDateLabel(c.baseline.date)+' → '+commandDateLabel(c.end.date)):'<small>'+h(c.reason)+'</small>'
+  ]);
+  const people=comparable.flatMap(({ship,c})=>Object.values(c.rows||{}).flat().map(row=>({ship,row})));
+  return '<section class="card fleet-calendar-panel"><div class="section-title"><h3>'+h(commandCalendarMonthLabel(options.month))+' vs '+h(commandCalendarMonthLabel(options.baselineMonth))+'</h3>'+(controls===false?'':fleetCalendarControls(controls))+'</div><div class="fleet-month-stats">'+stats.map(([label,key,tone])=>'<article class="fleet-month-stat '+tone+'"><span>'+h(label)+'</span><strong>'+h(comparable.length?counts[key]:'—')+'</strong></article>').join('')+'</div><p class="fleet-chart-note">'+comparable.length+' of '+ships.length+' ships have both months. Latest dated status in each month; changes are between those statuses.</p><details class="fleet-month-evidence"><summary>View changes &amp; source dates</summary>'+commandTable(['Ship','Current before → after','Lost','Restored','Levels up / down','Roster added / absent','Source dates'],table)+(people.length?commandTable(['Ship','Watchstander','Change'],people.map(({ship,row})=>[h(ship.name),h(row.name||row.officer||''),h(COMMAND_CHANGE_LABELS[row.type]||row.type||row.change||'')])):'')+'</details></section>';
+}
+function fleetOverviewChart() {
+  const options=fleetCalendarOptions();
+  const metricValue=m=>!m?null:fleetChartMetric==='loss'?m.loss:m.officerCount?(fleetChartMetric==='current'?m.current:(m.levels['2']||0)+(m.levels['3']||0))/m.officerCount*100:null;
+  const rows=allShips().map(ship=>{
+    const c=commandCalendarCompare(ship,options), activity=commandShipActivityModel(ship).rows;
+    const a=activity.find(row=>row.key===options.month),b=activity.find(row=>row.key===options.baselineMonth);
+    const after=fleetChartMetric==='hours'?(a&&a.hasRecordedActivity?a.hours:null):metricValue(c.after);
+    const before=fleetChartMetric==='hours'?(b&&b.hasRecordedActivity?b.hours:null):metricValue(c.before);
+    const detail=fleetChartMetric==='hours'?(a?a.evolutions+' evolutions':'No recorded activity'):c.after?c.after.officerCount+' watchstanders':'No month status';
+    return {ship,after,before,detail};
+  });
+  const max=['hours','loss'].includes(fleetChartMetric)?Math.max(1,...rows.flatMap(row=>[row.after||0,row.before||0])):100;
+  const valueLabel=value=>value==null?'—':fmt(value,1)+(fleetChartMetric==='hours'?' h':fleetChartMetric==='loss'?'':'%');
+  return '<section class="card fleet-overview-chart"><div class="section-title"><h3>Fleet by ship</h3><label class="fleet-chart-choice">Show<select data-fleet-chart-metric>'+[['hours','Hours logged'],['current','Current at report %'],['levels','Level 2+ %'],['loss','Lost at report']].map(([value,label])=>'<option value="'+value+'"'+(fleetChartMetric===value?' selected':'')+'>'+label+'</option>').join('')+'</select></label></div><div class="fleet-chart-legend"><span class="before">'+h(commandCalendarMonthLabel(options.baselineMonth))+'</span><span class="after">'+h(commandCalendarMonthLabel(options.month))+'</span></div><div class="fleet-ship-chart">'+rows.map(({ship,after,before,detail})=>'<button type="button" class="fleet-ship-bar" data-fleet-chart-ship="'+h(keyFor(ship.name))+'"><span class="fleet-ship-bar-label">'+h(ship.name)+'</span><span class="fleet-ship-tracks"><span class="fleet-ship-track before" title="'+h(valueLabel(before))+'"><span style="width:'+Math.max(0,(before||0)/max*100)+'%"></span></span><span class="fleet-ship-track after" title="'+h(valueLabel(after))+'"><span style="width:'+Math.max(0,(after||0)/max*100)+'%"></span></span></span><span class="fleet-ship-value">'+h(valueLabel(before))+' → '+h(valueLabel(after))+'<small>'+h(detail)+'</small></span></button>').join('')+'</div><p class="fleet-chart-note">Select a ship to open its monthly chart. — means no evidence for that month.</p></section>';
+}
+function compactRenderDashboard() {
+  const host=document.getElementById('view-dashboard');
+  const rows=categorizedShipMetrics(allShipMetrics()), aggregate=fleetAggregateMetrics(rows);
+  host.innerHTML=topbar('Fleet Overview','', '')+homeCommandRibbon()+(rows.length?fleetCalendarPanel(allShips())+fleetOverviewChart()+'<div class="fleet-overview-stack"><section class="analytics-panel"><h3>Latest fleet levels</h3><p class="fleet-chart-note">Supporting currency below is aged to today, assuming no later watch.</p>'+levelDistributionPanel(rows)+'</section>'+fleetOverviewFigures(rows,aggregate)+assessmentOutcomePanel(aggregate,rows)+'</div>':emptyState('Import WAKE ship data to begin.'));
+}
+function compactRenderShips() {
+  const host=document.getElementById('view-ships'),ships=allShips();
+  if(!ships.length){host.innerHTML=topbar('Ship View','')+emptyState('No ships imported.');return;}
+  if(!selectedShipKey||!state.ships[selectedShipKey])selectedShipKey=keyFor(ships[0].name);
+  const ship=state.ships[selectedShipKey],m=shipMetrics(ship);
+  if(!commandShipActivitySelections[selectedShipKey])commandShipActivitySelections[selectedShipKey]=fleetCalendarOptions().month;
+  const controls='<select id="ship-select" aria-label="Ship">'+ships.map(item=>'<option value="'+h(keyFor(item.name))+'"'+(item===ship?' selected':'')+'>'+h(item.name)+'</option>').join('')+'</select>';
+  host.innerHTML=topbar('Ship View','',controls)+shipProfileHero(m)+fleetCalendarPanel([ship],'baseline')+commandShipActivityPanel(ship)+shipProfileSummary(m)+'<div class="card"><div class="section-title"><h3>Watchstation Activity</h3><span>Select a bar for logs</span></div>'+barsHtml(m.byWatchstation,{shipKey:keyFor(ship.name),type:'watchstation'})+'</div>';
+}
+function attachCompactFleetEvents() {
+  document.addEventListener('change',event=>{
+    const field=event.target.dataset&&event.target.dataset.fleetCalendar;
+    if(field){
+      fleetCalendarSelection[field]=event.target.value;
+      if(field==='month')fleetCalendarSelection.baselineMonth=commandCalendarPreviousMonth(event.target.value);
+      if(currentView==='ships')commandShipActivitySelections[selectedShipKey]=fleetCalendarOptions().month;
+      render();switchView(currentView);return;
+    }
+    if(event.target.hasAttribute&&event.target.hasAttribute('data-fleet-chart-metric')){fleetChartMetric=event.target.value;renderDashboard();}
+  });
+  document.addEventListener('click',event=>{
+    const button=event.target.closest&&event.target.closest('[data-fleet-chart-ship]');if(!button)return;
+    selectedShipKey=button.dataset.fleetChartShip;
+    commandShipActivitySelections[selectedShipKey]=fleetCalendarOptions().month;
+    renderShips();switchView('ships');
   });
 }
 

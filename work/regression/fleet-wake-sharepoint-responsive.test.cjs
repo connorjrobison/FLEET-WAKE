@@ -67,6 +67,9 @@ globalThis.__fleetWakeResponsiveTest = {
   renderExplorer,
   renderImports,
   renderReferences,
+  switchView,
+  selectCalendar:(month, baselineMonth) => { fleetCalendarSelection = {month, baselineMonth}; },
+  selectActivityMonth:(shipKey, month) => { commandShipActivitySelections[shipKey] = month; },
   getState: () => JSON.parse(JSON.stringify(state)),
   setState: value => { state = normalizeState(value); }
 };
@@ -90,10 +93,12 @@ globalThis.__fleetWakeResponsiveTest = {
     URL,
     setTimeout,
     clearTimeout,
+    requestAnimationFrame:callback => callback(),
+    scrollTo:options.scrollTo || (() => {}),
     document:{
       getElementById:id => options.elements && options.elements[id] || null,
       querySelector:nullElement,
-      querySelectorAll:() => [],
+      querySelectorAll:selector => selector === ".view" ? (options.views || []) : selector === "[data-view]" || selector === ".wake-main-nav .wake-nav-btn" ? (options.navigation || []) : [],
       referrer:"",
       hidden:false,
       activeElement:null,
@@ -289,29 +294,24 @@ test("legacy fleet snapshots restore monthly bridge hours from retained watch me
   assert.deepEqual(api.monthlyBridgeHoursByMonth(ship.logs), { "AUG 2026":4 });
 });
 
-test("question-led views use responsive layouts without reserving an empty ultrawide rail", () => {
+test("compact changes fit the familiar responsive layout and hidden views stay hidden", () => {
   const match = html.match(/\/\* BEGIN CO PROGRESSION STYLES \*\/([\s\S]*?)\/\* END CO PROGRESSION STYLES \*\//);
-  assert.ok(match, "command styles must be embedded in the application");
+  assert.ok(match, "comparison styles must be embedded in the application");
   const styles = match[1];
-  assert.ok(html.indexOf(match[0]) > html.lastIndexOf("@media (min-width:3200px)"), "command layout overrides must follow legacy wide-screen layout rules");
-  assert.match(styles, /\.ultrawide-enabled-view\s*,\s*#view-dashboard\s*\{\s*display:block!important/);
-  assert.match(styles, /\.view\.hidden\s*\{\s*display:none!important/);
-  assert.match(styles, /@media\s*\(min-width:\s*1760px\)/);
-  assert.match(styles, /@media\s*\(max-width:\s*1100px\)/);
-  assert.match(styles, /@media\s*\(max-width:\s*900px\)/);
-  assert.match(styles, /@media\s*\(max-width:\s*560px\)/);
-  assert.match(styles, /\.command-kpis\s*\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
-  assert.match(styles, /\.command-onboarding\s*\{[^}]*grid-template-columns:1fr/);
-  assert.match(styles, /\.wake-main-nav\s*\{[^}]*flex-wrap:wrap/);
-  assert.match(styles, /\.command-stat:focus-visible/);
+  assert.ok(html.indexOf(match[0]) > html.lastIndexOf("@media (min-width:3200px)"), "comparison layout rules must follow the existing wide-screen layout rules");
+  assert.doesNotMatch(styles, /(?:\.ultrawide-enabled-view\s*,\s*)?#view-dashboard\s*\{\s*display:block!important/);
+  assert.match(styles, /#view-dashboard\.hidden\s*,\s*\.view\.hidden\s*\{\s*display:none!important/);
+  assert.match(styles, /@media\s*\(max-width:\s*(?:900|560)px\)/);
+  assert.match(html, /\.wake-main-nav\s*\{[^}]*flex-wrap:\s*wrap/);
+  assert.match(styles, /:focus-visible/);
   assert.match(html, /\.table-wrap\s*\{[^}]*overflow(?:-x)?:\s*auto/);
 });
 
-test("primary navigation exposes command questions and the existing WAKE import action", () => {
+test("primary navigation preserves the familiar three tabs and WAKE import action", () => {
   const nav = html.match(/<nav class="wake-main-nav" aria-label="Main navigation">([\s\S]*?)<\/nav>/);
   assert.ok(nav);
   const actual = [...nav[1].matchAll(/<button\b[^>]*data-view="([^"]+)"[^>]*>([^<]+)<\/button>/g)].map(match => [match[1], match[2].replace(/&amp;/g, "&")]);
-  assert.deepEqual(actual, [["dashboard", "Command Review"], ["heatmaps", "Ship Progress"], ["performance", "Currency & Recovery"], ["evolutions", "Training Evidence"], ["ofrp", "OFRP Review"], ["explorer", "Evidence Search"], ["imports", "Upload History"], ["references", "Guide"]]);
+  assert.deepEqual(actual, [["dashboard", "Fleet Overview"], ["heatmaps", "Ship List"], ["references", "References"]]);
   assert.match(nav[1], /<button[^>]*type="button"[^>]*data-command-import="true"[^>]*>Import WAKE<\/button>/);
   assert.match(nav[1], /aria-current="page"/);
   actual.forEach(([view]) => assert.match(html, new RegExp('<section id="view-' + view + '"')));
@@ -319,14 +319,14 @@ test("primary navigation exposes command questions and the existing WAKE import 
   assert.match(appScript, /const activeTopView = currentView === "ships" \? "heatmaps" : currentView;/);
 });
 
-test("the command experience remains a self-contained inline application", () => {
+test("the familiar application and comparison engine remain self-contained inline", () => {
   assert.equal((appScript.match(/\/\/ BEGIN CO PROGRESSION BUNDLE/g) || []).length, 1);
   assert.equal((appScript.match(/\/\/ END CO PROGRESSION BUNDLE/g) || []).length, 1);
   assert.doesNotMatch(html, /<script\b[^>]*\bsrc\s*=/i);
   assert.doesNotMatch(html, /<link\b[^>]*\brel=["']stylesheet["'][^>]*\bhref\s*=/i);
   assert.doesNotMatch(html, /@import\s+(?:url\()?\s*["']?https?:/i);
   const bundle = appScript.slice(appScript.indexOf("// BEGIN CO PROGRESSION BUNDLE"), appScript.indexOf("// END CO PROGRESSION BUNDLE"));
-  ["commandTimeline", "commandCompare", "commandMonthly", "commandCurrent", "commandWorkspace", "commandRenderShipList", "commandRenderShipDetail", "commandRenderOfrp", "commandRenderRecovery", "commandRenderTraining", "commandRenderExplorer", "commandRenderImports", "commandRenderReferences"].forEach(name => assert.match(bundle, new RegExp("function " + name + "\\("), name + " must be bundled"));
+  ["commandTimeline", "commandCompare", "commandMonthly", "commandCurrent", "commandCalendarCompare", "commandCalendarFleet", "commandShipActivityModel"].forEach(name => assert.match(bundle, new RegExp("function " + name + "\\("), name + " must be bundled"));
 });
 
 const commandViews = [
@@ -343,14 +343,12 @@ function commandViewHarness() {
 function assertCommandViewMarkup(elements, view) {
   const markup = elements["view-" + view].innerHTML;
   assert.ok(markup.length > 100, view + " must render useful evidence or an explicit empty state");
-  assert.match(markup, /<h1\b[^>]*>[^<]+<\/h1>/, view + " must identify the command question or evidence task");
-  assert.match(markup, /command-/, view + " must use the command workspace presentation");
-  assert.doesNotMatch(markup, /ultrawide-(?:fleet-lens|context-rail)/, view + " must not emit a duplicate or empty side rail");
+  assert.match(markup, /<h[12]\b[^>]*>[^<]+<\/h[12]>/, view + " must identify the page");
   assert.doesNotMatch(markup, />\s*(?:undefined|NaN|Infinity)\s*</, view + " must handle missing evidence without invalid display values");
   for (const button of markup.matchAll(/<button\b[^>]*>/g)) assert.match(button[0], /\btype="button"/, view + " controls must remain keyboard-native non-submit buttons");
 }
 
-test("every question-led view renders explicit no-data guidance without empty rail content", () => {
+test("every familiar view renders its page or explicit no-data guidance", () => {
   const { api, elements } = commandViewHarness();
   commandViews.forEach(([view, render]) => {
     assert.doesNotThrow(() => api[render](), view + " must render without imported evidence");
@@ -358,20 +356,98 @@ test("every question-led view renders explicit no-data guidance without empty ra
   });
 });
 
-test("every question-led view renders populated imported evidence with safe names and retained drilldowns", () => {
+test("every familiar view renders imported evidence with safe names and retained drilldowns", () => {
   const { api, elements } = commandViewHarness();
   const source = (date, days) => ({ format:"WAKE_JSON_BACKUP", version:1, exportedAt:date, ship:"USS EVIDENCE", months:["SEP 2026"], ofrpPhase:"Basic Phase", officers:{ "SAFE <OFFICER>":{ name:"SAFE <OFFICER>", rank:"LT", autoShipQual:true, autoDaysSince:days, hoursByWS:{ "OOD U/W":{ Q:8, UI:0 } }, detectedLogs:[], logScores:{}, rorTests:[] } } });
-  api.importWakeJson(JSON.stringify(source("2026-01-01T12:00:00Z", 10)), "baseline<&>.json");
-  api.importWakeJson(JSON.stringify(source("2026-09-01T12:00:00Z", 95)), "later.json");
+  const reports = [
+    api.importWakeJson(JSON.stringify(source("2026-01-01T12:00:00Z", 10)), "baseline<&>.json"),
+    api.importWakeJson(JSON.stringify(source("2026-09-01T12:00:00Z", 95)), "later.json")
+  ];
+  const imported = api.getState();
+  imported.importReports = reports;
+  api.setState(imported);
+  api.selectCalendar("2026-09", "2026-01");
   commandViews.forEach(([view, render]) => {
     assert.doesNotThrow(() => api[render](), view + " must render imported evidence");
     assertCommandViewMarkup(elements, view);
     assert.doesNotMatch(elements["view-" + view].innerHTML, /SAFE <OFFICER>|baseline<&>\.json/, view + " must escape source-provided names");
   });
+  assert.match(elements["view-dashboard"].innerHTML, /Fleet Overview/);
   assert.match(elements["view-dashboard"].innerHTML, /SAFE &lt;OFFICER&gt;/);
-  assert.match(elements["view-ships"].innerHTML, /Current imported roster/);
-  assert.match(elements["view-ships"].innerHTML, /Bridge watch evidence/);
-  assert.match(elements["view-ships"].innerHTML, /ROR evidence/);
+  assert.match(elements["view-imports"].innerHTML, /baseline&lt;&amp;&gt;\.json/);
+  assert.match(elements["view-heatmaps"].innerHTML, /Ship List/);
+  assert.match(elements["view-ships"].innerHTML, /Overall Ship Data/);
+  for (const action of ["roster", "logs", "ror", "history"]) assert.match(elements["view-ships"].innerHTML, new RegExp('data-open-drill="' + action + '"'), action + " drilldown must remain available");
+});
+
+test("ship pages retain chronological month selection, evolution counts, and last-watch evidence", () => {
+  const { api, elements } = commandViewHarness();
+  const source = (date, month, days) => ({
+    format:"WAKE_JSON_BACKUP", version:1, exportedAt:date + "T12:00:00Z", ship:"USS MONTHS", months:[month], ofrpPhase:"Basic Phase",
+    officers:{ "SAFE <OFFICER>":{
+      name:"SAFE <OFFICER>", rank:"LT", autoShipQual:true, autoDaysSince:days,
+      hoursByWS:{ "OOD U/W":{Q:8, UI:0} }, logScores:{}, rorTests:[],
+      detectedLogs:[
+        {logId:date + "-WATCH", ws:"OOD U/W", type:"Watch Q", val:"OOD Qualified Watch", hrs:8, month, watchDate:date, baseWatchLog:true, meta:{baseWatchLog:true, dayTotalHours:"8", watchOccurrenceKey:date}},
+        {logId:date + "-EVENT", ws:"OOD U/W", type:"Event 1", val:"Anchoring", hrs:8, month, watchDate:date, meta:{dayTotalHours:"8", watchOccurrenceKey:date}}
+      ]
+    }}
+  });
+  api.importWakeJson(JSON.stringify(source("2026-01-01", "JAN 2026", 10)), "jan.json");
+  api.importWakeJson(JSON.stringify(source("2026-09-01", "SEP 2026", 95)), "sep.json");
+  api.selectCalendar("2026-09", "2026-01");
+  api.selectActivityMonth("USS MONTHS", "2026-01");
+  api.renderShips();
+  const markup = elements["view-ships"].innerHTML;
+  assert.match(markup, /Last watch conducted/);
+  assert.match(markup, /Sep(?:tember)? 1,? 2026|2026-09-01/);
+  assert.match(markup, /data-command-activity-select="USS MONTHS"/);
+  assert.match(markup, /<option value="2026-01" selected/);
+  assert.ok(markup.indexOf('data-command-activity-month="2026-01"') < markup.indexOf('data-command-activity-month="2026-09"'), "hours chart must progress chronologically");
+  assert.match(markup, /data-command-activity-month="2026-01"[^>]*aria-label="[^"]*8\.0[^\"]*1 evolution/);
+  assert.match(markup, /Anchoring/);
+  assert.doesNotMatch(markup, /SAFE <OFFICER>/);
+  const summary = markup.match(/<section class="card ship-profile-summary">([\s\S]*?)<\/section>/);
+  assert.ok(summary, "familiar overall ship card must remain");
+  assert.doesNotMatch(summary[1], /(?:Bridge Logs|Total Q Hours|Total UI Hours|Snapshots)/);
+  assert.match(summary[1], /Lost Currency/);
+  assert.match(summary[1], /Requires Proficiency Watch/);
+});
+
+test("switching tabs shows one page, marks its tab, and returns to the top", () => {
+  const classes = initial => {
+    const values = new Set(initial);
+    return {
+      add:value => values.add(value),
+      remove:value => values.delete(value),
+      contains:value => values.has(value),
+      toggle:(value, enabled) => enabled ? values.add(value) : values.delete(value)
+    };
+  };
+  const views = commandViews.map(([view]) => ({
+    id:"view-" + view,
+    classList:classes(view === "dashboard" ? ["view"] : ["view", "hidden"]),
+    querySelector:() => ({ textContent:view, setAttribute:() => {}, focus:() => {} })
+  }));
+  const navigation = ["dashboard", "heatmaps", "references"].map(view => ({
+    tagName:"BUTTON", dataset:{view}, classList:classes([]), attributes:{},
+    setAttribute(name, value) { this.attributes[name] = value; },
+    removeAttribute(name) { delete this.attributes[name]; }
+  }));
+  const scrolls = [];
+  const api = loadAppApi({ elements:Object.fromEntries(views.map(view => [view.id, view])), views, navigation, scrollTo:(...args) => scrolls.push(args) });
+  for (const requested of ["heatmaps", "references", "ships", "performance", "dashboard", "missing"]) {
+    const selected = requested === "missing" ? "dashboard" : requested;
+    api.switchView(requested);
+    assert.deepEqual(views.filter(view => !view.classList.contains("hidden")).map(view => view.id), ["view-" + selected]);
+    const active = selected === "ships" ? "heatmaps" : selected;
+    assert.deepEqual(navigation.filter(button => button.attributes["aria-current"] === "page").map(button => button.dataset.view), navigation.some(button => button.dataset.view === active) ? [active] : []);
+  }
+  assert.ok(scrolls.length >= 5, "each different page must reset the previous page's scroll position");
+  for (const [first, second] of scrolls) {
+    if (typeof first === "object") { assert.equal(first.top, 0); }
+    else { assert.equal(first, 0); assert.equal(second, 0); }
+  }
 });
 
 test("retained legacy lens helpers remain interactive when used as supporting evidence", () => {

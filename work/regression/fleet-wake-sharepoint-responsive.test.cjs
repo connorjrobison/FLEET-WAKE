@@ -326,7 +326,7 @@ test("the familiar application and comparison engine remain self-contained inlin
   assert.doesNotMatch(html, /<link\b[^>]*\brel=["']stylesheet["'][^>]*\bhref\s*=/i);
   assert.doesNotMatch(html, /@import\s+(?:url\()?\s*["']?https?:/i);
   const bundle = appScript.slice(appScript.indexOf("// BEGIN CO PROGRESSION BUNDLE"), appScript.indexOf("// END CO PROGRESSION BUNDLE"));
-  ["commandTimeline", "commandCompare", "commandMonthly", "commandCurrent", "commandCalendarCompare", "commandCalendarFleet", "commandShipActivityModel"].forEach(name => assert.match(bundle, new RegExp("function " + name + "\\("), name + " must be bundled"));
+  ["commandTimeline", "commandCompare", "commandMonthly", "commandCurrent", "commandCalendarCompare", "commandCalendarFleet", "commandShipActivityModel", "dailyActivityModel", "dailyActivityChart"].forEach(name => assert.match(bundle, new RegExp("function " + name + "\\("), name + " must be bundled"));
 });
 
 const commandViews = [
@@ -373,14 +373,15 @@ test("every familiar view renders imported evidence with safe names and retained
     assert.doesNotMatch(elements["view-" + view].innerHTML, /SAFE <OFFICER>|baseline<&>\.json/, view + " must escape source-provided names");
   });
   assert.match(elements["view-dashboard"].innerHTML, /Fleet Overview/);
-  assert.match(elements["view-dashboard"].innerHTML, /SAFE &lt;OFFICER&gt;/);
+  for (const topic of ["Sustained", "Progressing", "Developing", "Recovering"]) assert.match(elements["view-dashboard"].innerHTML, new RegExp(topic));
+  assert.doesNotMatch(elements["view-dashboard"].innerHTML, /fleet-calendar-panel|data-fleet-calendar|Compare with/);
   assert.match(elements["view-imports"].innerHTML, /baseline&lt;&amp;&gt;\.json/);
   assert.match(elements["view-heatmaps"].innerHTML, /Ship List/);
   assert.match(elements["view-ships"].innerHTML, /Overall Ship Data/);
   for (const action of ["roster", "logs", "ror", "history"]) assert.match(elements["view-ships"].innerHTML, new RegExp('data-open-drill="' + action + '"'), action + " drilldown must remain available");
 });
 
-test("ship pages retain chronological month selection, evolution counts, and last-watch evidence", () => {
+test("ship pages show a daily hours line and evolution diagram for a selectable month with last-watch evidence", () => {
   const { api, elements } = commandViewHarness();
   const source = (date, month, days) => ({
     format:"WAKE_JSON_BACKUP", version:1, exportedAt:date + "T12:00:00Z", ship:"USS MONTHS", months:[month], ofrpPhase:"Basic Phase",
@@ -401,10 +402,15 @@ test("ship pages retain chronological month selection, evolution counts, and las
   const markup = elements["view-ships"].innerHTML;
   assert.match(markup, /Last watch conducted/);
   assert.match(markup, /Sep(?:tember)? 1,? 2026|2026-09-01/);
-  assert.match(markup, /data-command-activity-select="USS MONTHS"/);
+  assert.match(markup, /data-daily-month="ship"/);
   assert.match(markup, /<option value="2026-01" selected/);
-  assert.ok(markup.indexOf('data-command-activity-month="2026-01"') < markup.indexOf('data-command-activity-month="2026-09"'), "hours chart must progress chronologically");
-  assert.match(markup, /data-command-activity-month="2026-01"[^>]*aria-label="[^"]*8\.0[^\"]*1 evolution/);
+  assert.match(markup, /<svg class="daily-hours-chart"[^>]*aria-label="January 2026 daily recorded hours line graph"/);
+  assert.match(markup, /class="daily-hours-line"/);
+  assert.ok(markup.indexOf('data-daily-day="2026-01-01"') < markup.indexOf('data-daily-day="2026-01-31"'), "the graph must run from the first day through the last day of the selected month");
+  assert.match(markup, /data-daily-day="2026-01-01"[^>]*aria-label="[^"]*8\.0 h[^"]*1 evolutions[^"]*Anchoring/);
+  assert.match(markup, /aria-label="Daily evolution diagram"/);
+  assert.match(markup, /data-daily-evolution="ANCHORING" data-daily-day="2026-01-01"/);
+  assert.doesNotMatch(markup, /class="command-activity-bar/);
   assert.match(markup, /Anchoring/);
   assert.doesNotMatch(markup, /SAFE <OFFICER>/);
   const summary = markup.match(/<section class="card ship-profile-summary">([\s\S]*?)<\/section>/);
@@ -412,6 +418,36 @@ test("ship pages retain chronological month selection, evolution counts, and las
   assert.doesNotMatch(summary[1], /(?:Bridge Logs|Total Q Hours|Total UI Hours|Snapshots)/);
   assert.match(summary[1], /Lost Currency/);
   assert.match(summary[1], /Requires Proficiency Watch/);
+});
+
+test("Overview aggregates fleet activity and Ship List compares clickable ship lines after its filters", () => {
+  const { api, elements } = commandViewHarness();
+  for (const [name, hours, day] of [["USS FIRST", 4, "2026-01-03"], ["USS SECOND", 6, "2026-01-05"]]) {
+    api.importWakeJson(JSON.stringify({
+      format:"WAKE_JSON_BACKUP", version:1, exportedAt:"2026-01-20T12:00:00Z", ship:name, months:["JAN 2026"], ofrpPhase:"Basic Phase",
+      officers:{ ALPHA:{ name:"ALPHA", rank:"LT", autoShipQual:true, autoDaysSince:10, hoursByWS:{"OOD U/W":{Q:hours, UI:0}}, logScores:{}, rorTests:[],
+        detectedLogs:[{logId:name+"-WATCH", ws:"OOD U/W", type:"Watch Q", val:"OOD Qualified Watch", hrs:hours, month:"JAN 2026", watchDate:day, events:"Anchoring", baseWatchLog:true, meta:{baseWatchLog:true, dayTotalHours:String(hours), watchOccurrenceKey:day}}]
+      }}
+    }), name+".json");
+  }
+  api.selectCalendar("2026-01", "2025-12");
+  api.renderDashboard();
+  api.renderHeatMaps();
+  const overview = elements["view-dashboard"].innerHTML;
+  const list = elements["view-heatmaps"].innerHTML;
+  assert.match(overview, /data-daily-scope="fleet"/);
+  assert.match(overview, /<strong>10\.0<\/strong> dated hours/);
+  assert.match(overview, /aria-label="January 2026 daily recorded hours line graph"/);
+  assert.match(overview, /data-daily-evolution="ANCHORING" data-daily-day="2026-01-03"/);
+  assert.match(overview, /data-daily-evolution="ANCHORING" data-daily-day="2026-01-05"/);
+  assert.doesNotMatch(overview, /fleet-calendar-panel|data-fleet-calendar|Compare with/);
+  for (const topic of ["Sustained", "Progressing", "Developing", "Recovering"]) assert.match(overview, new RegExp(topic));
+  assert.match(list, /data-daily-scope="list"/);
+  assert.equal((list.match(/class="daily-hours-line"/g) || []).length, 2, "each imported ship must have its own daily line");
+  for (const name of ["USS FIRST", "USS SECOND"]) assert.match(list, new RegExp('data-daily-ship="' + name + '"'));
+  assert.match(list, /data-daily-day="2026-01-03" data-daily-filter-ship="USS FIRST"/);
+  assert.match(list, /data-daily-day="2026-01-05" data-daily-filter-ship="USS SECOND"/);
+  assert.ok(list.indexOf('data-daily-scope="list"') > list.indexOf('heatmap-controls'), "ship comparison must follow the existing filters");
 });
 
 test("switching tabs shows one page, marks its tab, and returns to the top", () => {

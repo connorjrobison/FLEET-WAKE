@@ -43,6 +43,7 @@ function classicRenderHeatMaps() {
     "<button class=\"btn secondary fleet-overview-return\" type=\"button\" data-view=\"dashboard\">Fleet Overview</button></div>" +
     shipListSummary(rows) +
     heatmapControlPanel(metrics, rows.length) +
+    dailyActivityChart(rows.map(row=>state.ships[keyFor(row.ship)]).filter(Boolean),{month:fleetCalendarOptions().month,scope:'list'}) +
     (rows.length ? shipListTable(rows, "shipList") : emptyState("No ships match the current filters.")) +
     "</div>";
   restoreRerenderFocus(host, focusState);

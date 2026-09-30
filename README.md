@@ -1,6 +1,6 @@
 # FLEET WAKE
 
-FLEET WAKE is a standalone, single-file fleet analytics application. It keeps the familiar Fleet Overview, Ship List, and ship screens, with calendar-month comparisons and interactive charts.
+FLEET WAKE is a standalone, single-file fleet analytics application. It keeps the familiar Fleet Overview, Ship List, and ship screens, with interactive daily-hours line graphs and evolution diagrams.
 
 ## Current program
 
@@ -8,13 +8,15 @@ Open `WAKE FLEET - Only Secure in FS Sharepoint-current.html` in the approved Sh
 
 ## Fleet and ship review
 
-- **Fleet Overview:** compare September with August, or choose other calendar months. See lost/restored currency and level changes, with names and source dates in expandable evidence.
-- **Fleet chart:** view every ship's hours, current currency, Level 2+ depth, or lost currency in both selected months. Select a ship to open its activity chart.
-- **Ship View:** select any retained month in the chronological hours/evolutions chart. Select a date or evolution to open matching watch logs, then open an individual log's source details. The ship's calendar comparison follows the selected month.
+- **Fleet Overview:** restores the original Sustained, Progressing, Developing, and Recovering topics. Select one month in the fleet-wide daily-hours graph; days with evolutions are highlighted. The daily evolution diagram shows every recorded evolution. Overview has no month-to-month comparison controls.
+- **Ship List:** compares individual ships' daily-hours lines for the selected month while retaining the horizontal ship table and its filters. Select a ship to open its detail page.
+- **Ship View:** shows that ship's daily-hours line and interactive evolution diagram. Select a day, evolution, or diagram cell to open its matching logs, then an individual log's source details. The ship's calendar comparison follows the selected month.
 - **Last watch conducted:** displays the latest retained watch with an exact recorded date, and time when supplied. Month-only and future dates cannot establish the last watch.
 - **Ship List, Decision Board, Evolutions, OFRP, All Data, Import Report, and References:** retain the established screens and workflows.
 
 Tabs replace the visible page and reset its scroll position. Backup, export, WAKE input, and SharePoint controls retain the established workflow.
+
+Daily hours sum retained bridge-watch rows once. Evolution markers count distinct sessions using ship, recorded day, watch period, and evolution. Days without retained dated logs plot at zero; this is not proof of no watch activity. Month-only records stay separate and remain inspectable; future activity is excluded. Missing months can be selected and show explicit no-data guidance.
 
 ## How to read the history
 

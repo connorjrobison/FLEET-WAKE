@@ -88,16 +88,8 @@ function commandShipActivityPanel(ship) {
   const model=commandShipActivityModel(ship);
   const lastWatchLabel=model.lastWatch.available&&model.lastWatch.log&&/(?:T|\s)\d{1,2}:\d{2}/.test(model.lastWatch.label)?new Date(model.lastWatch.label).toLocaleString(undefined,{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZone:'UTC',timeZoneName:'short'}):model.lastWatch.label;
   const lastWatch='<article class="command-last-watch"><span>Last watch conducted</span><strong title="'+h(model.lastWatch.label)+'">'+h(lastWatchLabel)+'</strong><small>'+h(model.lastWatch.detail)+'</small></article>';
-  if(!model.rows.length)return '<section class="card command-ship-activity"><h3>Monthly activity</h3>'+lastWatch+emptyState('No dated watch logs.')+'</section>';
-  const selected=model.selected;
-  const selection='<label class="command-activity-selector">Month<select data-command-activity-select="'+h(keyFor(ship.name))+'">'+model.rows.map(row=>'<option value="'+h(row.key)+'"'+(selected.key===row.key?' selected':'')+'>'+h(row.label)+'</option>').join('')+'</select></label>';
-  const chart='<div class="command-activity-chart" aria-label="Monthly hours and evolutions">'+model.rows.map(row=>{
-    const height=Math.max(row.hours?8:1,Math.round(row.hours/model.maxHours*100));
-    const active=selected.key===row.key;
-    const description=row.label+': '+fmt(row.hours,1)+' hours; '+row.evolutions+' evolutions'+(row.hasRecordedActivity?'':'; no recorded activity');
-    return '<button type="button" class="command-activity-bar'+(active?' selected':'')+'" data-command-activity-month="'+h(row.key)+'" data-command-activity-ship="'+h(keyFor(ship.name))+'" aria-pressed="'+active+'" aria-label="'+h(description)+'"><span class="command-activity-hours" style="height:'+height+'%"><strong>'+h(fmt(row.hours,1))+' h</strong></span><span class="command-activity-evolutions">◆ '+h(row.evolutions)+'</span><span class="command-activity-label">'+h(row.label)+'</span></button>';
-  }).join('')+'</div>';
-  return '<section class="card command-ship-activity"><div class="command-section-heading"><div><h2>Hours logged &amp; evolutions</h2><p>Hours by month · ◆ evolution sessions. Select a month for logs.</p></div>'+selection+'</div>'+lastWatch+chart+'<div class="command-activity-detail"><h3>'+h(selected.label)+' · '+h(fmt(selected.hours,1))+' hours · '+h(selected.evolutions)+' evolutions</h3>'+commandActivityDrilldownPanel(ship,selected.key)+'</div><p class="fleet-chart-note">'+(model.excludedLogs?h(model.excludedLogs)+' undated or future logs excluded. ':'')+'Blank months mean no retained activity evidence.</p></section>';
+  const month=commandShipActivitySelections[keyFor(ship.name)]||fleetCalendarOptions().month;
+  return '<div class="daily-ship-activity">'+lastWatch+dailyActivityChart([ship],{month,scope:'ship'})+'<details class="card daily-month-records"><summary>Month records</summary>'+commandActivityDrilldownPanel(ship,month)+'</details></div>';
 }
 function commandPageHeading(kicker,title,description,actions) {
   return '<div class="command-page-heading"><div><span class="section-kicker">'+h(kicker)+'</span><h1 class="view-title">'+h(title)+'</h1><p>'+h(description)+'</p></div><div class="toolbar">'+(actions||'')+'</div></div>';

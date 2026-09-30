@@ -3,6 +3,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
+const { createHash } = require("node:crypto");
 
 const root = path.resolve(__dirname, "..", "..");
 const target = path.join(root, "WAKE FLEET - Only Secure in FS Sharepoint-current.html");
@@ -18,7 +19,7 @@ while ((scriptCursor = html.indexOf("<script", scriptCursor)) >= 0) {
 }
 const appScript = scripts.at(-1);
 
-function loadAppApi() {
+function loadAppApi(options = {}) {
   const marker = /\nboot\(\)\.catch\([\s\S]*?\n\}\)\(\);\s*$/;
   assert.match(appScript, marker, "SharePoint app script should end with guarded boot");
   const instrumented = appScript.replace(marker, `
@@ -57,7 +58,17 @@ globalThis.__fleetWakeResponsiveTest = {
   ultrawideExplorerRail,
   ultrawideImportsRail,
   ultrawideReferencesRail,
-  getState: () => JSON.parse(JSON.stringify(state))
+  renderDashboard,
+  renderHeatMaps,
+  renderShips,
+  renderOfrp,
+  renderPerformance,
+  renderEvolutions,
+  renderExplorer,
+  renderImports,
+  renderReferences,
+  getState: () => JSON.parse(JSON.stringify(state)),
+  setState: value => { state = normalizeState(value); }
 };
 })();`);
   const nullElement = () => null;
@@ -80,7 +91,7 @@ globalThis.__fleetWakeResponsiveTest = {
     setTimeout,
     clearTimeout,
     document:{
-      getElementById:nullElement,
+      getElementById:id => options.elements && options.elements[id] || null,
       querySelector:nullElement,
       querySelectorAll:() => [],
       referrer:"",
@@ -130,6 +141,16 @@ test("SharePoint persistence keeps live polling while using bounded fast-path re
   assert.doesNotMatch(discovery, /ensureSharePointList\(list\.Title\)/);
   const loadSnapshot = block.slice(block.indexOf("async function loadSharePointSnapshot"), block.indexOf("async function loadLatestSharePointState"));
   assert.doesNotMatch(loadSnapshot, /ensureSharePointList/);
+});
+
+test("the SharePoint persistence implementation remains identical to the pre-revamp baseline", () => {
+  const start = html.lastIndexOf("/*", html.indexOf("SharePoint persistence"));
+  const end = html.indexOf("async function persistLocalStateCopies");
+  assert.ok(start >= 0 && end > start, "the complete protected persistence block must remain locatable");
+  const block = html.slice(start, end).replace(/\r\n/g, "\n");
+  // SHA-256 of the same normalized block in baseline HEAD c0bad25a89c6f195c7e4d4531ecc59f392d0e263.
+  // Frozen so the regression still protects the implementation after this revamp is committed.
+  assert.equal(createHash("sha256").update(block).digest("hex"), "169e79463bc5bdc15d6e260ad04a0047c0fe863d25d094c157a545b5e44c51a0");
 });
 
 test("WAKE JSON upserts ships and counts submitted watch hours once per watch occurrence", () => {
@@ -268,50 +289,92 @@ test("legacy fleet snapshots restore monthly bridge hours from retained watch me
   assert.deepEqual(api.monthlyBridgeHoursByMonth(ship.logs), { "AUG 2026":4 });
 });
 
-test("small and ultrawide layouts have explicit gated breakpoints", () => {
-  assert.match(html, /\.ultrawide-fleet-lens,\s*\.ultrawide-context-rail\s*\{\s*display:none;/);
-  assert.match(html, /@media \(min-width:1760px\)/);
-  assert.match(html, /grid-template-columns:minmax\(0,1fr\) 326px/);
-  assert.match(html, /@media \(min-width:2200px\)/);
-  assert.match(html, /grid-template-columns:minmax\(0,1fr\) 620px/);
-  assert.match(html, /@media \(min-width:2560px\)/);
-  assert.match(html, /grid-template-columns:minmax\(0,1fr\) 900px/);
-  assert.match(html, /@media \(min-width:3200px\)/);
-  assert.match(html, /grid-template-columns:minmax\(0,1fr\) 1080px/);
-  assert.match(html, /grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
-  assert.match(html, /\.ultrawide-tier-two\s*\{\s*display:block;/);
-  assert.match(html, /\.ultrawide-tier-three\s*\{\s*display:block;/);
-  assert.match(html, /\.ultrawide-tier-four\s*\{\s*display:block;/);
-  assert.match(html, /#view-heatmaps\s*\{\s*grid-template-columns:minmax\(1420px,1fr\) 240px;/);
-  assert.match(html, /@media \(max-width:520px\)/);
-  assert.match(html, /@media \(max-width:360px\)/);
-  assert.match(html, /height:100dvh/);
-  assert.match(html, /function ultrawideFleetLens\(rows, aggregate\)/);
-  assert.doesNotMatch(html, /expands at 2200, 2560, and 3200/);
-  assert.doesNotMatch(html, /\.ultrawide-lens-head span/);
-  assert.match(html, /\.ultrawide-mini-chart\s*\{/);
+test("question-led views use responsive layouts without reserving an empty ultrawide rail", () => {
+  const match = html.match(/\/\* BEGIN CO PROGRESSION STYLES \*\/([\s\S]*?)\/\* END CO PROGRESSION STYLES \*\//);
+  assert.ok(match, "command styles must be embedded in the application");
+  const styles = match[1];
+  assert.ok(html.indexOf(match[0]) > html.lastIndexOf("@media (min-width:3200px)"), "command layout overrides must follow legacy wide-screen layout rules");
+  assert.match(styles, /\.ultrawide-enabled-view\s*,\s*#view-dashboard\s*\{\s*display:block!important/);
+  assert.match(styles, /\.view\.hidden\s*\{\s*display:none!important/);
+  assert.match(styles, /@media\s*\(min-width:\s*1760px\)/);
+  assert.match(styles, /@media\s*\(max-width:\s*1100px\)/);
+  assert.match(styles, /@media\s*\(max-width:\s*900px\)/);
+  assert.match(styles, /@media\s*\(max-width:\s*560px\)/);
+  assert.match(styles, /\.command-kpis\s*\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+  assert.match(styles, /\.command-onboarding\s*\{[^}]*grid-template-columns:1fr/);
+  assert.match(styles, /\.wake-main-nav\s*\{[^}]*flex-wrap:wrap/);
+  assert.match(styles, /\.command-stat:focus-visible/);
+  assert.match(html, /\.table-wrap\s*\{[^}]*overflow(?:-x)?:\s*auto/);
 });
 
-test("every major view emits a progressively expanding ultrawide workspace", () => {
-  const contracts = [
-    "ultrawideFleetLens(rows, aggregate)",
-    "ultrawideDecisionBoardRail(metrics)",
-    "ultrawideShipListRail(metrics,rows)",
-    "ultrawideEvolutionRail(summary)",
-    "ultrawideShipRail(ship,m)",
-    "ultrawideOfrpRail(rows,fleet)",
-    "ultrawideExplorerRail(logs,allLogs().length)",
-    "ultrawideImportsRail(reports)",
-    "ultrawideReferencesRail()"
-  ];
-  contracts.forEach(contract => assert.ok(html.includes(contract), `missing per-view ultrawide contract: ${contract}`));
-  assert.equal((html.match(/class="view ultrawide-enabled-view/g) || []).length, 8);
-  for (const tier of ["ultrawide-tier-one","ultrawide-tier-two","ultrawide-tier-three","ultrawide-tier-four"]) {
-    assert.ok(html.includes(tier), `missing progressive tier: ${tier}`);
-  }
+test("primary navigation exposes command questions and the existing WAKE import action", () => {
+  const nav = html.match(/<nav class="wake-main-nav" aria-label="Main navigation">([\s\S]*?)<\/nav>/);
+  assert.ok(nav);
+  const actual = [...nav[1].matchAll(/<button\b[^>]*data-view="([^"]+)"[^>]*>([^<]+)<\/button>/g)].map(match => [match[1], match[2].replace(/&amp;/g, "&")]);
+  assert.deepEqual(actual, [["dashboard", "Command Review"], ["heatmaps", "Ship Progress"], ["performance", "Currency & Recovery"], ["evolutions", "Training Evidence"], ["ofrp", "OFRP Review"], ["explorer", "Evidence Search"], ["imports", "Upload History"], ["references", "Guide"]]);
+  assert.match(nav[1], /<button[^>]*type="button"[^>]*data-command-import="true"[^>]*>Import WAKE<\/button>/);
+  assert.match(nav[1], /aria-current="page"/);
+  actual.forEach(([view]) => assert.match(html, new RegExp('<section id="view-' + view + '"')));
+  assert.match(html, /<input[^>]*id="file-input"[^>]*type="file"|<input[^>]*type="file"[^>]*id="file-input"/);
+  assert.match(appScript, /const activeTopView = currentView === "ships" \? "heatmaps" : currentView;/);
 });
 
-test("ultrawide helper content remains interactive and tied to current data", () => {
+test("the command experience remains a self-contained inline application", () => {
+  assert.equal((appScript.match(/\/\/ BEGIN CO PROGRESSION BUNDLE/g) || []).length, 1);
+  assert.equal((appScript.match(/\/\/ END CO PROGRESSION BUNDLE/g) || []).length, 1);
+  assert.doesNotMatch(html, /<script\b[^>]*\bsrc\s*=/i);
+  assert.doesNotMatch(html, /<link\b[^>]*\brel=["']stylesheet["'][^>]*\bhref\s*=/i);
+  assert.doesNotMatch(html, /@import\s+(?:url\()?\s*["']?https?:/i);
+  const bundle = appScript.slice(appScript.indexOf("// BEGIN CO PROGRESSION BUNDLE"), appScript.indexOf("// END CO PROGRESSION BUNDLE"));
+  ["commandTimeline", "commandCompare", "commandMonthly", "commandCurrent", "commandWorkspace", "commandRenderShipList", "commandRenderShipDetail", "commandRenderOfrp", "commandRenderRecovery", "commandRenderTraining", "commandRenderExplorer", "commandRenderImports", "commandRenderReferences"].forEach(name => assert.match(bundle, new RegExp("function " + name + "\\("), name + " must be bundled"));
+});
+
+const commandViews = [
+  ["dashboard", "renderDashboard"], ["heatmaps", "renderHeatMaps"], ["ships", "renderShips"],
+  ["ofrp", "renderOfrp"], ["performance", "renderPerformance"], ["evolutions", "renderEvolutions"],
+  ["explorer", "renderExplorer"], ["imports", "renderImports"], ["references", "renderReferences"]
+];
+
+function commandViewHarness() {
+  const elements = Object.fromEntries(commandViews.map(([view]) => ["view-" + view, { innerHTML:"", querySelector:() => null, querySelectorAll:() => [], contains:() => false }]));
+  return { api:loadAppApi({ elements }), elements };
+}
+
+function assertCommandViewMarkup(elements, view) {
+  const markup = elements["view-" + view].innerHTML;
+  assert.ok(markup.length > 100, view + " must render useful evidence or an explicit empty state");
+  assert.match(markup, /<h1\b[^>]*>[^<]+<\/h1>/, view + " must identify the command question or evidence task");
+  assert.match(markup, /command-/, view + " must use the command workspace presentation");
+  assert.doesNotMatch(markup, /ultrawide-(?:fleet-lens|context-rail)/, view + " must not emit a duplicate or empty side rail");
+  assert.doesNotMatch(markup, />\s*(?:undefined|NaN|Infinity)\s*</, view + " must handle missing evidence without invalid display values");
+  for (const button of markup.matchAll(/<button\b[^>]*>/g)) assert.match(button[0], /\btype="button"/, view + " controls must remain keyboard-native non-submit buttons");
+}
+
+test("every question-led view renders explicit no-data guidance without empty rail content", () => {
+  const { api, elements } = commandViewHarness();
+  commandViews.forEach(([view, render]) => {
+    assert.doesNotThrow(() => api[render](), view + " must render without imported evidence");
+    assertCommandViewMarkup(elements, view);
+  });
+});
+
+test("every question-led view renders populated imported evidence with safe names and retained drilldowns", () => {
+  const { api, elements } = commandViewHarness();
+  const source = (date, days) => ({ format:"WAKE_JSON_BACKUP", version:1, exportedAt:date, ship:"USS EVIDENCE", months:["SEP 2026"], ofrpPhase:"Basic Phase", officers:{ "SAFE <OFFICER>":{ name:"SAFE <OFFICER>", rank:"LT", autoShipQual:true, autoDaysSince:days, hoursByWS:{ "OOD U/W":{ Q:8, UI:0 } }, detectedLogs:[], logScores:{}, rorTests:[] } } });
+  api.importWakeJson(JSON.stringify(source("2026-01-01T12:00:00Z", 10)), "baseline<&>.json");
+  api.importWakeJson(JSON.stringify(source("2026-09-01T12:00:00Z", 95)), "later.json");
+  commandViews.forEach(([view, render]) => {
+    assert.doesNotThrow(() => api[render](), view + " must render imported evidence");
+    assertCommandViewMarkup(elements, view);
+    assert.doesNotMatch(elements["view-" + view].innerHTML, /SAFE <OFFICER>|baseline<&>\.json/, view + " must escape source-provided names");
+  });
+  assert.match(elements["view-dashboard"].innerHTML, /SAFE &lt;OFFICER&gt;/);
+  assert.match(elements["view-ships"].innerHTML, /Current imported roster/);
+  assert.match(elements["view-ships"].innerHTML, /Bridge watch evidence/);
+  assert.match(elements["view-ships"].innerHTML, /ROR evidence/);
+});
+
+test("retained legacy lens helpers remain interactive when used as supporting evidence", () => {
   const api = loadAppApi();
   const shell = api.ultrawideWorkspaceRail("Test Lens","Description","Core","Tier two","Tier three","test-rail","Tier four");
   assert.match(shell, /class="ultrawide-context-rail test-rail"/);
@@ -351,7 +414,7 @@ test("ultrawide helper content remains interactive and tied to current data", ()
   assert.match(references, /data-view="imports"/);
 });
 
-test("every populated large-screen lens includes one compact data chart", () => {
+test("retained legacy chart helpers preserve their data and compact chart contracts", () => {
   const api = loadAppApi();
   const metric = {
     ship:"USS TEST",

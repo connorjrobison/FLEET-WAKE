@@ -8,8 +8,8 @@ Open `WAKE FLEET - Only Secure in FS Sharepoint-current.html` in the approved Sh
 
 ## Fleet and ship review
 
-- **Fleet Overview:** restores the original Sustained, Progressing, Developing, and Recovering topics. Select one month in the fleet-wide daily-hours graph; days with evolutions are highlighted. The daily evolution diagram shows every recorded evolution. Overview has no month-to-month comparison controls.
-- **Ship List:** compares individual ships' daily-hours lines for the selected month while retaining the horizontal ship table and its filters. Select a ship to open its detail page.
+- **Fleet Overview:** shows Sustained, Progressing, Developing, and Recovering, followed by Fleet Levels and the fleet-wide daily-hours graph. Select a day, evolution, or ship to see ship names, recorded hours, and evolution counts, without personnel names. Training Outcomes and Fleet Data Overview are removed from this page.
+- **Ship List:** retains the horizontal ship table and its filters, without an activity graph. Select a ship to open its detail page.
 - **Ship View:** shows that ship's daily-hours line and interactive evolution diagram. Select a day, evolution, or diagram cell to open its matching logs, then an individual log's source details. The ship's calendar comparison follows the selected month.
 - **Last watch conducted:** displays the latest retained watch with an exact recorded date, and time when supplied. Month-only and future dates cannot establish the last watch.
 - **Ship List, Decision Board, Evolutions, OFRP, All Data, Import Report, and References:** retain the established screens and workflows.

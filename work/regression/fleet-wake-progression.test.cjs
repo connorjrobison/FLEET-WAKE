@@ -87,7 +87,7 @@ function loadFleetViews(ships) {
     const rows = Array.from(groups.values(), row => ({label:row.label, count:row.occurrences.size}));
     return {total:rows.reduce((sum, row) => sum + row.count, 0), rows};
   }`;
-  vm.runInContext(engineSource + "\n" + uiSource + "\n" + helpers + "\n" + summaryMock + "\n" + fleetSource + "\n" + activitySource + "\n" + calendarSource + "\n" + dailyModelSource + "\n" + dailyChartSource + "\nthis.fleet = { commandActivityMonth, commandLatestWatch, commandRecordedActivityLogs, commandShipActivityModel, commandShipActivityPanel, dailyActivityChart, dailyActivityOpenRecords, setActivityMonth:(shipKey, month) => { commandShipActivitySelections[shipKey] = month; } };", fleetContext);
+  vm.runInContext(engineSource + "\n" + uiSource + "\n" + helpers + "\n" + summaryMock + "\n" + fleetSource + "\n" + activitySource + "\n" + calendarSource + "\n" + dailyModelSource + "\n" + dailyChartSource + "\nthis.fleet = { commandActivityMonth, commandLatestWatch, commandRecordedActivityLogs, commandShipActivityModel, commandShipActivityPanel, dailyActivityModel, dailyActivityChart, dailyActivityOpenRecords, dailyActivityFleetSummaryRows, setActivityMonth:(shipKey, month) => { commandShipActivitySelections[shipKey] = month; } };", fleetContext);
   fleetContext.fleet.modalCalls = modalCalls;
   return fleetContext.fleet;
 }
@@ -354,44 +354,103 @@ test("ship activity history keeps months chronological and its daily graph expos
   assert.match(html, /data-daily-evolution="MAN OVERBOARD" data-daily-day="2026-07-21"/);
 });
 
-test("daily fleet graph selections open source logs for the selected day or evolution and preserve log links", () => {
+test("fleet day, evolution, month-only, and ship selections show ship summaries without personal records", () => {
   const first = ship([], { name:"USS FIRST", logs:[
-    {month:"JAN 2026", officer:"Month only", hours:2, events:"Anchoring"},
-    {watchDate:"2026-01-03", officer:"First <watch>", hours:4, events:"Anchoring"},
-    {watchDate:"2026-01-05", officer:"Later watch", hours:6, events:"Mooring"}
+    {month:"JAN 2026", officer:"Month only", hours:2, events:"Anchoring", activitySourceFile:"private-month.json"},
+    {watchDate:"2026-01-03", officer:"First <watch>", hours:4, events:"Anchoring", activitySourceFile:"private-first.json"},
+    {watchDate:"2026-01-05", officer:"Later watch", hours:6, events:"Mooring", activitySourceFile:"private-later.json"}
   ]});
-  const second = ship([], { name:"USS SECOND", logs:[{watchDate:"2026-01-03", officer:"Second watch", hours:3, events:"Anchoring"}]});
+  const second = ship([], { name:"USS SECOND", logs:[{watchDate:"2026-01-03", officer:"Second watch", hours:3, events:"Anchoring", activitySourceFile:"private-second.json"}]});
   const fleet = loadFleetViews([first, second]);
   fleet.dailyActivityChart([first, second], {month:"2026-01", scope:"fleet"});
-  const panel = {dataset:{dailyContext:"fleet|USS FIRST|USS SECOND", dailyMonthValue:"2026-01"}};
-  const selection = (dataset, monthOnly = false) => ({dataset, hasAttribute:attribute => monthOnly && attribute === "data-daily-month-only"});
+  const panel = {dataset:{dailyContext:"fleet|USS FIRST|USS SECOND", dailyMonthValue:"2026-01", dailyScope:"fleet"}};
+  const selection = (dataset, monthOnly = false) => ({dataset, hasAttribute:attribute => (monthOnly && attribute === "data-daily-month-only") || (dataset.dailyShip != null && attribute === "data-daily-ship")});
 
   fleet.dailyActivityOpenRecords(panel, selection({dailyDay:"2026-01-03"}));
   const day = fleet.modalCalls.at(-1);
-  assert.match(day.description, /2 records · 7\.0 recorded hours/);
+  assert.match(day.description, /7\.0 recorded hours/);
   assert.match(day.body, /USS FIRST/);
   assert.match(day.body, /USS SECOND/);
-  assert.match(day.body, /First &lt;watch&gt;/);
-  assert.doesNotMatch(day.body, /Later watch|Month only|First <watch>/);
-  assert.match(day.body, /data-command-activity-log="1" data-activity-ship="USS FIRST" data-activity-month="2026-01"/);
-  assert.match(day.body, /data-command-activity-log="0" data-activity-ship="USS SECOND" data-activity-month="2026-01"/);
+  assert.match(day.body, /Anchoring/);
+  assert.match(day.body, /Jan(?:uary)? 3,? 2026/);
+  assert.doesNotMatch(day.body, /Mooring/);
 
   fleet.dailyActivityOpenRecords(panel, selection({dailyEvolution:"ANCHORING"}));
   const evolution = fleet.modalCalls.at(-1);
   assert.match(evolution.title, /Anchoring/);
-  assert.match(evolution.description, /2 records · 7\.0 recorded hours/);
-  assert.doesNotMatch(evolution.body, /Month only|Later watch/);
+  assert.match(evolution.description, /7\.0 recorded hours/);
+  assert.doesNotMatch(evolution.body, /Mooring/);
 
   fleet.dailyActivityOpenRecords(panel, selection({dailyDay:"2026-01-03", dailyFilterShip:"USS FIRST"}));
-  assert.match(fleet.modalCalls.at(-1).description, /1 records · 4\.0 recorded hours/);
+  assert.match(fleet.modalCalls.at(-1).description, /4\.0 recorded hours/);
   assert.doesNotMatch(fleet.modalCalls.at(-1).body, /USS SECOND/);
 
   fleet.dailyActivityOpenRecords(panel, selection({dailyMonthOnly:"true"}, true));
   const undated = fleet.modalCalls.at(-1);
   assert.match(undated.title, /day not recorded/);
-  assert.match(undated.description, /1 records · 2\.0 recorded hours/);
-  assert.match(undated.body, /Month only/);
-  assert.match(undated.body, /data-command-activity-log="0" data-activity-ship="USS FIRST"/);
+  assert.match(undated.description, /2\.0 recorded hours/);
+  assert.match(undated.body, /Day not recorded/);
+  assert.match(undated.body, /USS FIRST/);
+
+  fleet.dailyActivityOpenRecords(panel, selection({dailyMonthOnly:"ANCHORING"}, true));
+  const undatedEvolution = fleet.modalCalls.at(-1);
+  assert.match(undatedEvolution.title, /Anchoring/);
+  assert.match(undatedEvolution.description, /2\.0 recorded hours · 1 evolution sessions/);
+  assert.match(undatedEvolution.body, /Day not recorded/);
+
+  fleet.dailyActivityOpenRecords(panel, selection({dailyShip:"USS FIRST"}));
+  const shipMonth = fleet.modalCalls.at(-1);
+  assert.match(shipMonth.body, /USS FIRST/);
+  assert.match(shipMonth.body, /Anchoring|Mooring/);
+  assert.match(shipMonth.body, /Day not recorded/);
+  assert.doesNotMatch(shipMonth.body, /USS SECOND/);
+  assert.match(shipMonth.description, /12\.0 recorded hours/);
+  for (const modal of fleet.modalCalls) {
+    assert.doesNotMatch([modal.title, modal.description, modal.body].join(" "), /First (?:<watch>|&lt;watch&gt;)|Second watch|Later watch|Month only|private-[a-z]+\.json|Watchstander|Watchstation|Open log|data-command-activity-log/);
+    for (const label of ["Ship", "Date", "Recorded hours", "Evolutions"]) assert.match(modal.body, new RegExp(label));
+  }
+});
+
+test("ship day and evolution selections keep the personal source-log workflow", () => {
+  const source = ship([], {name:"USS SOURCE", logs:[
+    {watchDate:"2026-01-03", officer:"First <watch>", hours:4, events:"Anchoring", activitySourceFile:"source<&>.json"},
+    {watchDate:"2026-01-05", officer:"Later watch", hours:6, events:"Mooring"}
+  ]});
+  const fleet = loadFleetViews([source]);
+  fleet.dailyActivityChart([source], {month:"2026-01", scope:"ship"});
+  const panel = {dataset:{dailyContext:"ship|USS SOURCE", dailyMonthValue:"2026-01", dailyScope:"ship"}};
+  const selection = dataset => ({dataset, hasAttribute:() => false});
+  for (const dataset of [{dailyDay:"2026-01-03"}, {dailyEvolution:"ANCHORING"}]) {
+    fleet.dailyActivityOpenRecords(panel, selection(dataset));
+    const modal = fleet.modalCalls.at(-1);
+    assert.match(modal.description, /1 records · 4\.0 recorded hours/);
+    assert.match(modal.body, /First &lt;watch&gt;/);
+    assert.match(modal.body, /source&lt;&amp;&gt;\.json/);
+    assert.match(modal.body, /data-command-activity-log="0" data-activity-ship="USS SOURCE" data-activity-month="2026-01"/);
+    assert.doesNotMatch(modal.body, /Later watch|First <watch>|source<&>\.json/);
+  }
+});
+
+test("fleet summaries count hours once across evolution lanes and sessions once across watchstanders", () => {
+  const source = ship([], { name:"USS <SAFE>", logs:[
+    {watchDate:"2026-01-03", watchOccurrenceKey:"0800-1200", officer:"Private one", hours:4, events:"Anchoring; Mooring <safe>", activitySourceFile:"hidden-one.json"},
+    {watchDate:"2026-01-03", watchOccurrenceKey:"0800-1200", officer:"Private two", hours:3, events:"Anchoring", specialConditions:"Mooring <safe>", activitySourceFile:"hidden-two.json"},
+    {watchDate:"2026-01-03", watchOccurrenceKey:"1200-1600", officer:"Private three", hours:2, events:"Anchoring"}
+  ]});
+  const fleet = loadFleetViews([source]);
+  const model = fleet.dailyActivityModel([source], "2026-01");
+  const records = model.lanes.flatMap(lane => lane.records);
+  const rows = plain(fleet.dailyActivityFleetSummaryRows(model, records));
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].hours, 9, "a log repeated across evolution lanes contributes its hours only once");
+  assert.deepEqual(rows[0].evolutions.map(row => [row.key, row.count]).sort(), [["ANCHORING", 2], ["MOORING SAFE", 1]]);
+  fleet.dailyActivityChart([source], {month:"2026-01", scope:"fleet"});
+  fleet.dailyActivityOpenRecords({dataset:{dailyContext:"fleet|USS <SAFE>", dailyMonthValue:"2026-01", dailyScope:"fleet"}}, {dataset:{dailyDay:"2026-01-03"}, hasAttribute:() => false});
+  const modal = fleet.modalCalls.at(-1);
+  assert.match(modal.description, /9\.0 recorded hours · 3 evolution sessions/);
+  assert.match(modal.body, /USS &lt;SAFE&gt;/);
+  assert.match(modal.body, /Mooring &lt;safe&gt;/);
+  assert.doesNotMatch(modal.body, /USS <SAFE>|Mooring <safe>|Private (?:one|two|three)|hidden-(?:one|two)\.json|data-command-activity-log/);
 });
 
 test("exact watch date determines the activity month before a conflicting month label", () => {

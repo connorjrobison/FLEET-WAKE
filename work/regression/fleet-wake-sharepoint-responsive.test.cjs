@@ -420,7 +420,7 @@ test("ship pages show a daily hours line and evolution diagram for a selectable 
   assert.match(summary[1], /Requires Proficiency Watch/);
 });
 
-test("Overview aggregates fleet activity and Ship List compares clickable ship lines after its filters", () => {
+test("Overview retains fleet posture, levels, and aggregate activity while Ship List stays a filtered table", () => {
   const { api, elements } = commandViewHarness();
   for (const [name, hours, day] of [["USS FIRST", 4, "2026-01-03"], ["USS SECOND", 6, "2026-01-05"]]) {
     api.importWakeJson(JSON.stringify({
@@ -441,13 +441,16 @@ test("Overview aggregates fleet activity and Ship List compares clickable ship l
   assert.match(overview, /data-daily-evolution="ANCHORING" data-daily-day="2026-01-03"/);
   assert.match(overview, /data-daily-evolution="ANCHORING" data-daily-day="2026-01-05"/);
   assert.doesNotMatch(overview, /fleet-calendar-panel|data-fleet-calendar|Compare with/);
+  assert.doesNotMatch(overview, /Training Outcomes|Fleet Data Overview/);
   for (const topic of ["Sustained", "Progressing", "Developing", "Recovering"]) assert.match(overview, new RegExp(topic));
-  assert.match(list, /data-daily-scope="list"/);
-  assert.equal((list.match(/class="daily-hours-line"/g) || []).length, 2, "each imported ship must have its own daily line");
-  for (const name of ["USS FIRST", "USS SECOND"]) assert.match(list, new RegExp('data-daily-ship="' + name + '"'));
-  assert.match(list, /data-daily-day="2026-01-03" data-daily-filter-ship="USS FIRST"/);
-  assert.match(list, /data-daily-day="2026-01-05" data-daily-filter-ship="USS SECOND"/);
-  assert.ok(list.indexOf('data-daily-scope="list"') > list.indexOf('heatmap-controls'), "ship comparison must follow the existing filters");
+  const posture = overview.indexOf("Fleet Ship Data Posture");
+  const levels = overview.indexOf("Fleet Levels");
+  const chart = overview.indexOf('data-daily-scope="fleet"');
+  assert.ok(posture >= 0 && levels > posture && chart > levels, "fleet levels must follow ship posture and precede fleet activity");
+  assert.match(list, /heatmap-controls/);
+  assert.match(list, /<table/);
+  for (const name of ["USS FIRST", "USS SECOND"]) assert.match(list, new RegExp(name));
+  assert.doesNotMatch(list, /daily-activity-panel|daily-hours-chart|daily-evolution-scroll|data-daily-scope|data-daily-ship/);
 });
 
 test("switching tabs shows one page, marks its tab, and returns to the top", () => {

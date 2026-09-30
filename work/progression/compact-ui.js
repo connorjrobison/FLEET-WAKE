@@ -43,8 +43,8 @@ function fleetOverviewChart() {
 }
 function compactRenderDashboard() {
   const host=document.getElementById('view-dashboard');
-  const rows=categorizedShipMetrics(allShipMetrics()), aggregate=fleetAggregateMetrics(rows);
-  host.innerHTML=topbar('Fleet Overview','', '')+homeCommandRibbon()+(rows.length?fleetDataPosturePanel(rows)+fleetOverviewChart()+'<div class="fleet-overview-stack"><section class="analytics-panel"><h3>Latest fleet levels</h3><p class="fleet-chart-note">Supporting currency below is aged to today, assuming no later watch.</p>'+levelDistributionPanel(rows)+'</section>'+fleetOverviewFigures(rows,aggregate)+assessmentOutcomePanel(aggregate,rows)+'</div>':emptyState('Import WAKE ship data to begin.'));
+  const rows=categorizedShipMetrics(allShipMetrics());
+  host.innerHTML=topbar('Fleet Overview','', '')+homeCommandRibbon()+(rows.length?fleetDataPosturePanel(rows)+'<section class="analytics-panel fleet-levels-panel"><h3>Fleet Levels</h3>'+levelDistributionPanel(rows)+'</section>'+fleetOverviewChart():emptyState('Import WAKE ship data to begin.'));
 }
 function compactRenderShips() {
   const host=document.getElementById('view-ships'),ships=allShips();
